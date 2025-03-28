@@ -118,16 +118,55 @@ aws s3api put-public-access-block \
 ### Delete Public Access Block
 ```sh
 aws s3api delete-public-access-block --bucket frontendapp2-sep-27
+
 ```
+
+# S3 Bucket-Level ACL Commands
+
+This document provides AWS CLI commands to manage **bucket-level ACLs** for your S3 bucket `frontend-march-28`.
+
+---
+
+## 1. Set the Bucket ACL
+
+### **Make Bucket Private (Default)**
+```sh
+aws s3api put-bucket-acl --bucket frontend-march-28 --acl private
+```
+✅ **Only the bucket owner has access (recommended for security).**
+
+---
+
+### **Allow Public Read Access**
+```sh
+aws s3api put-bucket-acl --bucket frontend-march-28 --acl public-read
+```
+⚠️ **Warning:** This allows **anyone** on the internet to read objects inside the bucket.
+
+---
+
+### **Allow Public Read & Write (Not Recommended)**
+```sh
+aws s3api put-bucket-acl --bucket frontend-march-28 --acl public-read-write
+```
+🚨 **Dangerous:** This allows **anyone** to upload, modify, and delete files.
+
+---
+
+
+
+
+## 2. Check Current ACL Settings
+To verify the ACL of your bucket:
+```sh
+aws s3api get-bucket-acl --bucket frontend-march-28
+```
+
 
 ### Enable Public Access for Objects
 Reference: [Put Object ACL](https://docs.aws.amazon.com/cli/latest/reference/s3api/put-object-acl.html)
 
-```sh
-aws s3api put-object-acl \
-    --bucket frontendapp2-sep-27 \
-    --acl public-read
-```
+
 
 ```sh
 aws s3api put-object-acl \
