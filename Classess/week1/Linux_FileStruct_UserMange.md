@@ -167,30 +167,31 @@ Use `getent` to fetch user details:
         ```
 
 ### **Connecting to Servers Using a PEM/PPK File or Username & Password**
-By default, AWS instances use key-based authentication (`.pem` or `.ppk`). To enable password authentication:
+By default, AWS instances use key-based authentication (`.pem` or `.ppk`).
+ To enable password authentication:
 
-Using Password:
+## Using Password:
             ```bash
             ssh user_name@remote_ip
             ssh remote_ip   # (if remote user is same as local terminal user)
             ```
-Modify SSH configuration:
+## Modify SSH configuration:
         ```bash
         vi /etc/ssh/sshd_config
         # Change PasswordAuthentication to yes
         ```
-Restart the SSH service for changes to apply:
+## Restart the SSH service for changes to apply:
     ```bash
     systemctl restart sshd  # Amazon Linux
     servicesudo  sshd restart  # Amazon Linux    
-    service ssh restart  # Ubuntu (Check if it works properly)  Not working
-    ```
+    service ssh restart  # Ubuntu (Check if it works properly)  may Not working. configuration may be different   ```
 
-#### **Deleting a User**
+##  Deleting a User
+
 ```bash
 userdel <username>
 ```
-Example:
+###  Example:
 ```bash
 sudo userdel devops
 ```
@@ -207,7 +208,7 @@ echo "****************************************"
 echo "Project Name : Education Sector"
 echo "Script Name : Create a Directory and File"
 echo "Author : Melky"
-echo "Date : 11-March-2024"
+echo "Date : 11-March-2024  $(date)"
 echo "****************************************"
 ```
 
