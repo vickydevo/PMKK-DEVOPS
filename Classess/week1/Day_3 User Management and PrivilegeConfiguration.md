@@ -7,6 +7,117 @@
 
 **Elastic IP Address:** A static public IP that can be manually allocated and reassigned; persists across instance reboots and can be associated with different instances as needed.
 
+Here's a detailed **README** file explaining how to **connect to an EC2 instance using VS Code** by editing the SSH configuration file:
+
+---
+
+# 🖥️ Connect to an AWS EC2 Instance Using VS Code
+
+This guide walks you through connecting to your AWS EC2 instance from **Visual Studio Code (VS Code)** using an SSH key and configuration.
+
+---
+
+## ✅ Prerequisites
+
+Make sure the following are ready before starting:
+
+1. ✅ An AWS EC2 instance is **running**.
+2. ✅ You have a `.pem` private key file downloaded (e.g., `VM.pem`).
+3. ✅ You have **Visual Studio Code** installed.
+4. ✅ Install the **Remote - SSH extension** in VS Code.
+5. ✅ You know your EC2 **public DNS** (e.g., `ec2-65-2-39-249.ap-south-1.compute.amazonaws.com`).
+6. ✅ Your `.pem` file has the correct permissions (read-only).
+
+---
+
+## 🛠️ Step-by-Step Guide
+
+### 1. 📥 Install the Remote - SSH Extension in VS Code
+
+1. Open VS Code.
+2. Go to the Extensions tab (`Ctrl + Shift + X`).
+3. Search for `Remote - SSH` and install it.
+
+---
+
+### 2. 🔐 Save Your `.pem` File
+
+Move your `.pem` file (e.g., `VM.pem`) to a known path such as:
+
+```
+C:\Users\VIGNAN\Downloads\VM.pem
+```
+
+Make sure this file has **read-only permissions**:
+- Right-click on `VM.pem`
+- Go to **Properties > Security > Advanced**
+- Ensure only your user has permission, and it is **read-only**
+
+---
+
+### 3. 📝 Edit the SSH Config File
+
+1. Open the config file (or create it if it doesn't exist):
+
+```
+C:\Users\VIGNAN\.ssh\config
+```
+
+> You can open it with Notepad or VS Code itself.
+
+2. Add the following configuration:
+
+```
+Host sudheer
+    HostName ec2-65-2-39-249.ap-south-1.compute.amazonaws.com
+    IdentityFile C:/Users/VIGNAN/Downloads/VM.pem
+    User ec2-user
+```
+
+> ⚠️ Note: Use forward slashes `/` in the `IdentityFile` path.
+
+---
+
+### 4. 💻 Connect from VS Code
+
+1. Open VS Code.
+2. Press `F1` or `Ctrl + Shift + P` to open the command palette.
+3. Type `Remote-SSH: Connect to Host...` and press Enter.
+4. Select the host name you defined (`sudheer`).
+5. VS Code will now connect to your EC2 instance via SSH.
+
+---
+
+### 5. 📂 Open Folders and Work Remotely
+
+Once connected:
+- You can browse files on the EC2 machine.
+- You can open a terminal (`Ctrl + ~`) and run commands directly on the instance.
+- You can install server-side extensions if prompted.
+
+---
+
+## 🧼 Optional: Troubleshooting Tips
+
+- 🔁 If connection fails, try restarting VS Code and your EC2 instance.
+- 🔐 Make sure port **22** is open in your EC2 **Security Group** inbound rules.
+- 🛑 Do **not** share your `.pem` file publicly.
+
+---
+
+## ✅ Example Output in VS Code Terminal
+
+```bash
+[09:41:15.738] > Connecting to SSH Host: sudheer ...
+[09:41:17.201] > Connected to ec2-user@ec2-65-2-39-249.ap-south-1.compute.amazonaws.com
+```
+
+You’re now ready to work on your EC2 instance right from VS Code!
+
+---
+
+Let me know if you want me to save this as a downloadable README file or markdown version.
+
 
 # CONNECT EC2 Instance through VS Code
 -------------------------------------
