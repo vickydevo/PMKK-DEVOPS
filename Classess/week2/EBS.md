@@ -50,7 +50,8 @@ Amazon Elastic Block Store (EBS) is a scalable block storage service designed fo
    - Encryption
 
 ![Volume Configuration](https://i.imgur.com/your-screenshot-link2.png)
-
+![alt text](image.png)
+![alt text](image-1.png)
 ### 2. Attaching a Volume
 1. Select volume → Actions → "Attach Volume"
 2. Choose instance and device name
