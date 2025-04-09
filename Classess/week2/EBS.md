@@ -49,15 +49,21 @@ Amazon Elastic Block Store (EBS) is a scalable block storage service designed fo
    - Availability Zone
    - Encryption
 
-![Volume Configuration](https://i.imgur.com/your-screenshot-link2.png)
 ![alt text](image.png)
 ![alt text](image-1.png)
+![alt text](image-2.png)
+![alt text](image-3.png)
+
+### Now you can see new EBS volume in the volume feature and available to attach
+![alt text](image-4.png)
 ### 2. Attaching a Volume
 1. Select volume → Actions → "Attach Volume"
+  ![alt text](image-5.png)
 2. Choose instance and device name
+    ![alt text](image-6.png)
 3. Click "Attach"
 
-![Volume Attachment](https://i.imgur.com/your-screenshot-link3.png)
+
 
 ### 3. Mounting in Linux
 ```bash
