@@ -119,19 +119,6 @@ You’re now ready to work on your EC2 instance right from VS Code!
 Let me know if you want me to save this as a downloadable README file or markdown version.
 
 
-# CONNECT EC2 Instance through VS Code
--------------------------------------
-
-Edit `C:/Users/VIGNAN/.ssh/config` file with the below content:
-
-```ssh
-Host sudheer
- HostName  ec2-65-2-39-249.ap-south-1.compute.amazonaws.com
- IdentityFile C:/Users/VIGNAN/Downloads/VM.pem
- User ec2-user
-```
-
-
 # User Management and Privilege Configuration
 ---------------------------------------------
 
