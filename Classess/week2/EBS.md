@@ -69,15 +69,24 @@ Amazon Elastic Block Store (EBS) is a scalable block storage service designed fo
 ```bash
 # Check detected volumes
 lsblk
+![alt text](image-7.png)
+
+```
 
 # Format new volume (if needed)
+```bash
 sudo mkfs -t ext4 /dev/xvdf
+![alt text](image-8.png)
+````
+```bash
 
 # Create mount point
 sudo mkdir /mnt/data
-
+```
 # Mount volume
+```bash
 sudo mount /dev/xvdf /mnt/data
+![alt text](image-9.png)
 
 # Verify
 df -h
