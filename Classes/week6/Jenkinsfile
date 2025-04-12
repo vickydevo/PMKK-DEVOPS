@@ -1,0 +1,35 @@
+// pipeline {
+//     agent any
+//     stages {
+//         stage (" GIT CHECKOUT") {
+//             steps {
+//                 echo " GIT CLONE IS FINISHED"
+//             }
+//         }// stage1
+//         stage (" Junit") {
+//             steps {
+//                 echo " Junit IS FINISHED"
+//             }
+//         }// stage2
+//         stage (" Build") {
+//             steps {
+//                 echo " build IS FINISHED"
+//             }
+//         }// stage3
+//     }//stages
+// }//Pipeline
+pipeline {
+    agent any
+    stages {
+        stage (" GIT CHECKOUT") {
+            steps {
+                git branch: 'main', url: 'https://github.com/vickydevo/springboot-hello.git'
+            }
+        }// git
+        stage (" MAVEN BUILD ") {
+            steps {
+               sh "mvn clean install"
+            }
+        }// git
+    }// stages
+}// pipeline
