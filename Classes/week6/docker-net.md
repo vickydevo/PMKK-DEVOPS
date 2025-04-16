@@ -188,7 +188,7 @@ The **host network** allows a container to share the network stack of the host m
     ```
 3. **Check the container's network configuration:**
     ```bash
-    docker exec -it stormbreaker ip addr
+    docker inspect stormbreaker 
     ```
 ![Image](https://github.com/user-attachments/assets/853375c3-e189-48fb-bd9b-4550b757efc7)
 4. **Test connectivity to the container using the host's IP address:**
