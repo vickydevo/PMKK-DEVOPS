@@ -154,15 +154,49 @@ A **user-defined network** is a custom network created by the user to provide mo
 ![Image](https://github.com/user-attachments/assets/98c66667-5def-479b-9fd6-7337ebf4e626) 
 ![Image](https://github.com/user-attachments/assets/d6bba58e-5d9b-4a5d-b3c6-1e564be2579a) 
 4. **Verify connectivity between containers:**
+   
     ```bash
     docker exec -it loki ping odin
     ```
+
 ![Image](https://github.com/user-attachments/assets/615deca8-a879-4f57-84b2-12fa93718d5d)
 
 ### Notes
 - User-defined networks provide automatic DNS resolution for container names.
 - Containers on the same user-defined network can communicate directly.
+## 4. Host Network
 
+The **host network** allows a container to share the network stack of the host machine. This means the container does not get its own IP address but instead uses the host's IP address and ports.
+
+### Use Case
+- Useful for applications that require high network performance or need to bind to specific ports on the host.
+- Ideal for scenarios where the containerized application needs direct access to the host's network.
+
+### Steps to Use the Host Network
+
+
+### Detach `stormbreaker` from the Default Bridge Network and Attach to the Host Network
+
+1. **Stop and remove the `stormbreaker` container:**
+    ```bash
+    docker stop stormbreaker
+    ```
+
+2. **Run the `stormbreaker` container with the host network:**
+    ```bash
+    docker run -dit --rm --network host --name stormbreaker nginx
+    ```
+3. **Check the container's network configuration:**
+    ```bash
+    docker exec -it stormbreaker ip addr
+    ```
+![Image](https://github.com/user-attachments/assets/853375c3-e189-48fb-bd9b-4550b757efc7)
+4. **Test connectivity to the container using the host's IP address:**
+    - Access the Nginx server running in the container via the host's IP address and port 80.
+### Notes
+- When using the host network, port conflicts may occur if multiple containers or services try to bind to the same port.
+- The host network is only available on Linux systems and is not supported on Docker Desktop for Mac or Windows.
+- Use the host network cautiously, as it bypasses Docker's network isolation.
 ---
 
 ## 3. Macvlan Network
@@ -198,26 +232,6 @@ The **macvlan network** allows containers to appear as physical devices on the n
 
 ---
 
-## Commands for Network Inspection and Debugging
-
-1. **List all Docker networks:**
-    ```bash
-    docker network ls
-    ```
-2. **Inspect a specific network:**
-    ```bash
-    docker network inspect <network-name>
-    ```
-3. **View bridge network interfaces:**
-    ```bash
-    bridge link
-    ```
-4. **Inspect container network interfaces:**
-    ```bash
-    docker exec -it <container-name> ip addr
-    ```
-
----
 
 Each of these networking types serves different purposes depending on your container deployment needs. Use bridge networks for isolated communication on a single host, user-defined networks for logical grouping, and macvlan networks for direct access to the physical network.
 
