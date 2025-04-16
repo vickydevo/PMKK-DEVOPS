@@ -12,6 +12,30 @@ The **bridge network** is the default network that containers are connected to i
 - Ideal for communication between containers on the same Docker host.
 - Provides isolation from external networks.
 
+### Example: Using the Default Bridge Network
+
+To create a container using the default bridge network, run the following command:
+
+```bash
+sudo docker run -dit --rm --name thor-cont busybox
+sudo docker run -dit --rm --name mjolnir-cont busybox
+sudo docker run -dit --rm --name stormbreaker nginx
+
+```
+![Image](https://github.com/user-attachments/assets/562d4496-4471-4999-ad32-351e6238f33a)
+![Image](https://github.com/user-attachments/assets/39283c99-a7b2-4d82-9e83-548a4bd3d3fe)
+
+This starts a container named `thor-cont` using the default bridge network. You can verify its network settings with:
+
+```bash
+docker exec -it thor-cont ip addr
+```
+
+### Notes
+- The default bridge network is automatically created by Docker and does not require manual setup.
+- Containers on the default bridge network can communicate with each other only if you explicitly link them or configure port forwarding.
+- Use this network for simple setups or testing purposes.
+
 ### Steps to Create and Use Bridge Network
 1. **Create a custom bridge network (optional):**
     ```bash
