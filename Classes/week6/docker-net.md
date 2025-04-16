@@ -31,6 +31,7 @@ Subnet Range: 172.31.80.0 — 172.31.95.255
 | Gateway (typically 2nd ip )    | 172.31.80.1         |
 | Your EC2 IP                    | 172.31.88.220       |
 | Broadcast Address last ip      | 172.31.95.255       |
+|AmazonDNS server in your VPC    | 172.31.0.2          |
 
 
 3. **Inspect the Docker bridge network on the host:**
@@ -44,42 +45,11 @@ Subnet Range: 172.31.80.0 — 172.31.95.255
         ```bash
         ping <host-ip-address>
         ```
-
-5. **Check open ports on the host:**
-    ```bash
-    sudo netstat -tuln
-    ```
-
-### Notes
-- Ensure that the host's firewall rules allow external access to the required ports.
-- Use these commands to troubleshoot network issues or verify the host's network configuration.
-- For advanced debugging, tools like `tcpdump` or `wireshark` can be used to capture and analyze network traffic.
-### Steps to Check Network IP Address
-1. **Use the `ip addr` command to list all network interfaces and their IP addresses:**
-    ```bash
-    ip addr
-    ```
-    ![Image](https://github.com/user-attachments/assets/ef92a506-359e-4441-8189-933caeeb0e51)
-
-2. **Identify the interface you want to use for Docker networking (e.g., `eth0` or `wlan0`).**
-3. **Note the subnet and gateway information for the selected interface.**
-
-### Example Output
-```bash
-3: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
-    inet 192.168.1.100/24 brd 192.168.1.255 scope global dynamic eth0
-       valid_lft 86392sec preferred_lft 86392sec
-```
-
-In this example:
-- The IP address is `192.168.1.100`.
-- The subnet is `192.168.1.0/24`.
-- The gateway is typically `192.168.1.1`.
-
 ### Notes
 - Ensure that the subnet used for Docker networks does not overlap with the host's existing network.
 - Use this information when creating custom networks like macvlan to avoid conflicts.
 - If unsure, consult your network administrator for guidance.
+
 ## 1. Bridge Network
 
 The **bridge network** is the default network that containers are connected to if no specific network is specified during container creation. It allows containers on the same host to communicate with each other while remaining isolated from external networks.
@@ -87,6 +57,18 @@ The **bridge network** is the default network that containers are connected to i
 ### Use Case
 - Ideal for communication between containers on the same Docker host.
 - Provides isolation from external networks.
+### Steps to Inspect the Default Bridge Network
+
+1. **List all Docker networks to identify the default bridge network:**
+    ```bash
+    docker network ls
+    ```
+
+2. **Inspect the default bridge network:**
+    ```bash
+    docker network inspect bridge
+    ```
+
 
 ### Example: Using the Default Bridge Network
 
@@ -220,3 +202,14 @@ The **macvlan network** allows containers to appear as physical devices on the n
 ---
 
 Each of these networking types serves different purposes depending on your container deployment needs. Use bridge networks for isolated communication on a single host, user-defined networks for logical grouping, and macvlan networks for direct access to the physical network.
+
+
+5. **Check open ports on the host:**
+    ```bash
+    sudo netstat -tuln
+    ```
+
+### Notes
+- Ensure that the host's firewall rules allow external access to the required ports.
+- Use these commands to troubleshoot network issues or verify the host's network configuration.
+- For advanced debugging, tools like `tcpdump` or `wireshark` can be used to capture and analyze network traffic.
