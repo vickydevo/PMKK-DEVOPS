@@ -3,7 +3,36 @@
 This documentation provides an overview of Docker networking, focusing on the default bridge network, user-defined networks, and macvlan networks. It includes use cases, steps to set up these networks, and commands to inspect and verify connectivity.
 
 ---
+## Prerequisite: Check Network IP Address
 
+Before working with Docker networks, it is essential to check the IP address of your host machine's network interfaces. This ensures that you configure Docker networks correctly and avoid IP conflicts.
+
+### Steps to Check Network IP Address
+1. **Use the `ip addr` command to list all network interfaces and their IP addresses:**
+    ```bash
+    ip addr
+    ```
+    ![Image](https://github.com/user-attachments/assets/ef92a506-359e-4441-8189-933caeeb0e51)
+
+2. **Identify the interface you want to use for Docker networking (e.g., `eth0` or `wlan0`).**
+3. **Note the subnet and gateway information for the selected interface.**
+
+### Example Output
+```bash
+3: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    inet 192.168.1.100/24 brd 192.168.1.255 scope global dynamic eth0
+       valid_lft 86392sec preferred_lft 86392sec
+```
+
+In this example:
+- The IP address is `192.168.1.100`.
+- The subnet is `192.168.1.0/24`.
+- The gateway is typically `192.168.1.1`.
+
+### Notes
+- Ensure that the subnet used for Docker networks does not overlap with the host's existing network.
+- Use this information when creating custom networks like macvlan to avoid conflicts.
+- If unsure, consult your network administrator for guidance.
 ## 1. Bridge Network
 
 The **bridge network** is the default network that containers are connected to if no specific network is specified during container creation. It allows containers on the same host to communicate with each other while remaining isolated from external networks.
@@ -22,7 +51,6 @@ sudo docker run -dit --rm --name mjolnir-cont busybox
 sudo docker run -dit --rm --name stormbreaker nginx
 
 ```
-![Image](https://github.com/user-attachments/assets/562d4496-4471-4999-ad32-351e6238f33a)
 ![Image](https://github.com/user-attachments/assets/39283c99-a7b2-4d82-9e83-548a4bd3d3fe)
 
 This starts a container named `thor-cont` using the default bridge network. You can verify its network settings with:
