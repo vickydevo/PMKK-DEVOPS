@@ -6,7 +6,54 @@ This documentation provides an overview of Docker networking, focusing on the de
 ## Prerequisite: Check Network IP Address
 
 Before working with Docker networks, it is essential to check the IP address of your host machine's network interfaces. This ensures that you configure Docker networks correctly and avoid IP conflicts.
+### Inspect the Host’s Network from Outside the Container
 
+To inspect the host's network from outside the container, you can use the following steps:
+
+1. **List all network interfaces on the host:**
+    ```bash
+    ip link show
+    ip addr
+    ```
+
+2. **Check the IP routing table to understand how traffic is routed:**
+    ```bash
+    ip route
+    ```
+![Image](https://github.com/user-attachments/assets/d7e5b3c3-9ed6-4e9c-a297-07aeb546e5f5)
+
+CIDR Block: 172.31.80.0/20
+Subnet Range: 172.31.80.0 — 172.31.95.255
+
+| Address Type                   | Example             |
+|--------------------------------|---------------------|
+| Network Address                | 172.31.80.0         |
+| Gateway (typically 2nd ip )    | 172.31.80.1         |
+| Your EC2 IP                    | 172.31.88.220       |
+| Broadcast Address last ip      | 172.31.95.255       |
+
+
+3. **Inspect the Docker bridge network on the host:**
+    ```bash
+    ip addr show docker0
+    ```
+
+4. **Verify connectivity to the host from an external machine:**
+    - Use the `ping` command to test connectivity to the host's IP address.
+    - Example:
+        ```bash
+        ping <host-ip-address>
+        ```
+
+5. **Check open ports on the host:**
+    ```bash
+    sudo netstat -tuln
+    ```
+
+### Notes
+- Ensure that the host's firewall rules allow external access to the required ports.
+- Use these commands to troubleshoot network issues or verify the host's network configuration.
+- For advanced debugging, tools like `tcpdump` or `wireshark` can be used to capture and analyze network traffic.
 ### Steps to Check Network IP Address
 1. **Use the `ip addr` command to list all network interfaces and their IP addresses:**
     ```bash
