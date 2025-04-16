@@ -63,11 +63,14 @@ The **bridge network** is the default network that containers are connected to i
     ```bash
     docker network ls
     ```
+![Image](https://github.com/user-attachments/assets/e964ad5e-e209-421e-812a-ac74a376f7a6)
 
 2. **Inspect the default bridge network:**
     ```bash
     docker network inspect bridge
     ```
+![Image](https://github.com/user-attachments/assets/f22edbf2-87a1-4f13-81d5-4c353af9b366) 
+
 
 
 ### Example: Using the Default Bridge Network
