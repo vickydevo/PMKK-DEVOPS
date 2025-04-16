@@ -122,45 +122,11 @@ To verify that the containers `thor-cont`, `mjolnir-cont`, and `stormbreaker` ca
     ```
 ![Image](https://github.com/user-attachments/assets/22ceb60c-aad8-4aa0-82bc-14cd2291d1b6) 
 
-4. **Test HTTP connectivity using `curl` (if applicable):**
-    ```bash
-    curl http://stormbreaker
-    ``` 
-
-6. **Ping `mjolnir-cont` from `stormbreaker`:**
-    ```bash
-    docker exec -it stormbreaker ping mjolnir-cont
-    ```
 
 ### Notes
 - Ensure that all containers are running and attached to the same network.
 - If the containers cannot communicate, verify the network configuration using `docker network inspect bridge`.
 - Use container names as hostnames for communication within the same network.
-### Notes
-- The default bridge network is automatically created by Docker and does not require manual setup.
-- Containers on the default bridge network can communicate with each other only if you explicitly link them or configure port forwarding.
-- Use this network for simple setups or testing purposes.
-
-### Steps to Create and Use Bridge Network
-1. **Create a custom bridge network (optional):**
-    ```bash
-    docker network create --driver bridge my-bridge-network
-    ```
-2. **Run containers and attach them to the bridge network:**
-    ```bash
-    docker run -d --name container1 --network my-bridge-network nginx
-    docker run -d --name container2 --network my-bridge-network nginx
-    ```
-3. **Verify connectivity between containers:**
-    ```bash
-    docker exec -it container1 ping container2
-    ```
-
-### Notes
-- Containers on the same bridge network can communicate using container names as hostnames.
-- Communication is isolated from other bridge networks.
-
----
 
 ## 2. User-Defined Network
 
@@ -175,6 +141,7 @@ A **user-defined network** is a custom network created by the user to provide mo
     ```bash
     docker network create asgard
     ```
+![Image](https://github.com/user-attachments/assets/21c67093-19f3-4a2e-921a-c28454e06fc2) 
 2. **Run containers and attach them to the user-defined network:**
     ```bash
     docker run -itd --rm --network asgard --name loki busybox
@@ -184,6 +151,8 @@ A **user-defined network** is a custom network created by the user to provide mo
     ```bash
     docker network inspect asgard
     ```
+![Image](https://github.com/user-attachments/assets/98c66667-5def-479b-9fd6-7337ebf4e626) 
+![Image](https://github.com/user-attachments/assets/d6bba58e-5d9b-4a5d-b3c6-1e564be2579a) 
 4. **Verify connectivity between containers:**
     ```bash
     docker exec -it loki ping odin
