@@ -157,6 +157,7 @@ A **user-defined network** is a custom network created by the user to provide mo
     ```bash
     docker exec -it loki ping odin
     ```
+![Image](https://github.com/user-attachments/assets/615deca8-a879-4f57-84b2-12fa93718d5d)
 
 ### Notes
 - User-defined networks provide automatic DNS resolution for container names.
