@@ -155,9 +155,9 @@ A **user-defined network** is a custom network created by the user to provide mo
 ![Image](https://github.com/user-attachments/assets/d6bba58e-5d9b-4a5d-b3c6-1e564be2579a) 
 4. **Verify connectivity between containers:**
    
-    ```bash
+```bash
     docker exec -it loki ping odin
-    ```
+```
 
 ![Image](https://github.com/user-attachments/assets/615deca8-a879-4f57-84b2-12fa93718d5d)
 
@@ -191,57 +191,10 @@ The **host network** allows a container to share the network stack of the host m
     docker inspect stormbreaker 
     ```
 ![Image](https://github.com/user-attachments/assets/853375c3-e189-48fb-bd9b-4550b757efc7)
+
 4. **Test connectivity to the container using the host's IP address:**
     - Access the Nginx server running in the container via the host's IP address and port 80.
 ### Notes
 - When using the host network, port conflicts may occur if multiple containers or services try to bind to the same port.
 - The host network is only available on Linux systems and is not supported on Docker Desktop for Mac or Windows.
 - Use the host network cautiously, as it bypasses Docker's network isolation.
----
-
-## 3. Macvlan Network
-
-The **macvlan network** allows containers to appear as physical devices on the network. Each container gets its own MAC address and IP address, making it directly accessible on the physical network.
-
-### Use Case
-- Suitable for scenarios where containers need to be directly accessible on the physical network.
-- Useful for legacy applications that require direct network access.
-
-### Steps to Create and Use Macvlan Network
-1. **Create a macvlan network:**
-    ```bash
-    docker network create -d macvlan \
-         --subnet=192.168.1.0/24 \
-         --gateway=192.168.1.1 \
-         -o parent=eth0 my-macvlan-network
-    ```
-2. **Run containers and attach them to the macvlan network:**
-    ```bash
-    docker run -itd --rm --network my-macvlan-network --name thor busybox
-    docker run -itd --rm --network my-macvlan-network --name mjolnir busybox
-    ```
-3. **Verify connectivity between containers and the external network:**
-    ```bash
-    docker exec -it thor ping 192.168.1.1
-    docker exec -it thor ping mjolnir
-    ```
-
-### Notes
-- Containers on a macvlan network are directly accessible on the physical network.
-- The parent interface (e.g., `eth0`) must support promiscuous mode.
-
----
-
-
-Each of these networking types serves different purposes depending on your container deployment needs. Use bridge networks for isolated communication on a single host, user-defined networks for logical grouping, and macvlan networks for direct access to the physical network.
-
-
-5. **Check open ports on the host:**
-    ```bash
-    sudo netstat -tuln
-    ```
-
-### Notes
-- Ensure that the host's firewall rules allow external access to the required ports.
-- Use these commands to troubleshoot network issues or verify the host's network configuration.
-- For advanced debugging, tools like `tcpdump` or `wireshark` can be used to capture and analyze network traffic.
