@@ -108,7 +108,34 @@ sudo bridge link
 ![Image](https://github.com/user-attachments/assets/c968355c-43df-4125-8aef-558be60913ce)
 
 ![Image](https://github.com/user-attachments/assets/51d179f6-5d1b-402a-8e3d-985d696aa7b0) 
+### Verifying Communication Between Containers
 
+To verify that the containers `thor-cont`, `mjolnir-cont`, and `stormbreaker` can communicate with each other on the default bridge network, follow these steps:
+1. **Connect to `thor-cont` and check connectivity with `mjolnir-cont` using its IP address:**
+    ```bash
+    docker exec -it thor-cont sh
+    ```
+
+2. **Ping `mjolnir-cont` using its IP address:**
+    ```bash
+    ping <mjolnir-cont-ip>
+    ```
+![Image](https://github.com/user-attachments/assets/22ceb60c-aad8-4aa0-82bc-14cd2291d1b6) 
+
+4. **Test HTTP connectivity using `curl` (if applicable):**
+    ```bash
+    curl http://stormbreaker
+    ``` 
+
+6. **Ping `mjolnir-cont` from `stormbreaker`:**
+    ```bash
+    docker exec -it stormbreaker ping mjolnir-cont
+    ```
+
+### Notes
+- Ensure that all containers are running and attached to the same network.
+- If the containers cannot communicate, verify the network configuration using `docker network inspect bridge`.
+- Use container names as hostnames for communication within the same network.
 ### Notes
 - The default bridge network is automatically created by Docker and does not require manual setup.
 - Containers on the default bridge network can communicate with each other only if you explicitly link them or configure port forwarding.
