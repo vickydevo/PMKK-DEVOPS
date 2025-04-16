@@ -60,5 +60,5 @@ To list all networks:
 ```bash
 docker network ls
 ```
-
+![Image](https://github.com/user-attachments/assets/d4b39b9e-90b6-453c-996c-339809cd8884)
 Docker networking is essential for containerized applications to communicate effectively.
