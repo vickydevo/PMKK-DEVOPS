@@ -31,7 +31,18 @@ Subnet Range: 172.31.80.0 — 172.31.95.255
 | Gateway (typically 2nd ip )    | 172.31.80.1         |
 | Your EC2 IP                    | 172.31.88.220       |
 | Broadcast Address last ip      | 172.31.95.255       |
-|AmazonDNS server in your VPC    | 172.31.0.2          |
+|AmazonDNS server in your VPC    | 172.31.0.2          |  /etc/resolv.conf (Dhcp)
+
+## What is DHCP?
+
+**DHCP (Dynamic Host Configuration Protocol)** is a network protocol that automates the process of assigning network configuration details to devices on a network. When a device connects to a network, DHCP provides the following information:
+
+- **IP Address**: A unique address for the device on the network.
+- **Subnet Mask**: Defines the network and host portions of the IP address.
+- **Gateway**: The default route for accessing external networks.
+- **DNS Server**: Resolves domain names to IP addresses.
+
+
 
 
 3. **Inspect the Docker bridge network on the host:**
@@ -87,9 +98,16 @@ sudo docker run -dit --rm --name stormbreaker nginx
 
 This starts a container named `thor-cont` using the default bridge network. You can verify its network settings with:
 
-```bash
-docker exec -it thor-cont ip addr
+```bash  
+sudo docker network inspect bridge
+
+sudo docker exec -it thor-cont ip addr 
+sudo docker exec -it thor-cont ip route
+sudo bridge link
 ```
+![Image](https://github.com/user-attachments/assets/c968355c-43df-4125-8aef-558be60913ce)
+
+![Image](https://github.com/user-attachments/assets/51d179f6-5d1b-402a-8e3d-985d696aa7b0) 
 
 ### Notes
 - The default bridge network is automatically created by Docker and does not require manual setup.
