@@ -74,6 +74,7 @@ Redirecting input to a command:
 ```sh
 cat < inputfile.txt
 ```
+
 Using STDIN to pass input to `read`:
 ```sh
 read name <<< "John Doe"
