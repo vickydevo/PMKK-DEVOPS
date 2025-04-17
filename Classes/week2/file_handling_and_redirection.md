@@ -83,7 +83,58 @@ echo "Name entered: $name"
 This assigns "John Doe" to `name` without manual input.
 
 ---
+Sure! Here's a `README.md` content block you can copy and paste in **one go**:
 
+```markdown
+### Using STDIN (File Descriptor `0`)
+
+In Unix/Linux systems:
+- `0` = STDIN (Standard Input)
+- `1` = STDOUT (Standard Output)
+- `2` = STDERR (Standard Error)
+
+When you redirect input using `<`, it's technically shorthand for `0<`, which means you're redirecting STDIN.
+
+---
+
+#### 1. `cat < inputfile.txt`
+
+This reads the contents of `inputfile.txt` and passes it to the `cat` command via **STDIN**.
+
+You could write this more explicitly as:
+
+```sh
+cat 0< inputfile.txt
+```
+
+But `<` by itself defaults to file descriptor `0`, so:
+
+```sh
+cat < inputfile.txt
+```
+
+is a cleaner and more common form.
+
+---
+
+#### 2. `read name <<< "John Doe"`
+
+This uses **here-string** syntax (`<<<`) to feed a string directly into STDIN for a command.
+
+Behind the scenes, it's equivalent to:
+
+```sh
+echo "John Doe" | read name
+```
+
+But `<<<` is more concise. It sends the string `"John Doe"` to the `read` command via **STDIN** without needing manual typing or piping.
+
+Again, `read` takes input from file descriptor `0` (STDIN), so there’s no need to say `0<<<`.
+
+---
+```
+
+You can paste the above directly into your `README.md` file. Let me know if you want to add output examples or diagrams too!
 ## **Handling Output and Errors Separately**
 ### **Redirecting STDOUT and STDERR Separately**
 ```sh
