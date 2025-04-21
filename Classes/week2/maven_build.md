@@ -60,7 +60,10 @@ Maven has three built-in lifecycles:
 1. Download Maven from the official [Apache Maven website](https://maven.apache.org/).  
 2. Extract the tar file and set up the environment path:  
     ```bash  
-    export PATH=/path/to/maven/bin:$PATH  
+    wget https://dlcdn.apache.org/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.tar.gz
+    tar xzvf apache-maven-3.9.9-bin.tar.gz
+
+    export PATH=$(pwd)/apache-maven-3.9.9/bin:$PATH  
     ```  
 
 ### Adding Dependencies  
