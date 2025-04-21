@@ -82,7 +82,7 @@ git commit -m "Initial commit"
 #### Rename the Branch
 ```bash
 # Rename the branch to match the remote repository
-git branch -M main
+git branch -M main 
 ```
 
 #### Add a Remote Repository and Push Changes
