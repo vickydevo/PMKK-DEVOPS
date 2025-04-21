@@ -1,0 +1,142 @@
+Creating and connecting to a MySQL DB instance
+-----------------------------------------------
+doc url :https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_GettingStarted.CreatingConnecting.MySQL.html
+
+
+standard creation
+------------------
+
+Step 1: Create an bastion EC2 instance public subnet with ipv4 enable
+Step 2: Create  subnet group (private), parameter group, security group (allow 3306 with public subnet CIDR range ) and  a MySQL DB instance in private subnet 
+Step 3: Connect to a MySQL DB instance
+
+mysql client install
+
+    https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ConnectToInstance.html
+    sudo dnf update -y
+    sudo dnf install mariadb105 -y
+    mysql --version
+
+    mysql -h db-workbnch-1.cdcsg6u80kj9.us-east-1.rds.amazonaws.com -P 3306 -u admin -p
+    mysql -h mydatabase.cdcsg6u80kj9.us-east-1.rds.amazonaws.com -P 3306 -u admin -p        
+                    PASSWD admin1234
+
+commands session
+------------
+
+mysql -h database-1.cdcsg6u80kj9.us-east-1.rds.amazonaws.com -P 3306 -u admin -p
+Enter password: 
+
+
+
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MySQL connection id is 42
+Server version: 8.0.35 Source distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+
+
+
+
+MySQL [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| mysql_db_demo      |
+| performance_schema |
+| sql_hr             |
+| sql_inventory      |
+| sql_invoicing      |
+| sql_store          |
+| sys                |
++--------------------+
+9 rows in set (0.001 sec)
+
+
+
+MySQL [(none)]> USE sql_inventory;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+
+
+
+
+MySQL [sql_inventory]> SHOW TABLES;
++-------------------------+
+| Tables_in_sql_inventory |
++-------------------------+
+| products                |
++-------------------------+
+1 row in set (0.001 sec)
+
+
+
+
+MySQL [sql_inventory]> DESCRIBE products;
++-------------------+--------------+------+-----+---------+----------------+
+| Field             | Type         | Null | Key | Default | Extra          |
++-------------------+--------------+------+-----+---------+----------------+
+| product_id        | int          | NO   | PRI | NULL    | auto_increment |
+| name              | varchar(50)  | NO   |     | NULL    |                |
+| quantity_in_stock | int          | NO   |     | NULL    |                |
+| unit_price        | decimal(4,2) | NO   |     | NULL    |                |
++-------------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.129 sec)
+
+
+
+
+MySQL [sql_inventory]> SELECT * FROM products;
++------------+------------------------------+-------------------+------------+
+| product_id | name                         | quantity_in_stock | unit_price |
++------------+------------------------------+-------------------+------------+
+|          1 | Foam Dinner Plate            |                70 |       1.21 |
+|          2 | Pork - Bacon,back Peameal    |                49 |       4.65 |
+|          3 | Lettuce - Romaine, Heart     |                38 |       3.35 |
+|          4 | Brocolinni - Gaylan, Chinese |                90 |       4.53 |
+|          5 | Sauce - Ranch Dressing       |                94 |       1.63 |
+|          6 | Petit Baguette               |                14 |       2.39 |
+|          7 | Sweet Pea Sprouts            |                98 |       3.29 |
+|          8 | Island Oasis - Raspberry     |                26 |       0.74 |
+|          9 | Longan                       |                67 |       2.26 |
+|         10 | Broom - Push                 |                 6 |       1.09 |
++------------+------------------------------+-------------------+------------+
+10 rows in set (0.001 sec)
+
+
+
+
+
+MySQL [sql_inventory]> SELECT * FROM products LIMIT 5;
++------------+------------------------------+-------------------+------------+
+| product_id | name                         | quantity_in_stock | unit_price |
++------------+------------------------------+-------------------+------------+
+|          1 | Foam Dinner Plate            |                70 |       1.21 |
+|          2 | Pork - Bacon,back Peameal    |                49 |       4.65 |
+|          3 | Lettuce - Romaine, Heart     |                38 |       3.35 |
+|          4 | Brocolinni - Gaylan, Chinese |                90 |       4.53 |
+|          5 | Sauce - Ranch Dressing       |                94 |       1.63 |
++------------+------------------------------+-------------------+------------+
+5 rows in set (0.001 sec)
+
+MySQL [sql_inventory]>
+
+ 
+ -----------------------------------------------
+
+Step 4: Delete the EC2 instance and DB instance     
+
+
+
+
+
+                    BASTION HOST (SERVER IN PUBLIC SUBNET )             RDS/APP SERVER (PRIVATE SUBNET )
+                            161.0.1.190
+                            161.0.0.0/20
