@@ -11,7 +11,8 @@ A **Version Control System (VCS)** or **Source Control Management (SCM)** is a t
 ## Types of VCS:
 1. **Centralized VCS (CVCS)**: A single central server stores all versions (e.g., Subversion, Perforce).
 2. **Distributed VCS (DVCS)**: Each developer has a full copy of the repository (e.g., Git, Mercurial).
-![Image](https://github.com/user-attachments/assets/de7b396c-9432-462e-a507-4b3cbb9a6789)
+![Image](https://github.com/user-attachments/assets/04c0f875-94f5-4c83-ae6a-1fc9a3ffc32d)
+
 
 ## Popular VCS Tools:
 - **Git**: A distributed VCS widely used in software development.
