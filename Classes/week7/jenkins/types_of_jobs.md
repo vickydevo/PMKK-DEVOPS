@@ -20,22 +20,45 @@ Jenkins is a powerful tool for automating tasks such as testing, building, and d
 
 ### 1. Freestyle Job
 Freestyle jobs are the most basic type of Jenkins job. They allow you to configure and execute simple tasks.
+#### Parameterized Freestyle Job Example
 
-#### Example: Parameterized Job
-1. **Parameters**:
-    - String Parameter: `Project`
-    - Default Value: `java-spring`
-    - Password Parameter: `Password`
+A parameterized freestyle job allows you to pass parameters to your build. Here's how to configure it:
 
-2. **Shell Script**:
-    ```bash
-    #!/bin/bash
-    if [ $Project == java-spring ]; then
-         echo "This is a Java-based project"
-    else
-         echo "Not a Java project"
-    fi
-    ```
+1. **Create the Job**:
+     - Go to the Jenkins Dashboard.
+     - Click "New Item."
+     - Enter a name like `Say-Hello`.
+     - Choose "Freestyle project," then click OK.
+
+2. **Add Parameters**:
+     - Scroll to "This project is parameterized" and check the box.
+     - Click "Add Parameter" → choose "String Parameter."
+     - Enter the following details:
+       - **Name**: `USERNAME`
+       - **Default Value**: `DevOpsLearner`
+       - **Description**: Enter your name.
+
+3. **Add Build Step**:
+     - Scroll to "Build" → Click "Add build step" → "Execute shell."
+     - Paste the following shell script:
+       ```bash
+       #!/bin/bash
+       echo "👋 Hello, $USERNAME!"
+       if [ "$USERNAME" == "Batman" ]; then
+               echo "🦇 Welcome to the Batcave!"
+       else
+               echo "Have a great DevOps day, $USERNAME! 🚀"
+       fi
+       ```
+
+4. **Save & Run**:
+     - Click "Save."
+     - Click "Build with Parameters."
+     - Enter a name (e.g., `Batman`) and click "Build."
+     - Check the Console Output to see the result.
+
+This setup demonstrates how to create a parameterized freestyle job in Jenkins with dynamic user input.
+
 
 3. **Docker Commands**:
     ```bash
