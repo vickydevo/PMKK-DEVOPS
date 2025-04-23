@@ -97,39 +97,8 @@ A parameterized freestyle job can also include boolean parameters to toggle spec
      - Check the Console Output to see the deployment environment.
 
 This setup demonstrates how to use a boolean parameter to control deployment environments dynamically in Jenkins.
-    ```bash
-    export DOCKER_USERNAME=your_username
-    export DOCKER_PASSWORD=your_password
-
-    echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
-
-    docker build -t $ImageName:$Tag .
-    docker tag $ImageName:$Tag $dockerhub_username/$ImageName:$Tag
-    docker tag $ImageName:$Tag $dockerhub_username/$ImageName:latest
-    docker push $dockerhub_username/$ImageName:$Tag
-    docker push $dockerhub_username/$ImageName:latest
-    ```
-
-#### Trigger Build Remotely
-- Add an authentication token.
-- Example Cron Expression:
-  ```
-  10 4 * * *  # At 04:10 every day
-  ```
-
----
-
-### 2. Template Mode Job
-Template mode jobs are used for managing upstream and downstream jobs.
-
-#### Example Workflow:
-- **Job 1**: Add Git repository.
-- **Job 2**: Copy Git files to Job 2.
-- **Job 3**: Perform downstream tasks.
-
----
-
-### 3. Maven Java Application
+    
+### 2. Maven Java Application
 Maven jobs are used for Java projects that require Maven for build automation.
 
 #### Configuration:
@@ -144,7 +113,50 @@ Maven jobs are used for Java projects that require Maven for build automation.
   ```
 
 ---
+### 3. Template Job (Upstream/Downstream Jobs)
 
+Template jobs in Jenkins, often referred to as upstream or downstream jobs, allow you to create dependencies between jobs. This setup is useful when you want to trigger one job after another or share configurations across multiple jobs.
+
+#### Upstream and Downstream Job Example
+
+1. **Scenario**:
+     - You have a project with two stages: `Build` and `Deploy`.
+     - The `Build` job should trigger the `Deploy` job automatically after successful execution.
+
+2. **Steps to Configure**:
+     - **Create the Upstream Job (`Build`)**:
+       1. Go to the Jenkins Dashboard.
+       2. Click "New Item" → Enter a name like `Build-Job` → Choose "Freestyle project" → Click OK.
+       3. Add your build steps (e.g., compile code, run tests).
+       4. Save the job.
+
+     - **Create the Downstream Job (`Deploy`)**:
+       1. Go to the Jenkins Dashboard.
+       2. Click "New Item" → Enter a name like `Deploy-Job` → Choose "Freestyle project" → Click OK.
+       3. Add your deployment steps (e.g., deploy to staging or production).
+       4. Save the job.
+
+     - **Link the Jobs**:
+       1. Open the `Build-Job` configuration.
+       2. Scroll to the "Post-build Actions" section.
+       3. Select "Build other projects" → Enter `Deploy-Job` in the "Projects to build" field.
+       4. Save the configuration.
+
+3. **Run the Pipeline**:
+     - Trigger the `Build-Job`.
+     - Once the `Build-Job` completes successfully, the `Deploy-Job` will start automatically.
+
+#### Real-Time Example: CI/CD Pipeline
+- **Upstream Job**: A `Build` job compiles the code and runs unit tests.
+- **Downstream Job**: A `Deploy` job deploys the application to a staging or production environment.
+
+#### Advanced Use Case: Parameterized Trigger
+You can pass parameters from the upstream job to the downstream job:
+1. Install the "Parameterized Trigger Plugin."
+2. In the upstream job, configure "Post-build Actions" → "Trigger parameterized build on other projects."
+3. Pass parameters like `BUILD_VERSION` or `DEPLOY_ENV` to the downstream job.
+
+This setup is ideal for creating dynamic and reusable pipelines in Jenkins.
 ### 4. Pipeline Job
 Pipeline jobs allow you to define complex workflows using code. There are two types of pipeline jobs:
 1. **Declarative Pipeline**
