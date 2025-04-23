@@ -134,32 +134,20 @@ Template jobs in Jenkins, often referred to as upstream or downstream jobs, allo
      3. Change the branch to `main` in the "Branches to build" field. 
      #### Add Build Step to Execute `mvn clean install`
 
-     To configure a build step in Jenkins to execute the `mvn clean install` command, follow these steps:
 
-     1. **Navigate to the Job Configuration**:
-          - Open the Jenkins Dashboard.
-          - Click on the job you want to configure (e.g., `Build-Job`).
-          - Click "Configure" in the left-hand menu.
-
-     2. **Add a Build Step**:
+     1. **Add a Build Step**:
           - Scroll to the "Build" section.
           - Click "Add build step" → Select "Execute shell."
 
-     3. **Enter the Command**:
+     2. **Enter the Command**:
           - In the shell script text area, paste the following command:
             ```bash
             mvn clean install
             ```
 
-     4. **Save the Configuration**:
+     3. **Save the Configuration**:
           - Scroll to the bottom of the page and click "Save."
 
-     5. **Run the Job**:
-          - Go back to the job's main page.
-          - Click "Build Now" to execute the job.
-          - Monitor the Console Output to verify that the `mvn clean install` command runs successfully.
-
-     This setup ensures that the Maven build lifecycle is triggered as part of your Jenkins job.
 
      - **Create the Downstream Job (`Deploy`)**:
        1. Go to the Jenkins Dashboard.
