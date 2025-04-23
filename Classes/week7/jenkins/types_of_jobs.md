@@ -58,9 +58,45 @@ A parameterized freestyle job allows you to pass parameters to your build. Here'
      - Check the Console Output to see the result.
 
 This setup demonstrates how to create a parameterized freestyle job in Jenkins with dynamic user input.
+#### Parameterized Freestyle Job with Boolean Parameter Example
 
+A parameterized freestyle job can also include boolean parameters to toggle specific behaviors in your build. Here's how to configure it:
 
-3. **Docker Commands**:
+1. **Create the Job**:
+     - Go to the Jenkins Dashboard.
+     - Click "New Item."
+     - Enter a name like `Deploy-App`.
+     - Choose "Freestyle project," then click OK.
+
+2. **Add Parameters**:
+     - Scroll to "This project is parameterized" and check the box.
+     - Click "Add Parameter" → choose "Boolean Parameter."
+     - Enter the following details:
+       - **Name**: `DEPLOY_TO_PROD`
+       - **Default Value**: `false`
+       - **Description**: Check this box to deploy to the production environment.
+
+3. **Add Build Step**:
+     - Scroll to "Build" → Click "Add build step" → "Execute shell."
+     - Paste the following shell script:
+       ```bash
+       #!/bin/bash
+       if [ "$DEPLOY_TO_PROD" = "true" ]; then
+               echo "🚀 Deploying to Production..."
+               # Add your production deployment commands here
+       else
+               echo "⚙️ Deploying to Staging..."
+               # Add your staging deployment commands here
+       fi
+       ```
+
+4. **Save & Run**:
+     - Click "Save."
+     - Click "Build with Parameters."
+     - Toggle the `DEPLOY_TO_PROD` checkbox as needed and click "Build."
+     - Check the Console Output to see the deployment environment.
+
+This setup demonstrates how to use a boolean parameter to control deployment environments dynamically in Jenkins.
     ```bash
     export DOCKER_USERNAME=your_username
     export DOCKER_PASSWORD=your_password
