@@ -117,49 +117,76 @@ Maven jobs are used for Java projects that require Maven for build automation.
 
 Template jobs in Jenkins, often referred to as upstream or downstream jobs, allow you to create dependencies between jobs. This setup is useful when you want to trigger one job after another or share configurations across multiple jobs.
 
-#### Upstream and Downstream Job Example
+#### Example: Build and Deploy Workflow
 
-1. **Scenario**:
-     - You have a project with two stages: `Build` and `Deploy`.
-     - The `Build` job should trigger the `Deploy` job automatically after successful execution.
+In this example, we will configure two jobs:
+1. **Build Job**: Compiles the code and runs tests.
+2. **Deploy Job**: Deploys the application after the build is successful.
 
-2. **Steps to Configure**:
-     - **Create the Upstream Job (`Build`)**:
-       1. Go to the Jenkins Dashboard.
-       2. Click "New Item" → Enter a name like `Build-Job` → Choose "Freestyle project" → Click OK.
-       3. Add your build steps (e.g., compile code, run tests).
-     #### Configure Source Code Management (SCM)
-     1. Click on "Git" under the Source Code Management section.
-     2. Paste the repository URL: `https://github.com/vickydevo/springboot-test.git`.
-     3. Change the branch to `main` in the "Branches to build" field. 
-     #### Add Build Step to Execute `mvn clean install`
+---
 
+#### Steps to Configure Template Jobs
 
-     1. **Add a Build Step**:
-          - Scroll to the "Build" section.
-          - Click "Add build step" → Select "Execute shell."
+##### Step 1: Create the Upstream Job (`Build-Job`)
+1. **Create the Job**:
+     - Go to the Jenkins Dashboard.
+     - Click "New Item."
+     - Enter a name like `Build-Job`.
+     - Choose "Freestyle project" and click "OK."
 
-     2. **Enter the Command**:
-          - In the shell script text area, paste the following command:
-            ```bash
-            mvn clean install
-            ```
+2. **Configure Source Code Management (SCM)**:
+     - Scroll to the "Source Code Management" section.
+     - Select "Git."
+     - Enter the repository URL: `https://github.com/vickydevo/springboot-test.git`.
+     - Set the branch to `main` in the "Branches to build" field.
 
-     3. **Save the Configuration**:
-          - Scroll to the bottom of the page and click "Save."
+3. **Add Build Step**:
+     - Scroll to the "Build" section.
+     - Click "Add build step" → Select "Execute shell."
+     - Enter the following command:
+       ```bash
+       mvn clean install
+       ```
 
+4. **Save the Job**:
+     - Scroll to the bottom of the page and click "Save."
 
-     - **Create the Downstream Job (`Deploy`)**:
-       1. Go to the Jenkins Dashboard.
-       2. Click "New Item" → Enter a name like `Deploy-Job` → Choose "Freestyle project" → Click OK.
-       3. Add your deployment steps (e.g., deploy to staging or production).
-       4. Save the job.
+---
 
-     - **Link the Jobs**:
-       1. Open the `Build-Job` configuration.
-       2. Scroll to the "Post-build Actions" section.
-       3. Select "Build other projects" → Enter `Deploy-Job` in the "Projects to build" field.
-       4. Save the configuration.
+##### Step 2: Create the Downstream Job (`Deploy-Job`)
+1. **Create the Job**:
+     - Go to the Jenkins Dashboard.
+     - Click "New Item."
+     - Enter a name like `Deploy-Job`.
+     - Choose "Freestyle project" and click "OK."
+
+2. **Add Deployment Step**:
+     - Scroll to the "Build" section.
+     - Click "Add build step" → Select "Execute shell."
+     - Enter the following command:
+       ```bash
+       nohup java -jar /var/lib/jenkins/workspace/Build-Job/gs-spring-boot-0.1.0.jar > output.log 2>&1 &
+       ```
+
+3. **Save the Job**:
+     - Scroll to the bottom of the page and click "Save."
+
+---
+
+##### Step 3: Link the Jobs
+1. **Configure Post-Build Action in `Build-Job`**:
+     - Open the `Build-Job` configuration.
+     - Scroll to the "Post-build Actions" section.
+     - Select "Build other projects."
+     - Enter `Deploy-Job` in the "Projects to build" field.
+
+2. **Save the Configuration**:
+     - Scroll to the bottom of the page and click "Save."
+
+---
+
+#### Summary
+This setup ensures that the `Deploy-Job` is triggered automatically after the successful execution of the `Build-Job`. It demonstrates how to create a simple upstream and downstream job relationship in Jenkins.
 
 3. **Run the Pipeline**:
      - Trigger the `Build-Job`.
