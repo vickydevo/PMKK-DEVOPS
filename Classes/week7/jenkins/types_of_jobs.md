@@ -128,6 +128,12 @@ Template jobs in Jenkins, often referred to as upstream or downstream jobs, allo
        1. Go to the Jenkins Dashboard.
        2. Click "New Item" → Enter a name like `Build-Job` → Choose "Freestyle project" → Click OK.
        3. Add your build steps (e.g., compile code, run tests).
+         # Configure Source Code Management (SCM)
+         git clone https://github.com/vickydevo/springboot-test.git
+     
+       '''bash
+         mvn clean install 
+       '''
        4. Save the job.
 
      - **Create the Downstream Job (`Deploy`)**:
