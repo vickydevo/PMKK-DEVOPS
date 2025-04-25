@@ -102,8 +102,25 @@ This setup demonstrates how to use a boolean parameter to control deployment env
 Maven jobs are used for Java projects that require Maven for build automation.
 
 #### Configuration:
-1. Install the Maven plugin in Jenkins.
-2. Specify the Maven home path or enable automatic installation.
+1. **Install the Maven Plugin**:
+     - Go to the Jenkins Dashboard.
+     - Click on "Manage Jenkins" → "Manage Plugins."
+     - Navigate to the "Available" tab.
+     - Search for "Maven Integration" in the search bar.
+     - Select the checkbox next to the plugin and click "Install without restart."
+     2. **Specify the Maven Home Path or Enable Automatic Installation**:
+          - Go to the Jenkins Dashboard.
+          - Click on "Manage Jenkins" → "Global Tool Configuration."
+          - Scroll down to the "Maven" section.
+          - Click "Add Maven."
+          - Provide a name for the Maven installation (e.g., `Maven-3.8.5`).
+          - Choose one of the following options:
+            - **Manual Installation**:
+                - Specify the "Maven Home" path where Maven is installed on your system.
+            - **Automatic Installation**:
+                - Check the box for "Install automatically."
+                - Select the desired Maven version from the dropdown menu.
+          - Click "Save" to apply the changes.
 
 #### Maven Lifecycle Goals:
 - `validate` → `compile` → `test` → `package` → `integration-test` → `verify` → `install` → `deploy`
