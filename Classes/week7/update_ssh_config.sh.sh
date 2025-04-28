@@ -1,6 +1,19 @@
 amazon server to ubuntu server through ssh-keygen then ssh-copy-id
 
 #!/bin/bash
+
+if ! command -v docker-compose -v > /dev/null 2>&1; then
+    echo "Installing Docker Compose"
+    curl -SL https://github.com/docker/compose/releases/download/v2.35.0/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
+    chmod +x /usr/local/bin/docker-compose
+    docker-compose -v
+else
+    echo "Docker Compose already installed"
+    docker-compose -v
+fi
+
+
+
 PUB_KEY=$1
 PASS_AUTH=$2
 SSH_CONFIG_PATH=${3:-/etc/ssh/sshd_config}  # Default path to /etc/ssh/sshd_config if not provided
