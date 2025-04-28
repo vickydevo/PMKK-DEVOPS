@@ -63,3 +63,32 @@ git rebase -i HEAD~n
 - Use **squash** to clean up your commit history before merging.
 
 By understanding and using these tools effectively, you can maintain a clean and efficient workflow in Git.
+
+## Cherry-Pick
+Cherry-picking allows you to apply a specific commit from one branch to another. This is useful when you want to include a particular change without merging the entire branch.
+
+### Example:
+```bash
+git checkout main
+git cherry-pick <commit-hash>
+```
+
+### Pros:
+- Enables selective application of changes.
+- Useful for hotfixes or isolated commits.
+
+### Cons:
+- Can lead to duplicate commits if not managed carefully.
+- May require conflict resolution.
+
+---
+
+### Use Case:
+Suppose you have a bug fix in a feature branch that needs to be applied to the main branch immediately. Instead of merging the entire feature branch, you can cherry-pick the specific commit containing the fix.
+
+```bash
+git checkout main
+git cherry-pick abc1234
+```
+
+This command applies the changes from the commit `abc1234` to the `main` branch.
