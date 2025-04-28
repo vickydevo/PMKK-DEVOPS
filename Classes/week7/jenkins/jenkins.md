@@ -22,7 +22,8 @@ Jenkins is an open-source automation server that helps automate parts of softwar
 
 ---
 
-# Installing Jenkins Master
+# Installing and configuring Jenkins Master
+### jenkins offical documentations [text](https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/#downloading-and-installing-jenkins)
 
 ## Prerequisites
 1. A system with Java installed (Jenkins requires Java 11 or newer).
