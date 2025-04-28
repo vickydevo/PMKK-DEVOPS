@@ -23,7 +23,7 @@ Jenkins is an open-source automation server that helps automate parts of softwar
 ---
 
 # Installing and configuring Jenkins Master
-### jenkins offical documentations [text](https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/#downloading-and-installing-jenkins)
+### jenkins offical documentations [text](https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/)
 
 ## Prerequisites
 1. A system with Java installed (Jenkins requires Java 11 or newer).
@@ -65,7 +65,12 @@ Jenkins is an open-source automation server that helps automate parts of softwar
       sudo cat /var/lib/jenkins/secrets/initialAdminPassword
       ```
     - Follow the setup wizard to complete the installation.
-
+7.Viewing service configurations
+  systemctl cat jenkins
+  ```bash
+      systemctl cat jenkins
+      systemctl edit jenkins
+      ```
 ---
 
 This document provides an overview of CI/CD, Jenkins, and the steps to install a Jenkins master.
