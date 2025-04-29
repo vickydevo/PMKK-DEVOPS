@@ -102,7 +102,7 @@ This should set up your Jenkins master to connect and use the EC2 slave node for
 
 ### 4. Test the Webhook  
 - Push a commit to the repository or trigger an event configured in the webhook.  
-- Verify that Jenkins starts the pipeline job automatically.  
+- Verify that Jenkins starts the pipeline job automatically 
 
 ### 5. Troubleshooting  
 - **Webhook Delivery**: Check the webhook delivery logs in your Git repository to ensure the payload is sent successfully.  
