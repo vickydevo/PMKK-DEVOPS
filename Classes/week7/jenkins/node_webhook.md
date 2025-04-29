@@ -76,3 +76,37 @@
   ```  
 
 This should set up your Jenkins master to connect and use the EC2 slave node for running jobs.  
+
+## Setting Up Webhooks in Git for Jenkins Pipeline Job  
+
+### 1. Enable Webhooks in Your Git Repository  
+- Go to your Git repository (e.g., GitHub, GitLab, or Bitbucket).  
+- Navigate to **Settings > Webhooks**.  
+- Click on **Add Webhook**.  
+
+### 2. Configure the Webhook  
+- **Payload URL**: Enter the Jenkins webhook URL. This is typically:  
+    ```
+    http://<jenkins-server-url>/github-webhook/
+    ```  
+    Replace `<jenkins-server-url>` with your Jenkins server's public URL.  
+- **Content Type**: Select `application/json`.  
+- **Events**: Choose the events to trigger the webhook. For example:  
+    - **Just the push event** (recommended for most cases).  
+    - Or **Let me select individual events** and choose specific events like `push` and `pull_request`.  
+- Click **Add Webhook** to save the configuration.  
+
+### 3. Configure Jenkins Pipeline Job to Use the Webhook  
+- In Jenkins, create or configure a pipeline job.  
+- Under the **Build Triggers** section, enable **GitHub hook trigger for GITScm polling** (or the equivalent for your Git provider).  
+
+### 4. Test the Webhook  
+- Push a commit to the repository or trigger an event configured in the webhook.  
+- Verify that Jenkins starts the pipeline job automatically.  
+
+### 5. Troubleshooting  
+- **Webhook Delivery**: Check the webhook delivery logs in your Git repository to ensure the payload is sent successfully.  
+- **Jenkins Logs**: Check the Jenkins logs for any errors related to the webhook.  
+- **Firewall/Network**: Ensure that your Jenkins server is accessible from the internet if hosted on a private network.  
+
+This setup ensures that your Jenkins pipeline job is triggered automatically whenever changes are pushed to the Git repository.
