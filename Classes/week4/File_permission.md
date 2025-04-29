@@ -130,9 +130,55 @@ Here:
 By understanding `chmod` and `chown`, users can effectively manage file security and access in Linux environments.
 
 Task 
----------
-
+```bash
 #!/bin/bash
+
+# Function to install a tool
+install_tool() {
+   local tool_name=$1
+   local install_command=$2
+   local check_command=$3
+
+   if ! command -v $check_command > /dev/null 2>&1; then
+      echo "Installing $tool_name..."
+      eval $install_command
+      echo "$tool_name installed successfully."
+   else
+      echo "$tool_name is already installed."
+      $check_command --version
+   fi
+}
+
+# Prompt user for tools to install
+echo "Which tools would you like to install? (git, maven, java, docker, tree)"
+read -p "Enter the tools separated by space: " tools
+
+# Loop through selected tools and install them
+for tool in $tools; do
+   case $tool in
+      git)
+         install_tool "Git" "sudo apt-get install -y git" "git"
+         ;;
+      maven)
+         install_tool "Maven" "sudo apt-get install -y maven" "mvn"
+         ;;
+      java)
+         install_tool "Java" "sudo apt-get install -y openjdk-11-jdk" "java"
+         ;;
+      docker)
+         install_tool "Docker" "sudo apt-get install -y docker.io" "docker"
+         ;;
+      tree)
+         install_tool "Tree" "sudo apt-get install -y tree" "tree"
+         ;;
+      *)
+         echo "Unknown tool: $tool"
+         ;;
+   esac
+done
+
+echo "Installation process completed."
+```
 
 # 1. Web Server Files
 WEB_DIR="/var/www/html"
