@@ -96,7 +96,7 @@ This should set up your Jenkins master to connect and use the EC2 slave node for
     - Or **Let me select individual events** and choose specific events like `push` and `pull_request`.  
 - Click **Add Webhook** to save the configuration.  
 
-### 3. Configure Jenkins Pipeline Job to Use the Webhook. 
+### 3. Configure Jenkins Pipeline Job to Use the Webhook
 - In Jenkins, create or configure a pipeline job.  
 - Under the **Build Triggers** section, enable **GitHub hook trigger for GITScm polling** (or the equivalent for your Git provider).  
 
