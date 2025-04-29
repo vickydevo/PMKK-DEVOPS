@@ -1,0 +1,35 @@
+pipeline{
+    agent any 
+    stages{
+        stage ('GIT CHECKOUT'){
+            steps {
+                git branch: 'main', url: 'https://github.com/vickydevo/springboot-hello.git'
+            }
+        }
+        stage ('MAVEN BUILD'){
+            steps {
+              sh  'mvn clean package'
+            }
+        }
+        stage ('DOCKER IMAGE') {
+            steps {
+             sh  ' docker build -t java-spring:v1 .'
+            }
+        }
+        stage ('DOCKER PUSH') {
+            steps {
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'docker_cred',
+                        usernameVariable: 'DOCKER_USER',
+                        passwordVariable: 'DOCKER_PASS')]){
+              sh '''
+                echo "$DOCKER_PASS"| docker login -u $DOCKER_USER --password-stdin
+                docker tag java-spring:v1 $DOCKER_USER/java-spring:v1
+                docker push $DOCKER_USER/java-spring:v1
+                '''
+                        }
+            }
+        }
+    }
+}
