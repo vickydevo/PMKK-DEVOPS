@@ -100,6 +100,64 @@ Each edition is tailored to meet specific requirements, from individual develope
 - An EC2 instance with at least 2 vCPUs and 4GB RAM.
 - Security group configured to allow inbound traffic on port **9000**.
 
+
+
+### Running SonarQube as a Docker Container
+
+1. **Install Docker**:
+    - Follow the [Docker installation guide](https://docs.docker.com/get-docker/) for your operating system.
+
+2. **Pull the SonarQube Docker Image**:
+For the official SonarQube Docker image, refer to the [SonarQube Docker Hub page](https://hub.docker.com/_/sonarqube).
+
+    ```bash
+    docker pull sonarqube:lts-community 
+    ```
+
+3. **Run the SonarQube Container**:
+    ```bash
+    docker run --name sonarqube-custom -p 9000:9000 sonarqube:community
+    or 
+    docker run -d --name sonarqube -p 9000:9000 -e SONAR_JAVA_OPTS="-Djava.version=17" sonarqube:lts-community
+    ```
+    ![Image](https://github.com/user-attachments/assets/3984f69f-84c2-486f-ab10-6a61e73d5fd4) 
+
+4. **Verify the Container**:
+    - Use `docker ps` to ensure the container is running.
+
+5. **Access SonarQube**:
+    - Open a browser and navigate t### Installing SonarQube on an EC2 Instanceo `http://instance-public_ip:9000`.
+    ### Logging into SonarQube
+
+    After accessing `http://<EC2-Public-IP>:9000` in your browser, follow these steps to log in:
+
+    1. **Default Login Page**:
+        - The SonarQube login page will open.
+
+    2. **Default Credentials**:
+        - Username: `admin`
+        - Password: `admin`
+      ### ![Image](https://github.com/user-attachments/assets/6462c55b-b117-4387-8d97-44439ddeef88)
+
+    3. **Change Password**:
+        - Upon first login, you will be prompted to change the default password for security purposes.
+
+    4. **Dashboard Access**:
+        - After changing the password, you will be redirected to the SonarQube dashboard.
+        *** ![Image](https://github.com/user-attachments/assets/a28caa7a-b75c-46dc-9522-33a69fbe6952) ***
+    5. **Start Using SonarQube**:
+        - From the dashboard, you can start configuring projects, analyzing code, and reviewing reports.
+
+    ### Notes
+    - Ensure the SonarQube service is running before accessing the URL.
+    - If the default credentials do not work, check the logs or reset the admin password as per the [SonarQube documentation](https://docs.sonarsource.com/latest/instance-administration/security/).
+    - For production environments, secure the instance with HTTPS and configure user authentication.
+### Notes
+- Ensure the EC2 instance or Docker host has sufficient resources.
+- Refer to the [official SonarQube documentation](https://docs.sonarsource.com/latest/setup/get-started-2-minutes/) for more details.
+
+
+
 #### Steps for Amazon Linux 2023
 
 1. **Update the System**:
@@ -175,29 +233,3 @@ Each edition is tailored to meet specific requirements, from individual develope
 - Ensure port **9000** is open in the security group for inbound traffic.
 - SonarQube requires a database for production use; configure it as needed.
 - Run SonarQube as a service for persistent usage.
-
-
-### Running SonarQube as a Docker Container
-
-1. **Install Docker**:
-    - Follow the [Docker installation guide](https://docs.docker.com/get-docker/) for your operating system.
-
-2. **Pull the SonarQube Docker Image**:
-    ```bash
-    docker pull sonarqube
-    ```
-
-3. **Run the SonarQube Container**:
-    ```bash
-    docker run -d --name sonarqube -p 9000:9000 -e SONAR_JAVA_OPTS="-Djava.version=17" sonarqube
-    ```
-
-4. **Verify the Container**:
-    - Use `docker ps` to ensure the container is running.
-
-5. **Access SonarQube**:
-    - Open a browser and navigate t### Installing SonarQube on an EC2 Instanceo `http://localhost:9000`.
-
-### Notes
-- Ensure the EC2 instance or Docker host has sufficient resources.
-- Refer to the [official SonarQube documentation](https://docs.sonarsource.com/latest/setup/get-started-2-minutes/) for more details.
