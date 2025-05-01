@@ -30,10 +30,10 @@
     3. Go to the **Security** tab.
     4. Under the **Generate Tokens** section:
         - Enter a name for the token (e.g., `JenkinsPipelineToken`).
-        **![Image](https://github.com/user-attachments/assets/3ce02050-f95e-47c4-a890-4ed33a40c004)**
+ ![Image](https://github.com/user-attachments/assets/3ce02050-f95e-47c4-a890-4ed33a40c004)
         - Click the **Generate** button.
     5. Copy the generated token and save it securely. You will not be able to view it again.
-      **![Image](https://github.com/user-attachments/assets/358e194d-3043-4893-8f85-43998aea39e7)**
+       ![Image](https://github.com/user-attachments/assets/358e194d-3043-4893-8f85-43998aea39e7)
 
     **Note**: Use this token in your Jenkins pipeline to authenticate with SonarQube.
 ### Configure Token in Jenkins Credentials as Secret Text
