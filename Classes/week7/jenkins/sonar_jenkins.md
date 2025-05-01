@@ -24,54 +24,111 @@
       - Name (e.g., `SonarScanner`).
       - Installation method (e.g., `Install automatically`).
       **![Image](https://github.com/user-attachments/assets/091da20d-0053-447c-8eb7-1ae5ef08e013)**
+  3.  ### Generate a Token in SonarQube
+    1. Log in to your SonarQube server.
+    2. Navigate to your profile by clicking on your avatar in the top-right corner and selecting **My Account**.
+    3. Go to the **Security** tab.
+    4. Under the **Generate Tokens** section:
+        - Enter a name for the token (e.g., `JenkinsPipelineToken`).
+        **![Image](https://github.com/user-attachments/assets/3ce02050-f95e-47c4-a890-4ed33a40c004)**
+        - Click the **Generate** button.
+    5. Copy the generated token and save it securely. You will not be able to view it again.
+      **![Image](https://github.com/user-attachments/assets/358e194d-3043-4893-8f85-43998aea39e7)**
 
-3. **Create a Jenkins Pipeline**:
+    **Note**: Use this token in your Jenkins pipeline to authenticate with SonarQube.
+### Configure Token in Jenkins Credentials as Secret Text
+1. Go to `Manage Jenkins` > `Manage Credentials`.
+2. Select the appropriate scope (e.g., `Global` or a specific folder).
+3. Click on `Add Credentials`.
+4. In the `Kind` dropdown, select `Secret text`.
+5. Fill in the fields:
+    - **Secret**: Paste the token generated from SonarQube.
+    - **ID**: Enter a unique identifier (e.g., `sonar-token`).
+    - **Description**: Provide a meaningful description (e.g., `SonarQube Token for Jenkins`).
+6. Click `OK` to save the credentials.
+
+**Note**: Use the `ID` in your pipeline script to reference the token.
+
+. **Create a Jenkins Pipeline**:
     - Create a new pipeline job in Jenkins.
     - Add the SonarQube analysis steps in the pipeline script.
 
 ## Sample Pipeline Script
 ```groovy
 pipeline {
-     agent any
-     tools {
-          // Use the SonarQube Scanner tool configured in Jenkins
-          sonarQube 'Sonar-scanner'
-     }
-     environment {
-          // SonarQube environment variables
-          SONAR_HOST_URL = 'http://ec2-18-215-164-93.compute-1.amazonaws.com:9000'
-          SONAR_AUTH_TOKEN = credentials('squ_71b371877b164d811d4441d58b34a507d806a31a')
-     }
-     stages {
-          stage('Checkout Code') {
-                steps {
-                     checkout scm
-                }
-          }
-          stage('Build') {
-                steps {
-                     sh './gradlew build' // Replace with your build command
-                }
-          }
-          stage('SonarQube Analysis') {
-                steps {
-                     withSonarQubeEnv('SonarQube') {
-                          sh './gradlew sonarqube' // Replace with your SonarQube command
-                     }
-                }
-          }
-          stage('Quality Gate') {
-                steps {
-                     script {
-                          def qualityGate = waitForQualityGate()
-                          if (qualityGate.status != 'OK') {
-                                error "Pipeline aborted due to quality gate failure: ${qualityGate.status}"
-                          }
-                     }
-                }
-          }
-     }
+    agent any //{
+    //     label 'sai'
+    //     // docker {
+    //     //     image 'yourdockerhubusername/maven-docker:latest'  // Replace with actual image
+    //     //     args '-v /var/run/docker.sock:/var/run/docker.sock'
+    //     // }
+    // }
+
+    tools {
+        git 'git2'
+        maven 'm3'
+        jdk 'jdk17'
+        
+    }
+
+    parameters {
+        string(name: 'image', defaultValue: 'spring-boot', description: 'Enter docker image name')
+        string(name: 'tag', defaultValue: 'v1', description: 'Enter docker image TAG')
+    }
+
+    environment {
+        DOCKER_IMAGE = "${params.image}"
+        DOCKER_TAG = "${params.tag}"
+        // SONAR_HOST_URL = 'http://ec2-18-215-164-93.compute-1.amazonaws.com:9000'
+        // SONAR_AUTH_TOKEN = credentials('squ_71b371877b164d811d4441d58b34a507d806a31a')
+    }
+
+    stages {
+        stage('SCM CHECKOUT') {
+            steps {
+                git branch: 'main', url: 'https://github.com/vickydevo/springboot-hello.git'
+            }
+        }
+
+        stage('SonarQube Analysis') {
+    steps {
+        withCredentials([string(credentialsId: 'sonar-token', variable: 'sonar_token')]) {
+            sh """
+                mvn clean verify
+                mvn sonar:sonar \
+                    -Dsonar.projectKey=${DOCKER_IMAGE} \
+                    -Dsonar.projectName=${DOCKER_IMAGE} \
+                    -Dsonar.sources=src/main/java \
+                    -Dsonar.tests=src/test/java \
+                    -Dsonar.java.binaries=target/classes \
+                    -Dsonar.host.url=http://18.215.164.93:9000 \
+                    -Dsonar.token=${sonar_token} \
+                    -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+            """
+        }
+    }
 }
+
+        // stage('Docker Image') {
+        //     steps {
+        //         sh 'docker build -t $DOCKER_IMAGE:$DOCKER_TAG .'
+        //     }
+        // }
+
+        // stage('DockerHub push') {
+        //     steps {
+        //         withCredentials([usernamePassword(credentialsId: 'docker_cred', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+        //             sh '''
+        //                 echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+        //                 docker tag $DOCKER_IMAGE:$DOCKER_TAG $DOCKER_USER/$DOCKER_IMAGE:$DOCKER_TAG
+        //                 docker push $DOCKER_USER/$DOCKER_IMAGE:$DOCKER_TAG
+        //             '''
+        //         }
+        //     }
+        // }
+    }
+}
+
 ```
 
 ## Notes
