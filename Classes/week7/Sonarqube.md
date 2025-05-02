@@ -74,8 +74,8 @@ For details, refer to the [SonarQube Editions Comparison](https://www.sonarsourc
 ### Running SonarQube as a Docker Container
 
 1. **Install Docker**: Follow the [Docker installation guide](https://docs.docker.com/get-docker/).
-        ```bash
-    sudo apt update -y && sudo apt install docker.io -y
+    ```bash
+        sudo apt update -y && sudo apt install docker.io -y
     ```
 2. **Pull Image**:
     ```bash
