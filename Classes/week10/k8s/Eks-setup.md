@@ -166,6 +166,18 @@ nodeGroups:
 ```
 
 > 🔁 Replace `<account-id>` with your actual AWS account ID.
+## 🔐 Why `withOIDC: true` is Important in EKS
+
+Setting `withOIDC: true` in your EKS cluster configuration enables the creation of an **OIDC identity provider**, which is required for using **IAM Roles for Service Accounts (IRSA)**.
+
+This allows you to:
+
+- Assign fine-grained IAM permissions to individual pods
+- Avoid storing AWS credentials inside containers
+- Follow AWS security best practices by applying least-privilege access at the pod level
+
+By enabling OIDC, you make your cluster more secure and production-ready.
+
 
 ### Run the following command to create the cluster:
 
@@ -178,8 +190,3 @@ eksctl create cluster -f eks-cluster.yaml
 ✅ Your EKS cluster will be up and running in a few minutes.
 
 ---
-
-```
-
-Would you like me to zip this README with the two trust policy files (`trust-policy.json` and `trust-node-policy.json`) for download?
-```
