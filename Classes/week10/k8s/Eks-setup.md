@@ -51,7 +51,7 @@ curl -o kubectl https://s3.us-west-2.amazonaws.com/amazon-eks/1.29.1/2024-04-12/
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin
 kubectl version --client
-
+```
 ## ✅ Step 1: Create IAM Role for EKS Cluster
 
 ### 1. Create trust policy for EKS control plane (trust-policy.json)
