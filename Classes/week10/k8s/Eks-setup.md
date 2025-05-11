@@ -47,7 +47,7 @@ Ensure your AWS IAM user has permissions to create IAM roles, EC2, and EKS resou
 To interact with the EKS cluster, install `kubectl` using the following commands:
 
 ```bash
-curl -o kubectl https://s3.us-west-2.amazonaws.com/amazon-eks/1.29.1/2024-04-12/bin/linux/amd64/kubectl
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin
 kubectl version --client
