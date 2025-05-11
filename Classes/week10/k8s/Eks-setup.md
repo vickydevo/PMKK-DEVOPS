@@ -208,5 +208,10 @@ eksctl utils associate-iam-oidc-provider \
   --region us-east-1 \
   --cluster my-eks-cluster \
   --approve
+```
+## Delete cluster 
+```bash
+eksctl delete cluster --name my-eks-cluster --region us-east-1
 
----
+```
+**![Image](https://github.com/user-attachments/assets/ed8bf88f-3af4-427c-b34a-e146adb023d5)**
