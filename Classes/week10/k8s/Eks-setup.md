@@ -1,11 +1,23 @@
-Here is the content formatted as a `README.md` file with a **single-click copy button** (assuming you are viewing this on GitHub or in a markdown renderer that supports code block copy buttons):
 
-````markdown
+# What is Amazon EKS?
+
+**Amazon EKS (Elastic Kubernetes Service)** is a fully managed Kubernetes service by AWS that makes it easy to run Kubernetes on AWS without needing to install and operate your own Kubernetes control plane or nodes.
+
+EKS automatically manages the availability and scalability of the Kubernetes control plane nodes responsible for:
+
+- Scheduling containers
+- Managing the application's availability
+- Storing cluster data
+- Performing other key operational tasks
+
+By using Amazon EKS, you can take advantage of the performance, scale, reliability, and availability of AWS infrastructure while using standard Kubernetes tooling and APIs to manage your applications.
+
+
 # Create Amazon EKS Cluster using `eksctl` with IAM Roles
 
 This guide helps you set up an Amazon EKS (Elastic Kubernetes Service) cluster using `eksctl`, including setting up IAM roles for the cluster and the node group.
 
----
+
 
 ## ✅ Prerequisites
 
@@ -18,9 +30,15 @@ sudo mv /tmp/eksctl /usr/local/bin
 * Install AWS CLI and configure:
 
 ```bash
-aws configure
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    unzip awscliv2.zip
+    sudo ./aws/install
 ```
 
+```bash
+aws configure
+```
+**![Image](https://github.com/user-attachments/assets/de2fa9f5-2be9-410e-8c30-02f391b851c5)**
 Ensure your AWS IAM user has permissions to create IAM roles, EC2, and EKS resources.
 
 ---
