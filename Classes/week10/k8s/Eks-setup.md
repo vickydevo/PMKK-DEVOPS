@@ -63,16 +63,43 @@ Ensure your AWS IAM user has permissions to create IAM roles, EC2, and EKS resou
 ```
 
 ### 2. Create and attach the cluster role:
+## 📌 What is `AmazonEKSClusterPolicy`?
+
+`AmazonEKSClusterPolicy` is a **managed IAM policy** provided by AWS that grants necessary permissions for the **EKS control plane** to function correctly.
+
+## 🔐 What permissions does it provide?
+
+The policy allows EKS to:
+
+- ✅ Create and manage networking resources (e.g., VPC, subnets, ENIs)
+- ✅ Communicate with other AWS services like:
+  - EC2 (Elastic Compute Cloud)
+  - Auto Scaling
+  - ELB (Elastic Load Balancer)
+- ✅ Access EC2 instances for:
+  - Bootstrapping nodes
+  - Performing health checks
+
+## ⚠️ Why is it important?
+
+Without attaching this policy to your EKS control plane IAM role, your Kubernetes cluster may not function properly, as the control plane would lack the permissions needed to:
+
+- Manage cluster networking
+- Launch and scale worker nodes
+- Interact with required infrastructure services
 
 ```bash
 aws iam create-role --role-name EKSClusterRole \
   --assume-role-policy-document file://trust-policy.json
+```
 
+
+### ✅ Use this AWS CLI command to attach the policy:
+
+```bash
 aws iam attach-role-policy \
   --role-name EKSClusterRole \
   --policy-arn arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
-```
-
 ---
 
 ## ✅ Step 2: Create IAM Role for Node Group
@@ -99,7 +126,9 @@ aws iam attach-role-policy \
 ```bash
 aws iam create-role --role-name EKSNodeRole \
   --assume-role-policy-document file://trust-node-policy.json
-
+```
+**![Image](https://github.com/user-attachments/assets/ba0d3d7e-d539-4748-a7d1-5928a88bc323)**
+```bash
 aws iam attach-role-policy --role-name EKSNodeRole \
   --policy-arn arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
 
