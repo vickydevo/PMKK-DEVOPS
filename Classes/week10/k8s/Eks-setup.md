@@ -21,13 +21,13 @@ This guide helps you set up an Amazon EKS (Elastic Kubernetes Service) cluster u
 
 ## ✅ Prerequisites
 
-- Install `eksctl`
+### 1 Install `eksctl`
 ```bash
 curl --silent --location "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
 sudo mv /tmp/eksctl /usr/local/bin
 ````
 
-* Install AWS CLI and configure:
+### 2 Install AWS CLI and configure:
 
 ```bash
     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
@@ -42,6 +42,15 @@ aws configure
 Ensure your AWS IAM user has permissions to create IAM roles, EC2, and EKS resources.
 
 ---
+### 3 Install kubectl (Kubernetes CLI)
+
+To interact with the EKS cluster, install `kubectl` using the following commands:
+
+```bash
+curl -o kubectl https://s3.us-west-2.amazonaws.com/amazon-eks/1.29.1/2024-04-12/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin
+kubectl version --client
 
 ## ✅ Step 1: Create IAM Role for EKS Cluster
 
@@ -188,5 +197,16 @@ eksctl create cluster -f eks-cluster.yaml
 ---
 
 ✅ Your EKS cluster will be up and running in a few minutes.
+## Enable IAM OIDC Provider
+
+Although `withOIDC: true` is specified in `eks-cluster.yaml`, if you reused a CloudFormation stack or encountered issues during creation, the OIDC provider might not be attached.
+
+To manually attach the OIDC provider (required for IAM Roles for Service Accounts):
+
+```bash
+eksctl utils associate-iam-oidc-provider \
+  --region us-east-1 \
+  --cluster my-eks-cluster \
+  --approve
 
 ---
