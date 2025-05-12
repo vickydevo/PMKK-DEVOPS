@@ -7,14 +7,6 @@ This guide provides steps to install Trivy and OWASP Dependency-Check, and integ
 - Docker installed on the Jenkins server.
 ---
 
-
----
-
-Would you like this extended with **installation steps**, **CI integration**, or **HTML report generation** options as well?
-```
-
-
-
 ## Step 1: Install Trivy
 1. Install Trivy using Docker:
 ```bash
@@ -89,16 +81,12 @@ trivy image --severity CRITICAL,HIGH nginx:latest
 ```bash
 trivy image --format json -o result.json nginx:latest
 ```
-
 ---
-
 ## 📘 Resources
 
 * [Trivy GitHub Repository](https://github.com/aquasecurity/trivy)
 * [Official Documentation](https://aquasecurity.github.io/trivy/)
-
-```
-
+---
 
 ## Step 2: Install OWASP Dependency-Check and Docker Plugin in Jenkins
 
@@ -121,10 +109,11 @@ trivy image --format json -o result.json nginx:latest
 5. Configure the installation directory or let Jenkins install it automatically.
 **![Image](https://github.com/user-attachments/assets/b13551c6-0762-48fa-b24c-8672e0e8b348)**
 6. Save the configuration.
-
+---
 ## Step 4: Add Trivy and OWASP Dependency-Check to Jenkins Pipeline
 
 1. Edit your Jenkins pipeline script to include Trivy and OWASP Dependency-Check steps:
+
 ```groovy
 pipeline {
     agent any
