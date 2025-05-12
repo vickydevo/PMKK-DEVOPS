@@ -79,12 +79,12 @@ For details, refer to the [SonarQube Editions Comparison](https://www.sonarsourc
     ```
 2. **Pull Image**:
     ```bash
-    docker pull sonarqube:community
+    docker pull sonarqube:lts-community
     ```
 3. **Run Container**:
     
     ```bash
-    docker run --name sonarqube -p 9000:9000 sonarqube:community
+    docker run -d --name sonarqube -p 9000:9000 sonarqube:lts-community
     ```
     or
     ```bash

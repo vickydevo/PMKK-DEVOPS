@@ -61,16 +61,18 @@ Jenkins is an open-source automation server that helps automate parts of softwar
 6. **Access Jenkins**:
     - Open a browser and navigate to `http://<your-server-ip>:8080`.
     - Retrieve the initial admin password:
+
       ```bash
       sudo cat /var/lib/jenkins/secrets/initialAdminPassword
       ```
     - Follow the setup wizard to complete the installation.
-7.Viewing service configurations
-  systemctl cat jenkins
+7.**Viewing service configurations**
+
+
   ```bash
       systemctl cat jenkins
       systemctl edit jenkins
-      ```
+ ```
 ---
 
 This document provides an overview of CI/CD, Jenkins, and the steps to install a Jenkins master.
