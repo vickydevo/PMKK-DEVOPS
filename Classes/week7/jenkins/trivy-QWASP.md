@@ -5,9 +5,88 @@ This guide provides steps to install Trivy and OWASP Dependency-Check, and integ
 ## Prerequisites
 - Jenkins installed and running.
 - Docker installed on the Jenkins server.
-- Jenkins plugins: `Pipeline`, `Blue Ocean`, and `Docker Pipeline`.
 
 ---
+Here is your content properly formatted as a `README.md` file for **Trivy Usage Examples**:
+
+---
+
+````markdown
+# 🔍 Trivy Usage Examples
+
+Trivy is a comprehensive and easy-to-use vulnerability scanner for containers, file systems, repositories, and configurations.
+
+---
+
+## 🔹 1. Scan a Docker Image
+
+```bash
+trivy image nginx:latest
+````
+
+---
+
+## 🔹 2. Scan a Local File System
+
+```bash
+trivy fs .
+```
+
+---
+
+## 🔹 3. Scan a Git Repository
+
+```bash
+trivy repo https://github.com/your/project
+```
+
+---
+
+## 🔹 4. Scan Configuration Files (Kubernetes, Terraform, etc.)
+
+```bash
+trivy config .
+```
+
+---
+
+## 🔹 5. Scan for Secrets in Code
+
+```bash
+trivy fs --scanners secret .
+```
+
+---
+
+## 🔹 6. Filter by Severity
+
+```bash
+trivy image --severity CRITICAL,HIGH nginx:latest
+```
+
+---
+
+## 🔹 7. Export Results in JSON Format
+
+```bash
+trivy image --format json -o result.json nginx:latest
+```
+
+---
+
+## 📘 Resources
+
+* [Trivy GitHub Repository](https://github.com/aquasecurity/trivy)
+* [Official Documentation](https://aquasecurity.github.io/trivy/)
+
+```
+
+---
+
+Would you like this extended with **installation steps**, **CI integration**, or **HTML report generation** options as well?
+```
+
+
 
 ## Step 1: Install Trivy
 1. Install Trivy using Docker:
@@ -18,6 +97,8 @@ echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main |
 sudo apt-get update
 sudo apt-get install trivy
 ```
+**![Image](https://github.com/user-attachments/assets/b4c65e00-080f-4af6-b19f-dc721e74787f)**
+---
 
 ## Step 2: Install OWASP Dependency-Check and Docker Plugin in Jenkins
 
