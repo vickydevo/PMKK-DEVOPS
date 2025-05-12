@@ -109,7 +109,7 @@ aws iam create-role --role-name EKSClusterRole \
 aws iam attach-role-policy \
   --role-name EKSClusterRole \
   --policy-arn arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
----
+```
 
 ## ✅ Step 2: Create IAM Role for Node Group
 
@@ -214,4 +214,12 @@ eksctl utils associate-iam-oidc-provider \
 eksctl delete cluster --name my-eks-cluster --region us-east-1
 
 ```
-**![Image](https://github.com/user-attachments/assets/ed8bf88f-3af4-427c-b34a-e146adb023d5)**
+or 
+## Option : Force Delete the Cluster
+  - Skip draining with the --disable-nodegroup-eviction flag:
+**![Image](https://github.com/user-attachments/assets/dafcef8f-2672-4b7f-bc32-b19ad50a0b68)**
+```
+eksctl delete cluster --name my-eks-cluster --region us-east-1 --disable-nodegroup-eviction
+
+```
+**![Image](https://github.com/user-attachments/assets/deaf99b6-7cf6-44d8-ac45-03c864720a20)**
