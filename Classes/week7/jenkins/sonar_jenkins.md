@@ -30,8 +30,37 @@ This guide explains how to integrate SonarQube with Jenkins for static code anal
   - **Authentication Token**: Generate from SonarQube (see below).
 
 ---
+### 2. Generate Token in SonarQube
 
-### 2. Install SonarQube Scanner in Jenkins
+1. Log in to SonarQube.
+2. Go to **My Account > Security**.
+3. Under **Generate Tokens**:
+    - Enter a name like `JenkinsPipelineToken`.
+    - Click **Generate**.
+    - Copy and securely store the token.
+    ![Image](https://github.com/user-attachments/assets/3ce02050-f95e-47c4-a890-4ed33a40c004)
+    ![Image](https://github.com/user-attachments/assets/358e194d-3043-4893-8f85-43998aea39e7)
+
+---
+### 3. Add SonarQube Token in Jenkins Credentials
+
+1. Go to `Manage Jenkins` > `Manage Credentials`.
+2. Choose the appropriate domain (e.g., `Global`).
+3. Click **Add Credentials**.
+4. Select `Kind`: **Secret text**.
+5. Provide:
+   - **Secret**: Paste the generated SonarQube token.
+   - **ID**: `sonar-token` (use this ID in your pipeline).
+   - **Description**: e.g., `SonarQube Token for Jenkins`.
+   **![Image](https://github.com/user-attachments/assets/9342c2b9-d226-4a68-a46c-94beaebf1a29)**
+6. Click **OK**.
+
+> **Note**: Use this credential ID in your Jenkins pipeline to authenticate with SonarQube.
+
+---
+
+
+### 4. Install SonarQube Scanner in Jenkins
 
 - Go to `Manage Jenkins` > `Global Tool Configuration`.
 - Under **JDK**:
@@ -45,35 +74,6 @@ This guide explains how to integrate SonarQube with Jenkins for static code anal
 
 ---
 
-### 3. Generate Token in SonarQube
-
-1. Log in to SonarQube.
-2. Go to **My Account > Security**.
-3. Under **Generate Tokens**:
-    - Enter a name like `JenkinsPipelineToken`.
-    - Click **Generate**.
-    - Copy and securely store the token.
-    ![Image](https://github.com/user-attachments/assets/3ce02050-f95e-47c4-a890-4ed33a40c004)
-    ![Image](https://github.com/user-attachments/assets/358e194d-3043-4893-8f85-43998aea39e7)
-
----
-
-### 4. Add SonarQube Token in Jenkins Credentials
-
-1. Go to `Manage Jenkins` > `Manage Credentials`.
-2. Choose the appropriate domain (e.g., `Global`).
-3. Click **Add Credentials**.
-4. Select `Kind`: **Secret text**.
-5. Provide:
-   - **Secret**: Paste the generated SonarQube token.
-   - **ID**: `sonar-token` (use this ID in your pipeline).
-   - **Description**: e.g., `SonarQube Token for Jenkins`.
-6. Click **OK**.
-
-> **Note**: Use this credential ID in your Jenkins pipeline to authenticate with SonarQube.
-
----
-
 ### 5. Configure Webhook in SonarQube
 
 To ensure Jenkins waits for and processes the Quality Gate result:
@@ -83,8 +83,10 @@ To ensure Jenkins waits for and processes the Quality Gate result:
 3. Set:
    - **Name**: `Jenkins`
    - **URL**: `http://<jenkins-host>:<port>/sonarqube-webhook/`  
-     _(Replace with actual Jenkins server address)_
-4. Click **Save**.
+     **![Image](https://github.com/user-attachments/assets/e8627614-4741-431e-8e1a-06c40ec731c1)**
+4. Click **create**.
+**![Image](https://github.com/user-attachments/assets/4d2781c7-2d5f-4636-888b-e576a77a0bb1)**
+
 
 > This webhook notifies Jenkins once the analysis is complete, enabling `waitForQualityGate()`.
 
