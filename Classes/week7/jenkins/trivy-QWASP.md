@@ -31,3 +31,36 @@ sudo apt-get install trivy
 
 **![Image](https://github.com/user-attachments/assets/38572f7a-35a0-4cb9-9a58-4d3a2a381ddb)**
 --- 
+## Step 3: Configure OWASP Dependency-Check in Jenkins
+
+1. Open Jenkins in your web browser.
+2. Navigate to **Manage Jenkins** > **Global Tool Configuration**.
+3. Scroll down to the **OWASP Dependency-Check** section.
+4. Click **Add Dependency-Check** and provide a name (e.g., `OWASP-DC`).
+5. Configure the installation directory or let Jenkins install it automatically.
+**![Image](https://github.com/user-attachments/assets/b13551c6-0762-48fa-b24c-8672e0e8b348)**
+6. Save the configuration.
+
+## Step 4: Add Trivy and OWASP Dependency-Check to Jenkins Pipeline
+
+1. Edit your Jenkins pipeline script to include Trivy and OWASP Dependency-Check steps:
+```groovy
+pipeline {
+    agent any
+    stages {
+        stage('Trivy Scan') {
+            steps {
+                sh 'trivy image --severity HIGH,CRITICAL your-docker-image'
+            }
+        }
+        stage('OWASP Dependency-Check') {
+            steps {
+                dependencyCheck additionalArguments: '--format XML --out dependency-check-report.xml', odcInstallation: 'OWASP-DC'
+            }
+        }
+    }
+}
+```
+
+2. Save the pipeline script and run the build.
+3. Review the scan results in the Jenkins console output or generated reports.

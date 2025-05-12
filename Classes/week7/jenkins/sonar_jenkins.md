@@ -28,7 +28,7 @@ This guide explains how to integrate SonarQube with Jenkins for static code anal
   - **Name**: `SonarQube`
   - **Server URL**: `http://<sonarqube-server>:9000`
   - **Authentication Token**: Generate from SonarQube (see below).
-
+    **![Image](https://github.com/user-attachments/assets/ab1c7058-a1c3-4975-81c8-ee7e165d6daf)**
 ---
 ### 2. Generate Token in SonarQube
 
@@ -65,12 +65,12 @@ This guide explains how to integrate SonarQube with Jenkins for static code anal
 - Go to `Manage Jenkins` > `Global Tool Configuration`.
 - Under **JDK**:
   - Click **Add JDK** (if required).
-  ![Image](https://github.com/user-attachments/assets/46645914-fd48-4710-9644-38d7eda99f97)
+  **![Image](https://github.com/user-attachments/assets/46645914-fd48-4710-9644-38d7eda99f97)**
 - Under **SonarQube Scanner**:
   - Click **Add SonarQube Scanner**
   - Set Name: `SonarScanner`
   - Select: `Install automatically`
-  ![Image](https://github.com/user-attachments/assets/091da20d-0053-447c-8eb7-1ae5ef08e013)
+  **![Image](https://github.com/user-attachments/assets/091da20d-0053-447c-8eb7-1ae5ef08e013)**
 
 ---
 
