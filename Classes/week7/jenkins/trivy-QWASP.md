@@ -115,21 +115,55 @@ trivy image --format json -o result.json nginx:latest
 1. Edit your Jenkins pipeline script to include Trivy and OWASP Dependency-Check steps:
 
 ```groovy
-pipeline {
-    agent any
-    stages {
-        stage('Trivy Scan') {
+stage('SonarQube Analysis') {
             steps {
-                sh 'trivy image --severity HIGH,CRITICAL your-docker-image'
+                withSonarQubeEnv('SonarQube') {
+                    sh """
+                        mvn clean verify
+                        mvn sonar:sonar \
+                            -Dsonar.projectKey=${DOCKER_IMAGE} \
+                            -Dsonar.projectName=${DOCKER_IMAGE} \
+                            -Dsonar.sources=src/main/java \
+                            -Dsonar.tests=src/test/java \
+                            -Dsonar.java.binaries=target/classes \
+                            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+                    """
+                }
             }
         }
-        stage('OWASP Dependency-Check') {
+
+        stage('OWASP Dependency Check') {
             steps {
-                dependencyCheck additionalArguments: '--format XML --out dependency-check-report.xml', odcInstallation: 'OWASP-DC'
+                dependencyCheck additionalArguments: "--scan ./ --format XML --out dependency-check-report.xml", odcInstallation: 'OWASP-DC'
+                dependencyCheckPublisher pattern: "**/dependency-check-report.xml"
             }
         }
-    }
-}
+
+        stage('Sonar Quality Gate') {
+            steps {
+                timeout(time: 2, unit: "MINUTES") {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+
+        stage('Trivy File System Scan') {
+            steps {
+                sh "trivy fs --format table -o trivy-fs-report.html ."
+            }
+        }
+
+        stage('Docker Image') {
+            steps {
+                sh 'docker build -t $DOCKER_IMAGE:$DOCKER_TAG .'
+            }
+        }
+
+        stage('Trivy Image Scan') {
+            steps {
+                sh "trivy image --format table -o trivy-image-report.html $DOCKER_IMAGE:$DOCKER_TAG"
+            }
+        }
 ```
 
 2. Save the pipeline script and run the build.

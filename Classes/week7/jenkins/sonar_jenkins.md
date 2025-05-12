@@ -95,126 +95,56 @@ To ensure Jenkins waits for and processes the Quality Gate result:
 ## 🧪 Jenkins Pipeline Example (Declarative)
 
 ```groovy
-pipeline {
-    agent any
-
-    tools {
-        jdk 'jdk-17'
-        sonarQubeScanner 'SonarScanner'
-    }
-
-    environment {
-        SONAR_TOKEN = credentials('sonar-token')
-    }
-
-    stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/your/project.git'
-            }
-        }
-
-        stage('SonarQube Analysis') {
+stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    sh 'sonar-scanner -Dsonar.projectKey=your-key -Dsonar.sources=. -Dsonar.login=$SONAR_TOKEN'
+                    sh """
+                        mvn clean verify
+                        mvn sonar:sonar \
+                            -Dsonar.projectKey=${DOCKER_IMAGE} \
+                            -Dsonar.projectName=${DOCKER_IMAGE} \
+                            -Dsonar.sources=src/main/java \
+                            -Dsonar.tests=src/test/java \
+                            -Dsonar.java.binaries=target/classes \
+                            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+                    """
                 }
             }
         }
 
-        stage('Quality Gate') {
+        stage('OWASP Dependency Check') {
             steps {
-                timeout(time: 1, unit: 'MINUTES') {
+                dependencyCheck additionalArguments: "--scan ./ --format XML --out dependency-check-report.xml", odcInstallation: 'OWASP-DC'
+                dependencyCheckPublisher pattern: "**/dependency-check-report.xml"
+            }
+        }
+
+        stage('Sonar Quality Gate') {
+            steps {
+                timeout(time: 2, unit: "MINUTES") {
                     waitForQualityGate abortPipeline: true
                 }
             }
         }
-    }
-}
-```
 
-. **Create a Jenkins Pipeline**:
-    - Create a new pipeline job in Jenkins.
-    - Add the SonarQube analysis steps in the pipeline script.
-
-## Sample Pipeline Script
-```groovy
-pipeline {
-    agent any //{
-    //     label 'sai'
-    //     // docker {
-    //     //     image 'yourdockerhubusername/maven-docker:latest'  // Replace with actual image
-    //     //     args '-v /var/run/docker.sock:/var/run/docker.sock'
-    //     // }
-    // }
-
-    tools {
-        git 'git2'
-        maven 'm3'
-        jdk 'jdk17'
-        
-    }
-
-    parameters {
-        string(name: 'image', defaultValue: 'spring-boot', description: 'Enter docker image name')
-        string(name: 'tag', defaultValue: 'v1', description: 'Enter docker image TAG')
-    }
-
-    environment {
-        DOCKER_IMAGE = "${params.image}"
-        DOCKER_TAG = "${params.tag}"
-        // SONAR_HOST_URL = 'http://ec2-18-215-164-93.compute-1.amazonaws.com:9000'
-        // SONAR_AUTH_TOKEN = credentials('squ_71b371877b164d811d4441d58b34a507d806a31a')
-    }
-
-    stages {
-        stage('SCM CHECKOUT') {
+        stage('Trivy File System Scan') {
             steps {
-                git branch: 'main', url: 'https://github.com/vickydevo/springboot-hello.git'
+                sh "trivy fs --format table -o trivy-fs-report.html ."
             }
         }
 
-        stage('SonarQube Analysis') {
-    steps {
-        withCredentials([string(credentialsId: 'sonar-token', variable: 'sonar_token')]) {
-            sh """
-                mvn clean verify
-                mvn sonar:sonar \
-                    -Dsonar.projectKey=${DOCKER_IMAGE} \
-                    -Dsonar.projectName=${DOCKER_IMAGE} \
-                    -Dsonar.sources=src/main/java \
-                    -Dsonar.tests=src/test/java \
-                    -Dsonar.java.binaries=target/classes \
-                    -Dsonar.host.url=http://18.215.164.93:9000 \
-                    -Dsonar.token=${sonar_token} \
-                    -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
-            """
+        stage('Docker Image') {
+            steps {
+                sh 'docker build -t $DOCKER_IMAGE:$DOCKER_TAG .'
+            }
         }
-    }
-}
 
-        // stage('Docker Image') {
-        //     steps {
-        //         sh 'docker build -t $DOCKER_IMAGE:$DOCKER_TAG .'
-        //     }
-        // }
-
-        // stage('DockerHub push') {
-        //     steps {
-        //         withCredentials([usernamePassword(credentialsId: 'docker_cred', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-        //             sh '''
-        //                 echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-        //                 docker tag $DOCKER_IMAGE:$DOCKER_TAG $DOCKER_USER/$DOCKER_IMAGE:$DOCKER_TAG
-        //                 docker push $DOCKER_USER/$DOCKER_IMAGE:$DOCKER_TAG
-        //             '''
-        //         }
-        //     }
-        // }
-    }
-}
-
+        stage('Trivy Image Scan') {
+            steps {
+                sh "trivy image --format table -o trivy-image-report.html $DOCKER_IMAGE:$DOCKER_TAG"
+            }
+        }
 ```
-
 ## Notes
 - Replace `<sonarqube-server>` with your SonarQube server address.
 - Replace `sonarqube-token-id` with the Jenkins credentials ID for your SonarQube token.
