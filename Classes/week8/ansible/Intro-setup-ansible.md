@@ -71,7 +71,13 @@ After clicking on **Releases and Maintenance**, scroll down to find the **Ansibl
 ![Image](https://github.com/user-attachments/assets/5c69c566-159a-41f2-b28b-095826d7be6c)  
 
 This section provides insights into the latest updates, bug fixes, and changes in the Ansible Community distributions.  
-This resource provides comprehensive guides, examples, and references for using Ansible effectively.  
+
+### Ansible-Core Support Matrix  
+
+To ensure compatibility, refer to the Ansible-Core support matrix for system requirements and supported versions:  
+![Image](https://github.com/user-attachments/assets/b09a99c5-a322-4ec6-8e1a-2703d7184006)  
+
+This matrix provides details about supported Python versions, operating systems, and dependencies for different Ansible-Core releases.  
 ### Installation Commands  
 - To install a specific version of Ansible:  
   ```bash  
