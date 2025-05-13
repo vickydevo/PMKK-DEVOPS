@@ -60,7 +60,17 @@ Starting from version 2.10, Ansible is available in two distributions:
 ## Official Documentation  
 
 For more detailed information and the latest updates, refer to the [official Ansible documentation](https://docs.ansible.com/).  
+**![Image](https://github.com/user-attachments/assets/f5873f48-2e25-4972-927e-894aa47f541e)**
+---
+**![Image](https://github.com/user-attachments/assets/fa089a8f-598c-441b-be08-ac32b4e06b4e)**
+### Release Notes and Maintenance Logs  
 
+For detailed release notes and maintenance logs, navigate to the **Releases and Maintenance** section on the official Ansible documentation page.  
+
+After clicking on **Releases and Maintenance**, scroll down to find the **Ansible Community Logs** section, as shown in the image below:  
+![Image](https://github.com/user-attachments/assets/5c69c566-159a-41f2-b28b-095826d7be6c)  
+
+This section provides insights into the latest updates, bug fixes, and changes in the Ansible Community distributions.  
 This resource provides comprehensive guides, examples, and references for using Ansible effectively.  
 ### Installation Commands  
 - To install a specific version of Ansible:  
