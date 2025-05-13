@@ -1,3 +1,26 @@
+## Comparison of Sonar Analysis, Trivy, Sonar Quality Gates, and OWASP Dependency Check
+
+This section provides a clear comparison of the tools and concepts used in the pipeline, focusing on their purpose, what they scan, and their usage context.
+
+| **Tool/Concept**          | **Purpose**                                | **What It Scans**                     | **Usage Context**                                                                 |
+|----------------------------|--------------------------------------------|----------------------------------------|-----------------------------------------------------------------------------------|
+| **Sonar Analysis**         | Static Code Analysis (SAST)               | Source code                            | Detects code smells, bugs, vulnerabilities, and duplications                     |
+| **Trivy**                  | Vulnerability and Misconfiguration Scanner| Container images, file systems, Kubernetes, IaC | Used to find CVEs in Docker images, OS packages, etc.                            |
+| **Sonar Quality Gates**    | A set of conditions for quality standards  | Results from Sonar Analysis            | Enforces code quality thresholds in CI/CD pipelines                              |
+| **OWASP Dependency Check** | Software Composition Analysis (SCA)       | Project dependencies (Maven, npm, etc.)| Finds known vulnerable libraries (CVEs) in software projects                     |
+
+### ✅ Summary of Differences
+
+| **Feature**                | **Sonar Analysis** | **Trivy**            | **Sonar Quality Gates** | **OWASP Dependency Check** |
+|----------------------------|--------------------|----------------------|--------------------------|-----------------------------|
+| **Type**                   | SAST               | CVE/Vulnerability Scanner | Code quality threshold rules | SCA (Dependency scanning)  |
+| **Focus Area**             | Code structure & logic | Images, packages, IaC | Decision rule set         | External libraries          |
+| **Scans Source Code?**     | ✅ Yes             | ❌ (Only config/scripts) | ❌ (Works with Sonar reports) | ❌                          |
+| **Scans Dependencies?**    | ⚠️ Only basic (if configured) | ✅ Yes            | ❌                        | ✅ Yes                      |
+| **CI/CD Integration?**     | ✅ Yes             | ✅ Yes                | ✅ Yes                    | ✅ Yes                      |
+| **Report Output**          | Bugs, smells, CVEs | CVEs, misconfigs      | Pass/Fail gate            | CVE report on dependencies  |
+
+This comparison helps in understanding the unique roles of each tool and how they complement each other in a CI/CD pipeline.
 # Trivy and OWASP Integration with Jenkins Pipeline
 
 This guide provides steps to install Trivy and OWASP Dependency-Check, and integrate them into a Jenkins pipeline.
