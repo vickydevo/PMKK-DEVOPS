@@ -77,7 +77,32 @@ This section provides insights into the latest updates, bug fixes, and changes i
 To ensure compatibility, refer to the Ansible-Core support matrix for system requirements and supported versions:  
 ![Image](https://github.com/user-attachments/assets/b09a99c5-a322-4ec6-8e1a-2703d7184006)  
 
-This matrix provides details about supported Python versions, operating systems, and dependencies for different Ansible-Core releases.  
+This matrix provides details about supported Python versions, operating systems, and dependencies for different Ansible-Core releases. 
+### Alternative Installation Methods  
+
+Ansible can be installed in various ways depending on your operating system and requirements. Refer to the [Ansible Installation Guide](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#) for detailed instructions.  
+
+#### Installation Methods:  
+1. **Using Package Managers**:  
+    - For Red Hat-based systems:  
+      ```bash  
+      sudo yum install ansible  
+      ```  
+    - For Debian-based systems:  
+      ```bash  
+      sudo apt install ansible  
+      ```  
+
+2. **Using `pip`**:  
+    - Install the latest version:  
+      ```bash  
+      pip3 install ansible  
+      ```  
+
+
+![Image](https://github.com/user-attachments/assets/2cbdb7b9-0c21-4e63-a4cb-2c6b81798c9b)  
+
+> **Note**: Choose the installation method that best suits your environment and project requirements.  
 ### Installation Commands  
 - To install a specific version of Ansible:  
   ```bash  
@@ -87,5 +112,8 @@ This matrix provides details about supported Python versions, operating systems,
   ```bash  
   pip3 install ansible-core==<version>  
   ```  
+**![Image](https://github.com/user-attachments/assets/1d5a2416-e1fc-4e66-aa28-5344a93bc860)**
+
+
 
 > **Note**: Additional collections/modules from Ansible Community can be installed as required to extend functionality.  
