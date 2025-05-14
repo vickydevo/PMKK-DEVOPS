@@ -117,7 +117,7 @@ Ansible allows you to manage remote servers efficiently by leveraging its agentl
            ansible all -m ping
            ```
            
-    3. **Validate the Inventory File Format**  
+  3. **Validate the Inventory File Format**  
         Ensure the inventory file is correctly formatted. For example:
         ```ini
         [webservers]
