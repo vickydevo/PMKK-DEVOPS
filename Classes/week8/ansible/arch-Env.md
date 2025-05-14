@@ -127,24 +127,22 @@ Ansible allows you to manage remote servers efficiently by leveraging its agentl
         [dbservers]
         192.168.1.20
         ```
+        ### Disabling Host Key Checking in Ansible
 
- 
-    ### Disabling Host Key Checking in Ansible
+        To bypass host key verification prompts, disable host key checking by setting the `ANSIBLE_HOST_KEY_CHECKING` environment variable:
 
-    When running Ansible commands, you might encounter host key verification prompts. To bypass these prompts, you can disable host key checking by setting the `ANSIBLE_HOST_KEY_CHECKING` environment variable to `False`. This is particularly useful in environments where you frequently add new hosts.
+        ```bash
+        export ANSIBLE_HOST_KEY_CHECKING=False
+        ```
 
-    ```bash
-    export ANSIBLE_HOST_KEY_CHECKING=False
-    ```
-    ### Configuring Host Key Checking in `ansible.cfg`
+        ### Configuring Host Key Checking in `ansible.cfg`
 
-    To disable host key checking globally, you can configure it in the `ansible.cfg` file. Add the following under the `[defaults]` section:
+        To disable it globally, update the `ansible.cfg` file:
 
-    ```ini
-    [defaults]
-    inventory=./inventory
-    host_key_checking = False
-    ```
+        ```ini
+        [defaults]
+        inventory=./inventory
+        host_key_checking = False
+        ```
 
-    This ensures that Ansible will not prompt for host key verification during execution. Make sure the `ansible.cfg` file is located in your project directory or in a location where Ansible can detect it.
-    
+        Place the `ansible.cfg` file in your project directory or a location Ansible can detect.
