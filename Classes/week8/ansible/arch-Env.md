@@ -9,7 +9,7 @@ Ansible is a powerful tool used in various areas of IT automation. It simplifies
 Ansible allows you to manage remote servers efficiently by leveraging its agentless architecture and SSH-based communication.
 
 ---
-**![Image](https://github.com/user-attachments/assets/bab5c08f-5253-4a03-b25f-2acbf7a67da1)**
+***![Image](https://github.com/user-attachments/assets/bab5c08f-5253-4a03-b25f-2acbf7a67da1)***
 ## Important Points to Remember
 
 1. **Ansible Uses SSH Connection to Work with Remote Servers**  
