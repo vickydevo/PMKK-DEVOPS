@@ -128,7 +128,7 @@ Ansible allows you to manage remote servers efficiently by leveraging its agentl
         192.168.1.20
         ```
 
-    By addressing these points, you can resolve issues related to missing or misconfigured inventory files.  
+ 
     ### Disabling Host Key Checking in Ansible
 
     When running Ansible commands, you might encounter host key verification prompts. To bypass these prompts, you can disable host key checking by setting the `ANSIBLE_HOST_KEY_CHECKING` environment variable to `False`. This is particularly useful in environments where you frequently add new hosts.
