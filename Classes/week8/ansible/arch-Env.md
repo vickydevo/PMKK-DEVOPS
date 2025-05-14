@@ -76,9 +76,9 @@ Ansible allows you to manage remote servers efficiently by leveraging its agentl
 3.1 **Verify Public Key on Managed Nodes**  
     Ensure the public key has been added to the `~/.ssh/authorized_keys` file of the created user (`ansadmin`) on each managed node. You can verify this by checking the contents of the file:
 
-    ```bash
+    
     cat ~/.ssh/authorized_keys
-    ```
+ 
 ![Image](https://github.com/user-attachments/assets/a8f59568-1a29-40a7-9fe6-a37a6e7612a3)
     The public key from the Ansible controller node should be listed in this file. If it is not present, manually append the public key to the file.
 4. **Switch to the Created User on the Controller Node**  
