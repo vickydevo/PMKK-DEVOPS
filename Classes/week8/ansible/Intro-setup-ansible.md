@@ -114,6 +114,97 @@ Ansible can be installed in various ways depending on your operating system and 
   ```  
 **![Image](https://github.com/user-attachments/assets/1d5a2416-e1fc-4e66-aa28-5344a93bc860)**
 
+### Setting Up Ansible Using WSL on Windows  
+
+Windows Subsystem for Linux (WSL) allows you to run a Linux environment directly on Windows. Follow these steps to set up Ansible using WSL:  
+#### Step 1: Enable WSL Feature  
+1. Open PowerShell as Administrator.  
+2. Run the following command to enable the WSL feature:  
+![Image](https://github.com/user-attachments/assets/33ba8754-d6ec-42af-9359-a8f77abd40a7)
+---
+![Image](https://github.com/user-attachments/assets/c904eb37-266f-4684-a7cc-e3d1e47420c9)
+
+
+  ```bash  
+  dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart  
+  ```  
+
+#### Step 2: Enable Virtual Machine Platform  
+1. Run the following command to enable the Virtual Machine Platform:  
+  ```bash  
+  dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart  
+  ```  
+
+#### Step 3: Restart Your Computer  
+Restart your computer to apply the changes.  
+
+#### Step 4: Install a Linux Distribution  
+1. Open the Microsoft Store.  
+2. Search for your preferred Linux distribution (e.g., Ubuntu).  
+3. Click **Install** to download and install the distribution.  
+
+#### Step 5: Set Up the Linux Distribution  
+1. Launch the installed Linux distribution from the Start menu.  
+2. Follow the on-screen instructions to complete the setup (e.g., creating a username and password).  
+
+#### Step 6: Update WSL to WSL 2 (Optional)  
+1. Download the latest WSL 2 kernel update package from the [Microsoft WSL documentation](https://aka.ms/wsl2kernel).  
+2. Install the package.  
+3. Set WSL 2 as the default version:  
+  ```bash  
+  wsl --set-default-version 2  
+  ```  
+
+#### Step 7: Verify WSL Installation  
+To check the installed WSL version and distributions, run:  
+```bash  
+wsl -l -v  
+```  
+
+> **Note**: Ensure that your Windows version supports WSL 2. You can check this in the [WSL documentation](https://docs.microsoft.com/en-us/windows/wsl/install).  
+
+#### Step 1: Check Installed WSL Distributions  
+To list all installed WSL distributions, use the following command:  
+```bash  
+wsl -l  
+```  
+
+To list distributions with their version details, use:  
+```bash  
+wsl -l -v  
+```  
+
+#### Step 2: Set Default WSL Distribution  
+To set a specific distribution as the default, use:  
+```bash  
+wsl -s <distribution_name>  
+```  
+For example, to set Ubuntu as the default:  
+```bash  
+wsl -s Ubuntu  
+```  
+
+#### Step 3: Shutdown WSL  
+To shut down all running WSL distributions, use:  
+```bash  
+wsl --shutdown  
+```  
+
+#### Step 4: Install Ansible in WSL  
+Once inside your WSL distribution (e.g., Ubuntu), you can install Ansible using `pip3`:  
+```bash  
+pip3 install ansible==10  
+```  
+
+> **Note**: Replace `10` with the desired version of Ansible if needed.  
+
+#### Step 5: Verify Installation  
+To confirm that Ansible is installed, run:  
+```bash  
+ansible --version  
+```  
+
+> **Tip**: Ensure that Python and `pip3` are installed in your WSL environment before installing Ansible.  
 
 
 > **Note**: Additional collections/modules from Ansible Community can be installed as required to extend functionality.  
