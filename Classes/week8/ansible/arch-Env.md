@@ -1,4 +1,4 @@
-# Ansible and Ansible Playbooks for Automation
+# Ansible Architechure and Ansible Controller and node setup (SSH)
 
 ## Overview
 Ansible is a powerful tool used in various areas of IT automation. It simplifies configuration management, application deployment, and orchestration tasks.
@@ -33,9 +33,9 @@ Ansible allows you to manage remote servers efficiently by leveraging its agentl
 1. **Create a User Across All Servers**  
     Create a unique user (e.g., `ansadmin`, `automation`, `devops`, or `cloudadmin`) on all servers.
        
-       ```bash
-        useradd -ms /bin/bash ansadmin 
-      ```
+```bash
+    useradd -ms /bin/bash ansadmin 
+ ```
 2. **Provide Root Access**  
     Grant root access to the created user on all servers.
       
@@ -46,7 +46,7 @@ Ansible allows you to manage remote servers efficiently by leveraging its agentl
 3. **Generate and Exchange SSH Keys**  
     - Generate SSH keys on the Ansible controller node as the created user (e.g., `ansadmin`).  
 
-  ```bash
+    ```bash
     ssh-keygen
     ```
     **![Image](https://github.com/user-attachments/assets/4dae8ce6-b428-4981-816f-ddbad0e37e2e)**
@@ -66,11 +66,13 @@ Ansible allows you to manage remote servers efficiently by leveraging its agentl
     sudo systemctl restart ssh
 
     ```
+    ---
     ```bash
     ssh-copy-id ansadmin@<managed-node-ip>
     ```
     Replace `<managed-node-ip>` with the IP address or hostname of the managed node. Repeat this step for each managed node to transfer the public key.
 **![Image](https://github.com/user-attachments/assets/8bcb3ee5-ed13-4a39-a9da-b4eb00705bb6)**
+
 3.1 **Verify Public Key on Managed Nodes**  
     Ensure the public key has been added to the `~/.ssh/authorized_keys` file of the created user (`ansadmin`) on each managed node. You can verify this by checking the contents of the file:
 
