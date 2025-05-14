@@ -93,17 +93,12 @@ Ansible can be installed in various ways depending on your operating system and 
       sudo apt install ansible  
       ```  
 
-2. **Using `pip`**:  
-    - Install the latest version:  
-      ```bash  
-      pip3 install ansible  
-      ```  
 
 
 ![Image](https://github.com/user-attachments/assets/2cbdb7b9-0c21-4e63-a4cb-2c6b81798c9b)  
 
 > **Note**: Choose the installation method that best suits your environment and project requirements.  
-### Installation Commands  
+### Installation Commands  uxinb pip
 - To install a specific version of Ansible:  
   ```bash  
   pip3 install ansible==<version>  
@@ -122,9 +117,9 @@ Windows Subsystem for Linux (WSL) allows you to run a Linux environment directly
 2. Run the following command to enable the WSL feature:  
 ![Image](https://github.com/user-attachments/assets/33ba8754-d6ec-42af-9359-a8f77abd40a7)
 ---
-![Image](https://github.com/user-attachments/assets/c904eb37-266f-4684-a7cc-e3d1e47420c9)
+**![Image](https://github.com/user-attachments/assets/c904eb37-266f-4684-a7cc-e3d1e47420c9)**
 
-
+---
   ```bash  
   dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart  
   ```  
