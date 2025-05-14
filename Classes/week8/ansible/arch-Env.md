@@ -96,20 +96,22 @@ Ansible allows you to manage remote servers efficiently by leveraging its agentl
     ### Troubleshooting: No Inventory Found
 
     If you encounter an error stating "No inventory was found," it means Ansible could not locate the inventory file. To resolve this:
-![Image](https://github.com/user-attachments/assets/b3900610-3761-4506-a363-6256d644a66a)
+
+**![Image](https://github.com/user-attachments/assets/b3900610-3761-4506-a363-6256d644a66a)**
     
     1. **Specify the Inventory File Explicitly**  
         Use the `-i` option to specify the path to your inventory file when running Ansible commands. For example:
-        ```bash
+
+```bash
          ansible all -m anisble.builtin.ping -i inventory
-        ```
-   ![Image](https://github.com/user-attachments/assets/b3900610-3761-4506-a363-6256d644a66a)
+```
     2. **Check the Default Inventory Path**  
         By default, Ansible looks for an inventory file at ./myproject/inventory `/etc/ansible/hosts`. Ensure this file exists or configure the `ansible.cfg` file to point to your custom inventory file:
         ```ini
         [defaults]
         inventory = /path/to/inventory
         ```
+
        Ansible will automatically use this file if no inventory file is passed during execution. For example:
            ```bash
            ansible all -m ping
@@ -127,16 +129,7 @@ Ansible allows you to manage remote servers efficiently by leveraging its agentl
         ```
 
     By addressing these points, you can resolve issues related to missing or misconfigured inventory files.
----
-
-    ### Notes
-
-    - **Using Ansible Without SSH Keys**  
-      You can use Ansible with a username and password instead of SSH keys by specifying the `--ask-pass` option when running Ansible commands.
-
-    - **Using Ansible Without a Dedicated User (e.g., `ansadmin`)**  
-      Ansible can also be configured to work with existing users on the managed nodes. Ensure the user has the necessary permissions to execute tasks.
-
+-  
     ### Disabling Host Key Checking in Ansible
 
     When running Ansible commands, you might encounter host key verification prompts. To bypass these prompts, you can disable host key checking by setting the `ANSIBLE_HOST_KEY_CHECKING` environment variable to `False`. This is particularly useful in environments where you frequently add new hosts.
