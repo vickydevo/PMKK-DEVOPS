@@ -1,0 +1,28 @@
+# Individual hosts
+webserver1 ansible_host=192.168.1.10 ansible_user=admin
+dbserver1 ansible_host=192.168.1.20 ansible_user=root
+
+# Groups
+[webservers]
+webserver1
+webserver2 ansible_host=192.168.1.11 ansible_user=admin
+
+[dbservers]
+dbserver1
+dbserver2 ansible_host=192.168.1.21 ansible_user=root
+[all]
+98.80.120.113 ansible_python_interpreter=/usr/bin/python3.9
+54.82.38.32 ansible_python_interpreter=/usr/bin/python3.12
+
+# Group variables
+[webservers:vars]
+http_port=80
+ansible_connection=ssh
+
+[dbservers:vars]
+db_port=3306
+
+# Nested groups
+[all:children]
+webservers
+dbservers

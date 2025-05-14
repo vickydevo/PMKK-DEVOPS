@@ -136,3 +136,23 @@ Ansible allows you to manage remote servers efficiently by leveraging its agentl
 
     - **Using Ansible Without a Dedicated User (e.g., `ansadmin`)**  
       Ansible can also be configured to work with existing users on the managed nodes. Ensure the user has the necessary permissions to execute tasks.
+
+    ### Disabling Host Key Checking in Ansible
+
+    When running Ansible commands, you might encounter host key verification prompts. To bypass these prompts, you can disable host key checking by setting the `ANSIBLE_HOST_KEY_CHECKING` environment variable to `False`. This is particularly useful in environments where you frequently add new hosts.
+
+    ```bash
+    export ANSIBLE_HOST_KEY_CHECKING=False
+    ```
+    ### Configuring Host Key Checking in `ansible.cfg`
+
+    To disable host key checking globally, you can configure it in the `ansible.cfg` file. Add the following under the `[defaults]` section:
+
+    ```ini
+    [defaults]
+    inventory=./inventory
+    host_key_checking = False
+    ```
+
+    This ensures that Ansible will not prompt for host key verification during execution. Make sure the `ansible.cfg` file is located in your project directory or in a location where Ansible can detect it.
+    
