@@ -165,7 +165,7 @@ To list all installed collections related to Azure, you can use:
 ansible-galaxy collection list
 ansible-galaxy collection list | grep azu
 ```
-**![Image](https://github.com/user-attachments/assets/44847388-39bb-426d-804e-09fce0c8290a)**
+**![Image](https://github.com/user-attachments/assets/6910ed1f-8a9f-4528-9692-6493afc035cf)**
 
 
 To install collections listed in a `requirements.yml` file (commonly found in a collection's `README.md`):
