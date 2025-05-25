@@ -146,6 +146,8 @@ To install the Azure collection into a specific project directory (instead of th
 **Example:**
 ```bash
 ansible-galaxy collection install azure.azcollection -p ./project1/collections
+ansible-galaxy collection install amazon.aws -p ./project1/collections
+
 ```
 **![Image](https://github.com/user-attachments/assets/ac1ab1c3-1c8b-4388-839b-26d4a35301b3)**
 
@@ -166,6 +168,36 @@ ansible-galaxy collection list
 ansible-galaxy collection list | grep azu
 ```
 **![Image](https://github.com/user-attachments/assets/6910ed1f-8a9f-4528-9692-6493afc035cf)**
+
+## Python Dependencies for Cloud Modules
+
+When working with Amazon AWS or Microsoft Azure modules in Ansible, you often need to install additional Python libraries to enable API communication.
+
+### For Amazon AWS
+
+Many AWS modules require the `boto` and `boto3` libraries, as well as `botocore`. Install them using pip:
+
+```bash
+pip3 install boto boto3 botocore
+```
+
+### For Microsoft Azure
+
+Azure modules typically require the `azure` Python SDK packages. The recommended way is:
+
+```bash
+pip install 'ansible[azure]'
+```
+
+Or, for more granular control:
+
+```bash
+pip install azure-cli
+pip install azure-mgmt-resource
+```
+
+> **Note:** Always check the documentation for the specific collection or module you are using, as requirements may change.
+
 
 
 To install collections listed in a `requirements.yml` file (commonly found in a collection's `README.md`):
