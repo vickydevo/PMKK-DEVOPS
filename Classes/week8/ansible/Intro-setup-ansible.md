@@ -99,9 +99,12 @@ Ansible can be installed in various ways depending on your operating system and 
 
 > **Note**: Choose the installation method that best suits your environment and project requirements.  
 ### Installation Commands  uxinb pip
-- To install a specific version of Ansible:  
+- To install a specific version of Ansible community :  
   ```bash  
-  pip3 install ansible==<version>  
+  pip3 install ansible==<version> 
+
+  pip uninstall ansible
+ 
   ```  
 - To install a specific version of Ansible Core:  
   ```bash  
