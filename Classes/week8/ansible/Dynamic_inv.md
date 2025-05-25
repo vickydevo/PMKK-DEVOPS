@@ -1,58 +1,114 @@
-# Dynamic Inventory with Ansible and AWS EC2
+# Ansible Dynamic Inventory with AWS EC2
 
-## Step 1: Install AWS Collection
+This guide explains how to set up and use Ansible's dynamic inventory with AWS EC2 instances.
+
+## Prerequisites
+
+- Ansible installed on your system
+- AWS account with access keys
+- AWS CLI installed (`pip3 install awscli --user`)
+
+## 1. Install the AWS Collection
+
+Install the Amazon AWS Ansible collection:
 
 ```bash
 ansible-galaxy collection install amazon.aws
 ```
 
-## Step 2: Get Access Keys for AWS Account
+## 2. Configure AWS Credentials
 
-- Obtain your AWS Access Key ID and Secret Access Key from the AWS IAM console.
-- Configure them using `aws configure` or set as environment variables:
-    ```bash
-    export AWS_ACCESS_KEY_ID=your_access_key
-    export AWS_SECRET_ACCESS_KEY=your_secret_key
-    export AWS_DEFAULT_REGION=your_region
-    ```
+You can provide AWS credentials in several ways:
 
-## Step 3: Create Inventory File
+### Option 1: Environment Variables
 
-- Create a file named `aws_ec2.yml` (or `myproject.aws_ec2.yml`).
+```bash
+export AWS_ACCESS_KEY_ID=your_access_key
+export AWS_SECRET_ACCESS_KEY=your_secret_key
+export AWS_DEFAULT_REGION=your_region
+```
 
-## Step 4: Write Logic in Inventory File
+### Option 2: AWS CLI Profile
 
-Example `aws_ec2.yml` using the `aws_ec2` inventory plugin:
+Configure a dedicated profile:
 
+```bash
+aws configure --profile ansibleautomation
+```
 
-To list available inventory plugins and filter for AWS-related ones, use:
+To use this profile with Ansible:
+
+```bash
+export AWS_PROFILE=ansibleautomation
+```
+
+Or specify the profile in your inventory file:
+
+```yaml
+profile: ansibleautomation
+```
+
+## 3. Create the Dynamic Inventory File
+
+Create a file named `aws_ec2.yml` (or similar). Example content:
+
+```yaml
+---
+plugin: amazon.aws.aws_ec2
+regions:
+    - us-east-1
+    - us-east-2
+leading_separator: False
+keyed_groups:
+    - key: tags.Env
+        prefix: tag
+filters:
+    instance-state-name: running
+```
+
+- Adjust `regions` and `filters` as needed.
+- Use `keyed_groups` to group hosts by tags (e.g., `tags.Env`).
+
+**![Image](https://github.com/user-attachments/assets/6a87ebc0-45d5-4944-8f37-d5d81e15f7d1)**
+
+## 4. List Available Inventory Plugins
+
+To see available AWS inventory plugins:
 
 ```bash
 ansible-doc -t inventory -l | grep aws
 ```
 
-This will show plugins like `amazon.aws.aws_ec2` that can be used for dynamic inventory with AWS.
+## 5. View Dynamic Inventory
 
-```yaml
-plugin: amazon.aws.aws_ec2
-regions:
-    - us-east-1
-filters:
-    tag:Name: ansadmin
-keyed_groups:
-    - key: tags.Name
-        prefix: tag
-hostnames:
-    - private-ip-address
+Generate and view your dynamic inventory:
+
+```bash
+ansible-inventory -i aws_ec2.yml --list
+ansible-inventory -i aws_ec2.yml --graph
 ```
 
-- Adjust `regions` and `filters` as needed for your environment.
-- This example filters instances with the tag `Name=ansadmin`.
+This outputs discovered EC2 instances and their groupings.
 
-## Note
+## 6. Test Connectivity
 
-- Typically, new servers are launched from a custom AMI where the `ansadmin` user is already configured.
-- Ensure your AMI includes the necessary user and SSH key setup for Ansible access.
+To test connectivity to EC2 instances grouped by tag (e.g., `tag_dev`):
+
+```bash
+ansible tag_dev -m ansible.builtin.ping -i aws_ec2.yml
+```
+
+Ensure your EC2 instances have the appropriate tags and security group rules for SSH access.
+
+## 7. Clear AWS Credentials (Optional)
+
+To remove AWS credentials from your environment:
+
+```bash
+unset AWS_ACCESS_KEY_ID
+unset AWS_SECRET_ACCESS_KEY
+unset AWS_SESSION_TOKEN
+```
 
 ## References
 
