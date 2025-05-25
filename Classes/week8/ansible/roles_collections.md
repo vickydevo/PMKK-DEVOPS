@@ -28,13 +28,35 @@
 - **Filter plugins:** Transform data in templates
 - **Inventory plugins:** Define dynamic inventories
 
-# Lists all available Ansible become plugins and their short descriptions.
-#
-# Syntax:
-#   ansible-doc -t become -l
+## Using `ansible-doc`
 
-#
-# This command helps users discover which privilege escalation methods (become plugins) are available for use in their Ansible environment.
+The `ansible-doc` command provides documentation for Ansible modules, plugins, and other components directly from the command line. It is useful for quickly referencing usage, options, and examples.
+
+**Basic usage:**
+```bash
+ansible-doc --help
+ansible-doc -h
+```
+
+This displays the help message, listing all available options and usage instructions.
+
+
+## Useful Ansible Commands
+
+To view documentation for the `copy` module (a core Ansible module):
+
+```bash
+ansible-doc -t module copy
+```
+
+To list all available Ansible become plugins and their short descriptions:
+
+```bash
+ansible-doc -t become -l
+ansible-doc -t connections -l
+```
+
+These commands help users discover module usage details and available privilege escalation (become) plugins in their Ansible environment.
 
 **Example:**
 A filter plugin can be used in a Jinja2 template:
@@ -80,6 +102,24 @@ roles/
 - Package multiple roles, modules, and plugins together
 - Versioned and distributable
 - Simplifies dependency management
+
+## Searching for Cloud Collections
+
+To find available Ansible collections for working with cloud providers such as Amazon AWS or Microsoft Azure, you can use the `ansible-galaxy` command or search documentation. For example, to list collections related to Amazon or Azure:
+
+```bash
+ansible-galaxy collection list | grep amazon
+ansible-galaxy collection list | grep azure
+```
+
+Alternatively, to search for modules and plugins related to these clouds, use `ansible-doc`:
+
+```bash
+ansible-doc -l | grep amazon
+ansible-doc -l | grep azure
+```
+
+These commands help you discover modules and collections for managing cloud resources. For more details, refer to the README or documentation of each collection, such as [`amazon.aws`](https://galaxy.ansible.com/amazon/aws) or [`azure.azcollection`](https://galaxy.ansible.com/azure/azcollection).
 
 **Example structure:**
 ```
