@@ -180,7 +180,7 @@ Many AWS modules require the `boto` and `boto3` libraries, as well as `botocore`
 ```bash
 pip3 install boto boto3 botocore
 ```
-
+**![Image](https://github.com/user-attachments/assets/24195da2-a7a8-49d2-adc7-ad2d1ae83384)**
 ### For Microsoft Azure
 
 Azure modules typically require the `azure` Python SDK packages. The recommended way is:
