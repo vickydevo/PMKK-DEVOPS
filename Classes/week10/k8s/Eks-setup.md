@@ -214,6 +214,8 @@ eksctl utils associate-iam-oidc-provider \
 eksctl delete cluster --name my-eks-cluster --region us-east-1
 
 ```
+kubectl get daemonset -A  
+
 or 
 ## Option : Force Delete the Cluster
   - Skip draining with the --disable-nodegroup-eviction flag:
@@ -223,3 +225,6 @@ eksctl delete cluster --name my-eks-cluster --region us-east-1 --disable-nodegro
 
 ```
 **![Image](https://github.com/user-attachments/assets/deaf99b6-7cf6-44d8-ac45-03c864720a20)**
+
+
+kubectl get daemonset -A
