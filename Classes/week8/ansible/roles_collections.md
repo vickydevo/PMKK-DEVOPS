@@ -72,14 +72,30 @@ A filter plugin can be used in a Jinja2 template:
 
 # Ansible Roles and Collections
 
-## What are Roles?
+# Roles in Ansible
 
-**Roles** are a way to organize Ansible playbooks and tasks into reusable components. A role groups together tasks, variables, files, templates, and handlers that are related to a specific functionality (e.g., installing a web server). Roles help make playbooks cleaner, more modular, and easier to maintain.
+Roles in Ansible provide a standardized way to automatically load related variables, files, templates, handlers, and tasks using a known directory structure. This organization simplifies the reuse and sharing of automation content.
 
-**Key features:**
-- Encapsulate automation logic
-- Promote reuse and sharing
-- Directory structure enforces best practices
+## Benefits of Roles
+
+- **Modularization:** Roles help in organizing playbooks by grouping related content.
+- **Reusability:** Roles can be reused across different playbooks and projects.
+- **Maintainability:** The structured approach makes it easier to maintain and update automation code.
+
+
+## Creating a Role Directory Structure
+
+To create the directory structure for a new role, use the following command:
+```bash
+ansible-galaxy init <role_name>
+
+
+ansible-galaxy init httpd --offline
+
+```
+
+
+Replace `<role_name>` with the desired name for your role. This command will generate the standard directory structure for an Ansible role.
 
 **Example structure:**
 ```
