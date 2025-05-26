@@ -15,7 +15,32 @@ Install the Amazon AWS Ansible collection:
 ```bash
 ansible-galaxy collection install amazon.aws
 ```
+## Inventory Plugins List
 
+To list all available inventory plugins, run:
+
+```bash
+ansible-doc -t inventory -l
+ansible-doc -t inventory -l | grep aws
+```
+
+Example output:
+
+```
+auto             Uses inventory sources in YAML format
+aws_ec2          EC2 inventory source
+azure_rm         Azure Resource Manager inventory source
+cloudstack       CloudStack inventory source
+constructed      Uses Jinja2 to construct hosts and groups
+gcp_compute      Google Cloud Platform inventory source
+host_list        Parses a 'host list' string
+ini              Uses an ini file to define inventory
+openstack        OpenStack inventory source
+script           Executes an inventory script
+yaml             Uses inventory sources in YAML format
+```
+
+Look for `aws_ec2` in the list to confirm the AWS EC2 dynamic inventory plugin is available.
 ## 2. Configure AWS Credentials
 
 You can provide AWS credentials in several ways:
