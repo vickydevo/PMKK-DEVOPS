@@ -100,14 +100,14 @@ Replace `<role_name>` with the desired name for your role. This command will gen
 **Example structure:**
 ```
 roles/
-    webserver/
-        tasks/
-        handlers/
-        templates/
-        files/
-        vars/
-        defaults/
-        meta/
+    webserver/                   # Name of the role
+        tasks/                   # Main list of tasks to execute
+        handlers/                # Handlers, typically for service restarts/reloads
+        templates/               # Jinja2 templates for config files
+        files/                   # Static files to copy to hosts
+        vars/                    # Variables with higher precedence
+        defaults/                # Default variables (lowest precedence)
+        meta/                    # Role metadata (dependencies, author, etc.)
 ```
 
 ## What are Collections?
