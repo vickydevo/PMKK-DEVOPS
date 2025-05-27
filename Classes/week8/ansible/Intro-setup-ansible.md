@@ -82,35 +82,6 @@ This matrix provides details about supported Python versions, operating systems,
 
 Ansible can be installed in various ways depending on your operating system and requirements. Refer to the [Ansible Installation Guide](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#) for detailed instructions.  
 
-#### Installation Methods:  
-1. **Using Package Managers**:  
-    - For Red Hat-based systems:  
-      ```bash  
-      sudo yum install ansible  
-      ```  
-    - For Debian-based systems:  
-      ```bash  
-      sudo apt install ansible  
-      ```  
-
-
-
-![Image](https://github.com/user-attachments/assets/2cbdb7b9-0c21-4e63-a4cb-2c6b81798c9b)  
-
-> **Note**: Choose the installation method that best suits your environment and project requirements.  
-### Installation Commands  uxinb pip
-- To install a specific version of Ansible community :  
-  ```bash  
-  pip3 install ansible==<version> 
-
-  pip uninstall ansible
- 
-  ```  
-- To install a specific version of Ansible Core:  
-  ```bash  
-  pip3 install ansible-core==<version>  
-  ```  
-**![Image](https://github.com/user-attachments/assets/1d5a2416-e1fc-4e66-aa28-5344a93bc860)**
 
 ### Setting Up Ansible Using WSL on Windows  
 
@@ -123,15 +94,6 @@ Windows Subsystem for Linux (WSL) allows you to run a Linux environment directly
 **![Image](https://github.com/user-attachments/assets/c904eb37-266f-4684-a7cc-e3d1e47420c9)**
 
 ---
-  ```bash  
-  dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart  
-  ```  
-
-#### Step 2: Enable Virtual Machine Platform  
-1. Run the following command to enable the Virtual Machine Platform:  
-  ```bash  
-  dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart  
-  ```  
 
 #### Step 3: Restart Your Computer  
 Restart your computer to apply the changes.  
@@ -161,16 +123,7 @@ wsl -l -v
 
 > **Note**: Ensure that your Windows version supports WSL 2. You can check this in the [WSL documentation](https://docs.microsoft.com/en-us/windows/wsl/install).  
 
-#### Step 1: Check Installed WSL Distributions  
-To list all installed WSL distributions, use the following command:  
-```bash  
-wsl -l  
-```  
 
-To list distributions with their version details, use:  
-```bash  
-wsl -l -v  
-```  
 
 #### Step 2: Set Default WSL Distribution  
 To set a specific distribution as the default, use:  
@@ -186,13 +139,102 @@ wsl -s Ubuntu
 To shut down all running WSL distributions, use:  
 ```bash  
 wsl --shutdown  
-```  
+``` 
+--- 
+#### Installation Methods:  
+1. **Using Package Managers**:  
+    - For Red Hat-based systems:  
+      ```bash  
+      sudo yum install ansible  
+      ```  
+    - For Debian-based systems:  
+      ```bash  
+      sudo apt install ansible  
+      ```  
+
+![Image](https://github.com/user-attachments/assets/2cbdb7b9-0c21-4e63-a4cb-2c6b81798c9b)  
+
+> **Note**: Choose the installation method that best suits your environment and project requirements.  
+
+**![Image](https://github.com/user-attachments/assets/1d5a2416-e1fc-4e66-aa28-5344a93bc860)**
+
 
 #### Step 4: Install Ansible in WSL  
+Before installing Ansible, ensure that `pip3` is available. You can install it using the following command:
+
+```bash
+sudo apt update
+sudo apt install python3-pip
+```
 Once inside your WSL distribution (e.g., Ubuntu), you can install Ansible using `pip3`:  
 ```bash  
-pip3 install ansible==10  
+pip3 install ansible==10.0.1
+OR
+pip3 install ansible-core==2.17 
 ```  
+**![Image](https://github.com/user-attachments/assets/06dfb3ca-edef-4966-bed7-b4627a05e833)**
+
+### Installing Ansible Using pipx
+
+You can also install Ansible using [pipx](https://pypa.github.io/pipx/), which helps you run Python applications in isolated environments.
+
+#### Step 1: Install pipx
+
+```bash
+sudo apt update
+sudo apt install pipx
+```
+
+#### Step 2: Ensure pipx is in Your PATH
+
+```bash
+pipx ensurepath
+```
+
+Restart your terminal or source your shell configuration:
+
+```bash
+source ~/.bashrc   # or ~/.zshrc
+```
+
+#### Step 3: Install Ansible (e.g., version 2.17)
+
+```bash
+pipx install ansible-core==2.17
+```
+
+#### Step 4: Verify Installation
+
+```bash
+ansible --version
+```
+
+If you see `Command 'ansible' not found`, add pipx's binary directory to your PATH:
+
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+```
+
+To make this change permanent, add it to your shell config:
+
+```bash
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+#### 📦 Uninstall or Upgrade Ansible
+
+To upgrade Ansible:
+
+```bash
+pipx upgrade ansible-core
+```
+
+To uninstall Ansible:
+
+```bash
+pipx uninstall ansible-core
+```
 
 > **Note**: Replace `10` with the desired version of Ansible if needed.  
 
@@ -202,6 +244,7 @@ To confirm that Ansible is installed, run:
 ansible --version  
 ```  
 
+````markdown
 > **Tip**: Ensure that Python and `pip3` are installed in your WSL environment before installing Ansible.  
 
 
