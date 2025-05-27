@@ -71,14 +71,28 @@ Create an Ingress resource YAML file (e.g., `my-ingress.yaml`) and apply it:
 
 ```sh
 microk8s kubectl apply -f my-ingress.yaml
+``` 
+
+## Example: Deploying Multiple Services and Ingress
+
+Below are the commands to deploy multiple services and configure Ingress routing:
+
+```sh
+kubectl apply -f ingress/dep-spring.yaml
+kubectl apply -f ingress/deploy-one.yaml
+kubectl apply -f ingress/deploy-two.yaml
+kubectl apply -f ingress/ingress_reso_path.yaml
+kubectl port-forward --namespace ingress-nginx service/ingress-nginx-controller 9900:80
 ```
 
+These commands will:
+- Deploy a Spring Boot app, NGINX, and HTTPD as separate services.
+- Create an Ingress resource for path-based routing.
+- Forward port 9900 on your local machine to the Ingress Controller for testing. not cloud k8s
 ### 4. Accessing Ingress
 
 By default, the Ingress Controller listens on the cluster node's IP address. You can access your services using the node IP and the configured paths or hostnames.
-
-**Note:** For local development, you may need to edit your `/etc/hosts` file to map custom hostnames to your node's IP.
-
+   http://127.0.0.1:8888/spring
 ---
 
 For more details, see the [MicroK8s Ingress documentation](https://microk8s.io/docs/addon-ingress).

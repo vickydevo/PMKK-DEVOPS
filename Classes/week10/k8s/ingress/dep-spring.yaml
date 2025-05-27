@@ -18,7 +18,7 @@ spec:
       - name: springboot
         image: vignan91/spring-test:latest   # ⚠️ Potential issue, see notes below
         ports:
-        - containerPort: 8090
+        - containerPort: 8081
         env:
         - name: TITLE
           value: "springboot"
@@ -36,4 +36,4 @@ spec:
   ports:
   - protocol: TCP
     port: 80
-    targetPort: 8090
+    targetPort: 8081
