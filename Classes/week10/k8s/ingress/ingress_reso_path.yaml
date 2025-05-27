@@ -12,11 +12,11 @@ spec:
   rules:
   - http:
       paths:
-      - path: /nginx(/|$)(.*)
+      - path: /spring(/|$)(.*)
         pathType: Prefix
         backend:
           service:
-            name: nginx
+            name: spring-service
             port:
               number: 80
       - path: /httpd(/|$)(.*)
