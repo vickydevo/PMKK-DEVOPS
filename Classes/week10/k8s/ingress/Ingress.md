@@ -62,6 +62,15 @@ Check that the Ingress Controller pod is running:
 ```sh
 microk8s kubectl get pods -n ingress
 ```
+### Alternative: Install the Official NGINX Ingress Controller
+
+To install the official NGINX Ingress Controller (instead of the MicroK8s add-on), apply the following manifest:
+
+```sh
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.2.1/deploy/static/provider/cloud/deploy.yaml
+```
+
+This will deploy the NGINX Ingress Controller using the recommended configuration from the Kubernetes project. For more details, refer to the [official documentation](https://kubernetes.github.io/ingress-nginx/deploy/).
 
 You should see a pod named similar to `nginx-ingress-microk8s-controller` in the `Running` state.
 
