@@ -274,3 +274,104 @@ Since the cluster IP is `100.0.0.2` and NodePort is `30738`, you can access your
 ---
 
 **Helm3 chart: helloworld**
+
+## 2.6: Accessing Your Application in the Browser
+
+To access your deployed application from your browser, you need the **Node IP** and the **NodePort**.
+
+1. **Get the Node IP**  
+    Run the following command on your VM to get the IP address:
+    ```bash
+    hostname -I
+    ```
+    Example output:
+    ```
+    172.30.159.60 172.17.0.1 10.1.124.0
+    ```
+    Use the first IP (`172.30.159.60`) as your Node IP.
+
+
+
+3. **Access in Browser**  
+    Open your browser and navigate to:
+    ```
+    http://<NodeIP>:<NodePort>
+    ```
+    For the example above:
+    ```
+    http://172.30.159.60:30738
+    ```
+
+---
+## 2.7: Accessing the Kubernetes Dashboard with microk8s
+
+microk8s provides a built-in Kubernetes Dashboard for cluster management and visualization.
+
+### 2.7.1: Enable the Dashboard
+
+If not already enabled, run:
+
+```bash
+microk8s enable dashboard
+```
+
+### 2.7.2: Start the Dashboard Proxy
+
+Start the proxy to access the dashboard:
+
+```bash
+microk8s dashboard-proxy
+```
+
+You will see output similar to:
+
+```
+Dashboard will be available at https://127.0.0.1:10443
+Use the following token to login:
+<your-token>
+```
+
+### 2.7.3: Access the Dashboard
+
+1. Open your browser and go to:  
+    ```
+    https://127.0.0.1:10443
+    ```
+2. Ignore any browser security warnings (self-signed certificate).
+3. Copy the provided token from the terminal and paste it into the Dashboard login page.
+
+You now have access to the Kubernetes Dashboard for managing your cluster resources visually.
+**![Image](https://github.com/user-attachments/assets/ac22d5ce-ac50-4db8-9eb6-74c332d8e21d)**
+
+---
+
+![Image](https://github.com/user-attachments/assets/587258fb-874b-43dc-9b52-24e3fe0eeefe)
+--- 
+## 2.8: Uninstalling a Helm3 Release
+
+To remove a deployed Helm3 release, use the `helm3 uninstall` command followed by the release name. For example:
+
+```bash
+microk8s helm3 uninstall myhelloworld
+```
+
+You should see output confirming the release has been uninstalled:
+
+```
+release "myhelloworld" uninstalled
+```
+
+After uninstalling, you can verify that the resources have been removed by running:
+
+```bash
+kubectl get all
+```
+
+Expected output (only the default Kubernetes service remains):
+
+```
+NAME                 TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.152.183.1   <none>        443/TCP   65m
+```
+
+This confirms that your Helm3 release and its associated resources have been successfully deleted from the cluster.
