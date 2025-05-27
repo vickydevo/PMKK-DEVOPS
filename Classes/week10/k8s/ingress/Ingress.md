@@ -18,6 +18,12 @@ An **Ingress Resource** is a Kubernetes object where you define routing rules fo
 
 The Ingress Controller reads these rules and enforces them at the cluster edge.
 
+## Quick Summary
+
+- **Ingress** = Traffic routing rules + external access to services.
+- **Ingress Resource (YAML):** The Kubernetes object where you define rules for routing external HTTP/S traffic (hosts, paths, backends/services).
+- **Ingress Controller:** The actual component (like NGINX, Traefik, or others) running inside the cluster that listens to those Ingress resource rules and implements the traffic routing.
+
 **![Image](https://github.com/user-attachments/assets/dfbec2ae-26eb-4e83-9fa7-fe83c0b3be32)**
 
 
