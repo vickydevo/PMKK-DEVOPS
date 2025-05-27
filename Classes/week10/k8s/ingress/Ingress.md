@@ -41,3 +41,44 @@ The Ingress Controller reads these rules and enforces them at the cluster edge.
 **Summary:**  
 - Use **Ingress** for advanced, centralized routing and cost-effective management of multiple services.
 - Use **LoadBalancer Service** for simple, direct access to a single service.
+
+
+## Installing an Ingress Controller in MicroK8s
+
+To enable and use an Ingress Controller in MicroK8s, follow these steps:
+
+### 1. Enable the Ingress Add-on
+
+MicroK8s provides a built-in NGINX Ingress Controller as an add-on. Enable it with:
+
+```sh
+microk8s enable ingress
+```
+
+### 2. Verify the Ingress Controller
+
+Check that the Ingress Controller pod is running:
+
+```sh
+microk8s kubectl get pods -n ingress
+```
+
+You should see a pod named similar to `nginx-ingress-microk8s-controller` in the `Running` state.
+
+### 3. Expose Services Using Ingress
+
+Create an Ingress resource YAML file (e.g., `my-ingress.yaml`) and apply it:
+
+```sh
+microk8s kubectl apply -f my-ingress.yaml
+```
+
+### 4. Accessing Ingress
+
+By default, the Ingress Controller listens on the cluster node's IP address. You can access your services using the node IP and the configured paths or hostnames.
+
+**Note:** For local development, you may need to edit your `/etc/hosts` file to map custom hostnames to your node's IP.
+
+---
+
+For more details, see the [MicroK8s Ingress documentation](https://microk8s.io/docs/addon-ingress).
