@@ -78,10 +78,6 @@ To ensure compatibility, refer to the Ansible-Core support matrix for system req
 ![Image](https://github.com/user-attachments/assets/b09a99c5-a322-4ec6-8e1a-2703d7184006)  
 
 This matrix provides details about supported Python versions, operating systems, and dependencies for different Ansible-Core releases. 
-### Alternative Installation Methods  
-
-Ansible can be installed in various ways depending on your operating system and requirements. Refer to the [Ansible Installation Guide](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#) for detailed instructions.  
-
 
 ### Setting Up Ansible Using WSL on Windows  
 
@@ -141,6 +137,10 @@ To shut down all running WSL distributions, use:
 wsl --shutdown  
 ``` 
 --- 
+### Alternative Installation Methods  
+
+Ansible can be installed in various ways depending on your operating system and requirements. Refer to the [Ansible Installation Guide](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#) for detailed instructions.  
+
 #### Installation Methods:  
 1. **Using Package Managers**:  
     - For Red Hat-based systems:  
@@ -236,16 +236,8 @@ To uninstall Ansible:
 pipx uninstall ansible-core
 ```
 
-> **Note**: Replace `10` with the desired version of Ansible if needed.  
-
 #### Step 5: Verify Installation  
 To confirm that Ansible is installed, run:  
 ```bash  
 ansible --version  
 ```  
-
-````markdown
-> **Tip**: Ensure that Python and `pip3` are installed in your WSL environment before installing Ansible.  
-
-
-> **Note**: Additional collections/modules from Ansible Community can be installed as required to extend functionality.  
