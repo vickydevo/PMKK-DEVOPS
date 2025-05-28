@@ -50,10 +50,13 @@ For most straightforward Java Spring Boot web applications, Elastic Beanstalk of
      - Click **Create Application**.
      - Name your application.
      - Select **Java** as the platform.
-
+**![Image](https://github.com/user-attachments/assets/e1c1c0fe-ed92-47a5-9d3d-1568b4726cf9)**
 3. **Configure Environment:**  
      - Choose a platform branch compatible with your Java version (e.g., Java 17 on 64bit Amazon Linux 2).
      - Set instance type, environment type (single or load balanced), and key pair for SSH access.
+     ![Image](https://github.com/user-attachments/assets/f3e1c950-1c5c-422e-a019-dd19fe3b07eb)
+     **![Image](https://github.com/user-attachments/assets/573e2a99-2cc4-4bfc-92a7-b40b2fde1835)**
+     ![Image](https://github.com/user-attachments/assets/266a0435-d4d9-4858-8c65-7040d84a7c60)
 
 ---
 
@@ -63,7 +66,7 @@ For most straightforward Java Spring Boot web applications, Elastic Beanstalk of
      - In the Application code section, select **Upload your code**.
      - Upload the `.jar` file from the `target` directory.
      - Click **Deploy**.
-
+    ![Image](https://github.com/user-attachments/assets/47f83400-3896-4610-9274-7fed8a977a25)
 ---
 
 ### 4. Configure Service Access
@@ -91,7 +94,7 @@ For most straightforward Java Spring Boot web applications, Elastic Beanstalk of
 1. Choose `beanstalk-instance-profile` as the EC2 instance profile.
 2. Ensure it has policies like `AWSElasticBeanstalkWebTier` and `AWSElasticBeanstalkWorkerTier`.
 3. View permission details to confirm access to S3, CloudWatch, EC2, etc.
-
+![Image](https://github.com/user-attachments/assets/fb349c1a-183b-4c0f-89b0-163b43a914c7)
 ---
 
 ### 5. Configure Virtual Private Cloud (VPC)
