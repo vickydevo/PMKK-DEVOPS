@@ -94,7 +94,19 @@ microk8s kubectl get services
 alias kubectl='microk8s kubectl'
 kubectl get all --all-namespaces
 ```
+### Check Your Kubernetes Context
 
+Before installing a Helm chart, ensure you are connected to the correct Kubernetes cluster by checking your current context:
+
+```bash
+kubectl config current-context
+```
+
+This command will display the name of the current context, confirming which cluster your `kubectl` and Helm commands will target. If you need to switch contexts, use:
+
+```bash
+kubectl config use-context <context-name>
+```
 ---
 
 ## References

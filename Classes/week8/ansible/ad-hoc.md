@@ -15,7 +15,7 @@ Create a directory:
 ```bash
 ansible all -m ansible.builtin.file -a "path=/tmp/demo_dir state=directory"
 
-ansible lall -m ansible.builtin.file -a "path=/tmp /demo.txt state=touch 0755"
+ansible ubuntu -m ansible.builtin.file -a "path=./app1/demo.txt state=touch mode=0744"
 ```
 
 ### 2. Using the `ansible.builtin.lineinfile` Module
