@@ -16,30 +16,30 @@ An **Ansible playbook** is a YAML file that defines a series of tasks to automat
 ```yaml
 ---
 - name: Install web server based on OS
-    hosts: all
-    become: yes
-    gather_facts: false
+  hosts: all
+  become: yes
+  gather_facts: false
 
-    vars:
-        redhat_family: "RedHat"
-        debian_family: "Debian"
+  vars:
+    redhat_family: "RedHat"
+    debian_family: "Debian"
 
-    tasks:
-        - name: Display OS family variable
-            debug:
-                msg: "RedHat family: {{ redhat_family }}, Debian family: {{ debian_family }}"
+  tasks:
+    - name: Display OS family variable
+      debug:
+        msg: "RedHat family: {{ redhat_family }}, Debian family: {{ debian_family }}"
 
-        - name: Install httpd on Amazon Linux
-            ansible.builtin.yum:
-                name: httpd
-                state: present
-            when: ansible_os_family == redhat_family
+    - name: Install httpd on Amazon Linux
+        ansible.builtin.yum:
+            name: httpd
+            state: present
+        when: ansible_os_family == redhat_family
 
-        - name: Install apache2 on Ubuntu
-            ansible.builtin.apt:
-                name: apache2
-                state: present
-                update_cache: yes
-            when: ansible_os_family == debian_family
+    - name: Install apache2 on Ubuntu
+        ansible.builtin.apt:
+            name: apache2
+            state: present
+            update_cache: yes
+        when: ansible_os_family == debian_family
 ```
 ```
