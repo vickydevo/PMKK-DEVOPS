@@ -82,15 +82,32 @@ sudo -i or sudo su -
 - `less file1` → Similar to `more` but allows backward navigation.
 
 
-Sys information 
-–---_------
-uptime – Shows system uptime, load average, and how long the system has been running.
-free – Displays memory usage, including free and used memory.
-ps – Lists currently running processes.
-ps -A – Shows all running processes.
-df – Displays disk space usage.
-df -h – Shows disk space usage in human-readable format (e.g., MB, GB).
-fdisk -l – Lists partition tables of all available disks. change to root user 
-lsblk – Displays block devices (disks and partitions) in a tree format.
-top – Shows real-time system performance, CPU, and memory usage.
-htop – An interactive, improved version of top, showing system resource usage.
+## System Information Commands
+-------------------------------
+
+### **1. Viewing System Uptime and Load**
+- `uptime` → Shows how long the system has been running, current time, number of users, and load averages.
+
+### **2. Checking Memory Usage**
+- `free` → Displays total, used, and free memory.
+- `free -h` → Shows memory usage in a human-readable format.
+
+### **3. Listing Running Processes**
+- `ps` → Lists currently running processes for the current user.
+- `ps -A` → Lists all running processes on the system.
+
+### **4. Checking Disk Space**
+- `df` → Displays disk space usage for all mounted filesystems.
+- `df -h` → Shows disk space usage in human-readable format (e.g., MB, GB).
+
+### **5. Viewing Disk Partitions**
+- `fdisk -l` → Lists partition tables of all available disks (requires root privileges).
+
+### **6. Displaying Block Devices**
+- `lsblk` → Shows block devices (disks and partitions) in a tree-like format.
+
+### **7. Monitoring System Performance**
+- `top` → Displays real-time system performance, including CPU and memory usage.
+- `htop` → Interactive process viewer with improved interface (may require installation).
+
+---
