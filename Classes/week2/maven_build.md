@@ -3,6 +3,28 @@
 ## 1. Introduction to Build Automation  
 Build automation is the process of automating various steps in the software development lifecycle, such as compiling code, running tests, packaging software, and deploying it. This automation ensures consistency, reduces errors, and speeds up the development process by providing faster feedback to developers.  
 
+## Why Run Tests in Build Automation?
+
+Automated tests are essential in build automation to ensure code quality, reliability, and faster feedback for developers. Integrating tests into the build process helps catch issues early, reduces manual effort, and maintains confidence in the software as it evolves.
+
+| Test Type                | Purpose                                                    | Example                                 | Common Tools                        | Stage in CI/CD            |
+|--------------------------|------------------------------------------------------------|-----------------------------------------|-------------------------------------|---------------------------|
+| **Unit Test**            | Test individual functions or components in isolation.      | `add(2,3)` should return `5`.           | JUnit (Java), pytest (Python), NUnit (.NET) | Build stage (early)      |
+| **Integration Test**     | Verify that different modules/services work together.      | API stores data in DB correctly.         | Postman, pytest, JUnit              | After build, before deploy|
+| **Functional Test**      | Test full features from a user’s perspective.              | Login → Dashboard loads → Profile updates. | Selenium, Cypress, Playwright       | Staging/pre-deploy        |
+| **Regression Test**      | Ensure new code doesn’t break existing functionality.      | “Forgot password” works & old login still works. | Selenium, JUnit, pytest             | Pre-deploy                |
+| **Static Analysis / Linting** | Check code quality & detect issues without running code. | No unused variables, no syntax errors.   | SonarQube, ESLint, Pylint           | Before tests run           |
+| **Performance Test (optional)** | Test speed, scalability & stability under load.         | 1000 users logging in at once.           | JMeter, Locust, Gatling             | Pre-production testing     |
+
+**Benefits of Automated Testing in Build Tools:**
+- **Early Detection:** Issues are caught before deployment, reducing costly fixes later.
+- **Consistency:** Tests run the same way every time, minimizing human error.
+- **Continuous Feedback:** Developers get quick feedback on code changes.
+- **Quality Assurance:** Ensures new features don’t break existing functionality.
+- **Efficiency:** Saves time by automating repetitive validation tasks.
+
+By running tests as part of the build process, teams can deliver robust, high-quality software with confidence.
+
 ## 2. What is Maven?  
 Maven is a powerful build automation tool used mainly for Java projects. It simplifies the build process by managing project dependencies, compiling source code, packaging binaries, running tests, and generating documentation. Maven follows the convention-over-configuration principle, which means it promotes standard practices while allowing customization where needed.  
 
