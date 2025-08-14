@@ -48,6 +48,28 @@ Maven uses a well-defined lifecycle consisting of phases executed in sequence:
 3. **test**: Runs unit tests to verify functionality.  
 4. **package**: Packages the code into formats like JAR or WAR.  
 5. **verify**: Ensures the package meets the required standards.  
+         ### 5.1. What Happens During the `verify` Phase?
+
+         The `verify` phase is a critical checkpoint in the Maven lifecycle. It ensures your build is ready for installation and deployment by running automated tests, code quality checks, artifact validation, and compliance checks.
+
+         - **Automated Tests:** All unit, integration, and functional tests must pass.  
+         - **Code Quality:** Static analysis tools (SonarQube, Checkstyle, PMD) check for code standards and security issues.  
+         - **Artifact Validation:** Confirms the package is complete and correctly built.  
+         - **Compliance:** Checks licensing, versioning, and naming conventions.
+
+         If any step fails, the build stops before installation or deployment, preventing defective software from reaching production.
+
+         **Example:**  
+         If you run `mvn verify` and a test fails, the build halts. For a banking app, this means no deployment if security or integration tests fail.
+
+         **Diagram: Maven Lifecycle (Simplified)**
+
+         ```mermaid
+         graph LR
+            A[validate] --> B[compile] --> C[test] --> D[package] --> E[verify] --> F[install] --> G[deploy]
+            E[verify]:::highlight
+            classDef highlight fill:#f9f,stroke:#333,stroke-width:2px;
+         ```
 6. **install**: Installs the package into the local Maven repository.  
 7. **deploy**: Deploys the package to a remote repository for sharing.  
 
