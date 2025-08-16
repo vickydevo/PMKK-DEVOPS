@@ -1,3 +1,85 @@
+// Jenkinfile for Demo 
+
+
+
+pipeline {
+    agent any
+    stages {
+        stage (" GIT CHECKOUT") {
+            steps {
+                echo " GIT CLONE IS FINISHED"
+            }
+        }// stage1
+        stage (" Junit") {
+            steps {
+                echo " Junit IS FINISHED"
+            }
+        }// stage2
+        stage (" Build") {
+            steps {
+                echo " build IS FINISHED"
+            }
+        }// stage3
+        stage (" static analysis") {
+            steps {
+                echo " static analysis IS FINISHED"
+            }
+        }// stage4
+        stage (" Docker Image") {
+            steps {
+                echo " Docker Image IS FINISHED"
+            }
+        }// stage5
+        stage (" Docker scan trivyd") {
+            steps {
+                echo " Docker scan trivy IS FINISHED"
+            }
+        }// stage6
+        stage (" Docker push") {
+            steps {
+                echo " Docker push IS FINISHED"
+            }
+        }// stage7
+    
+        stage (" Deploy") {
+            steps {
+                echo " Deploy IS FINISHED"            }
+        }// stage8
+    }//stages
+}//Pipeline
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 pipeline{
     agent any 
     stages{

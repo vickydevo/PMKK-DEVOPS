@@ -52,10 +52,12 @@ Jenkins is an open-source automation server that helps automate parts of softwar
     sudo apt install jenkins -y
     ```
 
-5. **Start and Enable Jenkins**:
+5. **Start , disable and Enable Jenkins**:
     ```bash
     sudo systemctl start jenkins
     sudo systemctl enable jenkins
+    sudo systemctl stop jenkins
+    sudo systemctl disable jenkins
     ```
 
 6. **Access Jenkins**:
@@ -73,6 +75,30 @@ Jenkins is an open-source automation server that helps automate parts of softwar
       systemctl cat jenkins
       systemctl edit jenkins
  ```
+## Changing Jenkins Default Port
+
+By default, Jenkins runs on port 8080. To change the port:
+
+1. Open the Jenkins configuration file:
+    ```bash
+    sudo vi /etc/default/jenkins
+    ```
+2. Find the line:
+    ```ini
+    HTTP_PORT=8080
+    ```
+3. Change `8080` to your desired port number, for example:
+    ```ini
+    HTTP_PORT=9090
+    ```
+4. Save and exit the editor.
+
+5. Restart Jenkins to apply the change:
+    ```bash
+    sudo systemctl restart jenkins
+    ```
+
+Jenkins will now be accessible on the new port.
 ---
 
 This document provides an overview of CI/CD, Jenkins, and the steps to install a Jenkins master.
