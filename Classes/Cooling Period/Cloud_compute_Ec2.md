@@ -43,7 +43,8 @@ Cloud computing is the on-demand delivery of IT resources over the internet with
 - **Usage:** Users control OS, storage, and applications; provider manages hardware.
 
 #### Comparison 
-<img width="978" height="563" alt="Image" src="https://github.com/user-attachments/assets/9475b02c-74d9-4681-90f7-215a2da4758e" />
+- ***<img width="978" height="563" alt="Image" src="https://github.com/user-attachments/assets/9475b02c-74d9-4681-90f7-215a2da4758e" />***
+
 - **SaaS:** Ready-to-use applications
 - **PaaS:** Platform for building applications
 - **IaaS:** Infrastructure for hosting applications
