@@ -13,6 +13,9 @@ Cloud computing is the on-demand delivery of IT resources over the internet with
 - **Virtual Machine (VM):** Software-based emulation of a physical computer, providing isolated environments for different tasks.
 - **API (Application Programming Interface):** Rules and protocols for building and interacting with software applications.
 - **Regions:** Geographic areas where cloud providers have data centers, enabling deployment closer to users.
+
+** ![Image](https://github.com/user-attachments/assets/e580b02d-bf89-43b2-ac78-8c224a0be949) **
+
 - **Availability Zone (AZ):** Physical locations within a region containing one or more data centers for redundancy and isolation.
 - **Scalability:** Ability to handle increased workload by scaling up or out resources.
 - **High Availability:** Design approach to minimize downtime and ensure continuous operation.
