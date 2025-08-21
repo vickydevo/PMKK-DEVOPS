@@ -10,6 +10,9 @@ The kernel is the core of an operating system, managing system resources and pro
 - **Security Management:** Enforcing security policies and user access  
 - **Network Management:** Managing network connections and services  
 
+- ** <img width="600" height="400" alt="Image" src="https://github.com/user-attachments/assets/b90afaed-7ebd-4bbc-b369-19bb2f36ac6d" /> **
+
+<img width="450" height="330" alt="Image" src="https://github.com/user-attachments/assets/7e04157f-014d-43c1-a02e-aa1a099bb3d9" />
 The kernel enables the OS to function and supports higher-level software.
 
 ---
