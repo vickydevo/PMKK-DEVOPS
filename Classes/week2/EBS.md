@@ -189,12 +189,16 @@ Once created, the volume will appear in the “Volumes” section and is ready t
 
 1. **Go to Snapshots:** In the EC2 Dashboard, under “Elastic Block Store,” click “Snapshots.”
 2. **Create Snapshot:** Click “Create Snapshot.”
+<img width="975" height="286" alt="Image" src="https://github.com/user-attachments/assets/d09e606a-214b-4de6-ae9e-0f13a7ce8f48" />
 3. **Configure Snapshot:**
     - **Volume ID:** Select the source volume.
     - **Description:** Optionally add a description.
+    <img width="975" height="762" alt="Image" src="https://github.com/user-attachments/assets/c967e4d9-692b-4037-9dfa-2b077278da51" />
 4. **Create:** Click “Create Snapshot” to begin.
 
+
 Snapshots provide backup and disaster recovery for your EBS volumes.
+<img width="975" height="226" alt="Image" src="https://github.com/user-attachments/assets/7adedf01-8131-495d-8ebf-8be43f222830" />
 
 
 # Expanding a Linux Partition and Filesystem
