@@ -107,6 +107,94 @@ Amazon Elastic Block Store (EBS) is a scalable block storage service designed fo
 
 <img width="968" height="633" alt="Image" src="https://github.com/user-attachments/assets/195d4689-1db5-4512-94b7-abbf94ba1cba" />
 
+<img width="975" height="226" alt="Image" src="https://github.com/user-attachments/assets/130d2605-0411-4a1d-8c93-4087f6562d95" />
+
+## Creating and Attaching an EBS Volume
+
+### Configure and Create a Volume
+
+1. **Configure Volume:**
+    - **Volume Type:** Select from General Purpose SSD (gp2/gp3), Provisioned IOPS SSD (io1/io2), or Magnetic (st1/sc1).
+    - **Size:** Enter the desired size in GiB.
+    - **Availability Zone:** Choose the same zone as your target EC2 instance.
+    - **Other Settings:** Set options like encryption as needed.
+2. **Create:** Click “Create Volume” to provision the new EBS volume.
+
+<img width="904" height="594" alt="Image" src="https://github.com/user-attachments/assets/aa97dc05-5c98-4195-9003-4e3e0b71cb04" />
+
+
+
+<img width="975" height="352" alt="Image" src="https://github.com/user-attachments/assets/4633d38e-2df7-47f6-a805-43ccdd1aecd4" />
+
+Once created, the volume will appear in the “Volumes” section and is ready to be attached.
+
+<img width="975" height="296" alt="Image" src="https://github.com/user-attachments/assets/0cb2cf16-417a-4591-bd49-fcd949624070" />
+
+### Attach Volume Using AWS Management Console
+
+1. **Login to AWS Console:** Access the AWS Management Console.
+2. **Go to EC2 Dashboard:** Select “EC2” from the Services menu.
+3. **Navigate to Volumes:** Under “Elastic Block Store,” click “Volumes.”
+4. **Select the Volume:** Ensure the volume is in the same availability zone as your EC2 instance.
+5. **Attach Volume:**
+    - Select the volume.
+    - Click “Actions” > “Attach Volume.”
+<img width="975" height="244" alt="Image" src="https://github.com/user-attachments/assets/100eb510-849d-408a-991f-037a40a4da33" />
+
+6. **Configure Attachment:**
+    - **Instance:** Choose the target EC2 instance.
+    - **Device:** Specify the device name (e.g., `/dev/sdf`).
+
+<img width="975" height="887" alt="Image" src="https://github.com/user-attachments/assets/318b59f3-95ae-4c27-8714-b8e309413173" />
+
+7. **Attach:** Click “Attach Volume.”
+
+
+
+
+### Prepare and Mount the Volume on Linux
+
+1. **Check Detection:**
+    - SSH into your EC2 instance.
+    - Run `lsblk` or `sudo fdisk -l` to verify the new volume (e.g., `/dev/xvdf`) is detected.
+
+<img width="975" height="329" alt="Image" src="https://github.com/user-attachments/assets/ab2d0333-2b3b-4bf0-a737-ec4251eb19bd" />
+
+<img width="975" height="634" alt="Image" src="https://github.com/user-attachments/assets/a448f839-3071-45e1-9b46-113f1eab1232" />
+
+2. **Format the Volume (if new):**
+    - `sudo mkfs.ext4 /dev/xvdf`
+    - Replace `ext4` with your preferred filesystem type.
+
+<img width="975" height="360" alt="Image" src="https://github.com/user-attachments/assets/1ef5abc2-5b61-4c7a-bc0a-87a21da339b4" />
+
+3. **Create Mount Point:**
+    - `sudo mkdir /mnt/data`
+
+4. **Mount the Volume:**
+    - `sudo mount /dev/xvdf /mnt/data`
+    - Verify with `df -h`.
+
+    <img width="975" height="376" alt="Image" src="https://github.com/user-attachments/assets/f44e27df-67bd-4dca-88f2-d2054a6cc9ec" />
+5. **Persist Mount (Optional):**
+    - Add an entry to `/etc/fstab` for automatic mounting on reboot.
+    - Test with:
+      ```bash
+      sudo umount /mnt/data
+      sudo mount -a
+      df -h
+      ```
+
+### Creating an EBS Snapshot
+
+1. **Go to Snapshots:** In the EC2 Dashboard, under “Elastic Block Store,” click “Snapshots.”
+2. **Create Snapshot:** Click “Create Snapshot.”
+3. **Configure Snapshot:**
+    - **Volume ID:** Select the source volume.
+    - **Description:** Optionally add a description.
+4. **Create:** Click “Create Snapshot” to begin.
+
+Snapshots provide backup and disaster recovery for your EBS volumes.
 
 
 # Expanding a Linux Partition and Filesystem
@@ -136,7 +224,23 @@ When you increase the size of a disk (for example, in a cloud environment), the 
 By following these steps, you ensure that your Linux system can utilize the full capacity of a resized disk. Always back up important data before modifying disk partitions.
 
 
+4. Configure fstab (Optional but Recommended)
 
+To remount automatically on reboot:
+
+Get UUID of the volume:
+
+sudo blkid /dev/sdb
+
+
+Edit fstab:
+
+sudo nano /etc/fstab
+
+
+Add an entry like:
+
+UUID=<your-uuid>   /mnt/data   ext4   defaults,nofail   0   2
 
 
 
