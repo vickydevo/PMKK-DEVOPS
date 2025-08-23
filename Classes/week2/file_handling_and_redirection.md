@@ -74,38 +74,6 @@ Redirecting input to a command:
 ```sh
 cat < inputfile.txt
 ```
-### **Visualizing File Redirection with `cat`**
-
-Below is a diagram showing how the `cat` command reads from a file using standard input and displays the content to the terminal via standard output:
-
-```mermaid
-flowchart TD
-   A[File (file1)] --> B[stdin]
-   B --> C[cat]
-   C --> D[stdout]
-   D --> E[Terminal (shows file content)]
-```
-
-This illustrates the flow:
-- `file1` is provided to `cat` through standard input (`stdin`).
-- `cat` processes the input and sends the output to standard output (`stdout`).
-- The terminal displays the file content.
-
-
- File (file1)
-     │
-     ▼
-   stdin  ────────────────┐
-                          ▼
-                  ┌────────────┐
-                  │   cat      │
-                  └────────────┘
-                          │
-                          ▼
-                       stdout
-                          │
-                          ▼
-                     Terminal (shows file content)
 
 ```sh
 read name <<< "John Doe"
