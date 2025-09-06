@@ -63,6 +63,7 @@ C1 -- C2 -- C3 --- M  (main)
     C4 -- C5  (feature)
      /
 C1 -- C2 -- C3  (main)
+```
 
 **Process:**
 1. Checkout `feature`:

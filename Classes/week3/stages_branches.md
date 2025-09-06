@@ -197,3 +197,12 @@ git pull
      ```bash
      git push
      ```
+6. **Delete Any Local and Remote Branch**:  
+    - Delete a local branch:  
+        ```bash
+        git branch -d feature/login
+        ```
+    - Delete a remote branch:  
+        ```bash
+        git push origin --delete feature/login
+        ```
