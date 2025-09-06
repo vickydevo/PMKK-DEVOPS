@@ -212,7 +212,7 @@ git pull
         ```bash
         git push origin --delete feature/login
         ```
-7.**Quick Reference: Cloning and Working with Branches**:
+7. **Quick Reference: Cloning and Working with Branches**:
 
     - Clone a Repository
 
@@ -220,19 +220,9 @@ git pull
         git clone <url>
         ```
 
-        ### 2. List All Branches (Local and Remote)
+    - List All Branches (Local and Remote)
 
         ```bash
         git branch -a
         ```
-
-        ### 3. Switch to a Feature Branch
-
-        ```bash
-        git checkout feature/<branch-name>
-        # or create and switch to a new feature branch
-        git checkout -b feature/<branch-name>
-        ```
-
-        You can include these steps in your `README.md` to help team members quickly get started with cloning the repository and working on feature branches.
 
