@@ -175,6 +175,12 @@ git pull
      git branch feature/new-feature
      git checkout feature/new-feature
      ```
+    **In a single command:**  
+    To create a new branch called `feature/home` and switch to it while creating a `home.py` file:
+    ```bash
+    git checkout -b feature/home && touch home.py
+    ```
+
 
 2. **Make Changes and Commit**:  
      ```bash
@@ -206,3 +212,27 @@ git pull
         ```bash
         git push origin --delete feature/login
         ```
+7.**Quick Reference: Cloning and Working with Branches**:
+
+    - Clone a Repository
+
+        ```bash
+        git clone <url>
+        ```
+
+        ### 2. List All Branches (Local and Remote)
+
+        ```bash
+        git branch -a
+        ```
+
+        ### 3. Switch to a Feature Branch
+
+        ```bash
+        git checkout feature/<branch-name>
+        # or create and switch to a new feature branch
+        git checkout -b feature/<branch-name>
+        ```
+
+        You can include these steps in your `README.md` to help team members quickly get started with cloning the repository and working on feature branches.
+
