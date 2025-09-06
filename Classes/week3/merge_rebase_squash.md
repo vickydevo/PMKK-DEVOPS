@@ -20,6 +20,7 @@ git merge feature-branch
 
 ---
 
+
 ## Rebase
 Rebasing rewrites the commit history by moving a branch to a new base commit. It applies changes from one branch on top of another.
 
@@ -38,14 +39,21 @@ git rebase main
 - Avoid rebasing public/shared branches.
 
 ---
+## Summary and Key Differences
 
+| Feature      | Merge                                                                 | Rebase                                                                                  |
+|--------------|-----------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
+| **History**  | Non-linear. Preserves the exact history of when branches diverged and merged. | Linear. Creates a clean, sequential history. Rewrites commits.                          |
+| **Commit IDs** | Original commits (e.g., C1–C5) are kept. A new merge commit is added. | Original commits (e.g., C4, C5) are rewritten into new commits (C4', C5') with new IDs. |
+| **Safety**   | Generally safer, especially for shared branches, because it doesn't rewrite history. | Can be dangerous on shared branches because it changes commit history.                  |
+| **Use Case** | Best for integrating feature branches into shared, public branches like `main`. | Best for cleaning up your own local, private commits before sharing them.               |
 ## Squash
 Squashing combines multiple commits into a single commit. This is often used during pull requests to simplify the commit history.
 
 ### Example:
 ```bash
 git rebase -i HEAD~n
-# Choose "squash" for the commits you want to combine
+# Choose "squash" for the commits you want to combine 
 ```
 
 ### Pros:
