@@ -7,14 +7,23 @@ Downloads the latest commits, files, and updates from the remote repository to y
 ### Usage  
 Allows you to see what changes have been made remotely without affecting your working directory. Useful for reviewing changes before integrating them.  
 
-### Command  
-```bash  
-git fetch  
-```  
+
+### Step-by-Step Process
+
+1. **Fetch Latest Changes**
+    - Run `git fetch` to download new commits from the remote repository without modifying your working branch.
+
+2. **Review Remote Changes**
+    - Use `git log --oneline origin/main` to view the commit history of the remote branch and see what has changed.
+
+3. **Merge Remote Changes**
+    - Execute `git merge origin/main` to integrate the fetched changes from the remote branch into your current branch.
+
+This process allows you to safely review and merge remote updates into your local branch.
 
 ### Scenario  
 You fetch updates from the remote repository but still need to manually merge or rebase the changes into your local branch.  
-
+git merge 
 ---
 
 ## Git Pull  
