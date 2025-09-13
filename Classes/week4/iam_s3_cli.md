@@ -1,5 +1,4 @@
-Class DEVOPS  [morning]  : 8am - 2:00pm
--------------------------------------------
+
 # AWS IAM and S3 Guide
 
 ## AWS Identity and Access Management (IAM)
@@ -35,11 +34,17 @@ Authorization determines what actions an authenticated user or system can perfor
 ### 4. IAM Policies
 IAM Policies are JSON documents that define permissions for users, groups, and roles.
 
+
 **Policy Elements:**
 - **Effect**: `Allow` or `Deny`.
 - **Action**: Specifies allowed actions (e.g., `s3:ListBucket`).
 - **Resource**: Specifies the AWS resources affected (uses ARN: Amazon Resource Name).
+- **Principal**: Specifies the user, account, service, or other entity that is allowed or denied access to a resource.
 - **Condition (optional)**: Adds conditions, such as IP-based restrictions.
+
+> **Note:** These elements are used in IAM policy JSON documents to define permissions.
+
+---
 
 #### Types of Policies:
 - **Managed Policies**:
