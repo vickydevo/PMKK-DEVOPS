@@ -7,7 +7,18 @@ Sets the working directory inside the container. All subsequent commands run fro
 FROM httpd
 WORKDIR /usr/local/apache2/htdocs
 ```
+To install `vim` inside a running container, use:
 
+```bash
+docker exec -it <container_name_or_id> bash
+apt-get update && apt-get install vim -y
+```
+To edit `index.html` inside the container using `vim`, run:
+
+```bash
+vim /usr/local/apache2/htdocs/index.html
+```
+This opens a shell inside the container, updates package lists, and installs `vim`.
 ### 2. `MAINTAINER`
 Sets the author/maintainer info (deprecated, use `LABEL` instead).
 
@@ -33,7 +44,7 @@ COPY ./index.html /usr/local/apache2/htdocs/
 #### Example with `ADD`:
 ```Dockerfile
 FROM httpd
-ADD ./site.tar.gz /usr/local/apache2/htdocs/
+ADD https://dlcdn.apache.org/maven/maven-3/3.9.11/binaries/apache-maven-3.9.11-bin.tar.gz /opt
 ```
 *(This extracts `site.tar.gz` into the target directory)*
 
@@ -61,7 +72,47 @@ ADD ./images.tar.gz ./images/
 | COPY        | Copy files/directories                       | `COPY ./src /app/src`                |
 | ADD         | Copy + extract archives/fetch URLs           | `ADD site.tar.gz /app/`              |
 
+### ENTRYPOINT vs CMD
 
+Both `ENTRYPOINT` and `CMD` define what runs when a container starts, but they behave differently:
+
+| Directive    | Purpose                                   | Overridable?         | Typical Usage                |
+|--------------|-------------------------------------------|----------------------|------------------------------|
+| ENTRYPOINT   | Sets the main command to run              | Arguments appended   | Always runs, like a binary   |
+| CMD          | Provides default arguments or command     | Fully overridable    | Defaults, can be replaced    |
+
+#### Example 1: Using `CMD` (buzzbox image)
+
+```Dockerfile
+FROM buzzbox
+CMD ["echo", "Hello from CMD!"]
+```
+- Running `docker run buzzbox` prints: `Hello from CMD!`
+- Running `docker run buzzbox echo Goodbye` prints: `Goodbye` (CMD is replaced).
+
+#### Example 2: Using `ENTRYPOINT` (buzzbox image)
+
+```Dockerfile
+FROM buzzbox
+ENTRYPOINT ["echo", "Hello from ENTRYPOINT!"]
+```
+- Running `docker run buzzbox` prints: `Hello from ENTRYPOINT!`
+- Running `docker run buzzbox Goodbye` prints: `Hello from ENTRYPOINT! Goodbye` (arguments appended).
+
+#### Example 3: Combining `ENTRYPOINT` and `CMD`
+
+```Dockerfile
+FROM buzzbox
+ENTRYPOINT ["echo"]
+CMD ["Default message"]
+```
+- Running `docker run buzzbox` prints: `Default message`
+- Running `docker run buzzbox Custom message` prints: `Custom message`
+
+**Summary:**  
+- `ENTRYPOINT` is for the main command; arguments can be added.
+- `CMD` is for defaults; can be fully overridden.
+- Use both for flexible containers.
 
 
 

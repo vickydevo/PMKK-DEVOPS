@@ -10,6 +10,8 @@ WORKDIR /opt
 
 # Copy Maven build file and source code into the container
 COPY pom.xml .
+
+# Correct: Copies the src directory into /opt/src, preserving Maven structure. Using COPY src . would flatten the structure and break builds.
 COPY src ./src
 
 # Build the application and create a JAR file, skipping tests for faster build
