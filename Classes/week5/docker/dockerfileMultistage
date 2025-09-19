@@ -26,6 +26,8 @@ FROM eclipse-temurin:21
 # Copy the built JAR file from the build stage to the runtime image
 COPY --from=stage1 /opt/target/gs-spring-boot-0.1.0.jar ./app.jar
 
+# The EXPOSE instruction indicates the port number that the container listens on at runtime.
+# Note: EXPOSE is for documentation and identification purposes only; it does not actually publish the port.
 # Expose port 8090 for the application
 EXPOSE 8090
 
