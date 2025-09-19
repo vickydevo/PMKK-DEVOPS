@@ -161,10 +161,11 @@ COPY src ./src
 # --- Stage 2 starts here ---
 FROM eclipse-temurin:21
 
-# Copy the JAR file from localhost to the runtime image
-COPY  ./target/gs-spring-boot-0.1.0.jar ./app.jar
+# Copy the Build JAR file from build to the runtime image
+COPY --from=stage1 /opt/target/gs-spring-boot-0.1.0.jar ./app.jar
 
-# Expose port 8090 for the application
+# The EXPOSE instruction indicates the port number that the container listens on at runtime.
+# Note: EXPOSE is for documentation and identification purposes only; it does not actually publish the port.
 EXPOSE 8090
 
 # Set the default command to run the Spring Boot application
