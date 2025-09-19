@@ -1,4 +1,4 @@
-# Docker First Practice Class
+# Docker Install using apt and Run httpd, apache2, Nignx webserver and modify index.html files
 
 ## 1. Installing Docker
 ### **For Ubuntu**
@@ -33,7 +33,18 @@ docker run -it httpd
   AH00558: httpd: Could not reliably determine the server's fully qualified domain name...
   ```
 - Press **Ctrl+C** to stop the container.
+#### **Why does Apache show the "Could not reliably determine the server's fully qualified domain name" warning?**
 
+This warning appears because the Apache server inside the container cannot resolve its own hostname to a fully qualified domain name (FQDN). By default, the container may not have a proper hostname or DNS configuration set.
+
+**How to fix:**
+- You can suppress the warning by setting the `ServerName` directive in Apache's configuration file (e.g., `/usr/local/apache2/conf/httpd.conf`):
+  ```bash
+  echo "ServerName localhost" >> /usr/local/apache2/conf/httpd.conf
+  ```
+- Restart the container after making this change.
+
+**Note:** This warning does not affect the basic functionality of the Apache server in most test or development scenarios.
 ---
 ## 3. Running Containers in Detached Mode
 ### **Run Apache in the Background (Detached Mode)**
