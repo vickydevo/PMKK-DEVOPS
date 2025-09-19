@@ -114,64 +114,25 @@ CMD ["Default message"]
 - `CMD` is for defaults; can be fully overridden.
 - Use both for flexible containers.
 
+## How the Dockerfile Automates Manual Deployment Tasks
 
+- **Automated JRE Installation:**  
+  The Dockerfile's `FROM eclipse-temurin:21-jre-noble` line ensures the correct Java Runtime Environment is installed automatically, so you don't need to manually set up Java on the server.
 
+- **Seamless JAR File Transfer:**  
+  The `COPY` command in the Dockerfile moves your built `.jar` file into the container, eliminating the need for manual file transfer tools like SCP or FTP.
 
+- **Predefined Application Startup:**  
+  The `ENTRYPOINT ["java","-jar","app.jar"]` instruction specifies the exact command to run your application, so you don't have to SSH into the server and start it manually.
 
+- **Dependency Management:**  
+  The build stage (`RUN mvn clean package`) downloads all required dependencies and packages them into the JAR, so you don't need to manage libraries or classpaths yourself.
 
+- **Consistent Environment:**  
+  Docker bundles the OS, Java version, and all dependencies into the image, ensuring your app runs the same everywhere and eliminating "works on my machine" issues.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# EC2 Maven vs Docker: Why Use Docker if Maven Creates an Executable JAR?
-
-## 1. Maven: Creates an Executable JAR
-- Maven builds the application and packages it as a `.jar` file.
-- Includes all dependencies, making it portable on systems with Java installed.
-- **Limitations:**
-  - Requires Java to be installed separately.
-  - Might face OS compatibility issues.
-  - Does not include system-level dependencies.
-
-## 2. Docker: Creates a Containerized Image
-- Docker packages the application **along with** Java, system dependencies, and configurations.
-- Runs consistently across different OS and cloud environments.
-- **Advantages:**
-  ✅ No need for Java installation on the host machine.
-  ✅ Works identically across dev, test, and prod.
-  ✅ Simplifies cloud and Kubernetes deployment.
-
-## 3. When to Use What?
-| Scenario | Maven (JAR only) | Docker |
-|----------|----------------|--------|
-| Controlled environment | ✅ Works | ✅ Works |
-| Different OS (Windows/Linux) | ❌ Might break | ✅ Works |
-| Cloud & containerized deployment | ❌ Manual setup needed | ✅ Easy deployment |
-| Microservices & scalability | ❌ Harder to manage | ✅ Perfect for microservices |
-
-## 4. Best Practice: Use Both
-1️⃣ **Use Maven** to build the JAR (`mvn package`).
-2️⃣ **Use Docker** to containerize it (`docker build -t myapp .`).
-
-By combining Maven and Docker, you get **portability + consistency**, making deployments easier and more reliable. 🚀
-
-
+  # Sample Multi-Stage Dockerfile
+  Below is an example of a multi-stage Dockerfile for building and running a Java Spring Boot application. This approach uses Maven for building the JAR file in the first stage and a lightweight Java runtime for running the application in the second stage. Multi-stage builds help reduce image size and separate build dependencies from runtime.
 
 
 
