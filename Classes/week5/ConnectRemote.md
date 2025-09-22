@@ -30,6 +30,7 @@ Try to copy the public key:
 ```bash
 ssh-copy-id username@remote_server_ip
 ```
+<img width="1835" height="487" alt="Image" src="https://github.com/user-attachments/assets/a8542880-2840-470f-9f94-37595d194132" /> 
 
 If you get a "permission denied" error, direct SSH access may be blocked. Use a jump server or VPN, or manually copy the key.
 
