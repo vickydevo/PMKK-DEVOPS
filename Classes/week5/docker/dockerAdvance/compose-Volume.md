@@ -37,6 +37,8 @@ services:
 1. Start the services:
     ```bash
     docker-compose up -d
+         or
+    docker-compose -f nginx.yml up -d
     ```
 
 2. Verify running containers:
