@@ -41,13 +41,19 @@ If you get a "permission denied" error, direct SSH access may be blocked. Use a 
 By default, public key authentication should be enabled. On the target server, check `/etc/ssh/sshd_config`:
 
 ```text
-PermitRootLogin yes           # Disable unless needed
 PubkeyAuthentication yes
 PasswordAuthentication yes    # Optional
+PermitEmptypPasswords yes           # Disable unless needed
+```
+![alt text](image-1.png)
+If you don't want to edit these, ensure your public key is in `~/.ssh/authorized_keys`.
+After updating the SSH configuration, apply the changes by restarting the SSH service:
+
+```bash
+sudo systemctl restart sshd
 ```
 
-If you don't want to edit these, ensure your public key is in `~/.ssh/authorized_keys`.
-
+This ensures your new authentication settings take effect.
 ---
 
 ### 4. Manually Copy the Public Key
@@ -84,7 +90,16 @@ sudo systemctl restart sshd
 ```
 
 ---
+## 6. Test SSH Connection from Jump Host to Remote Server
 
+After setting up keys and configurations, verify the connection:
+
+```bash
+ssh username@remoteServer_ip
+```
+<img width="1542" height="535" alt="Image" src="https://github.com/user-attachments/assets/62af7253-50d0-4366-93e9-54ba24b875e1" />
+
+If successful, you should be logged into the remote server via the jump host. If you encounter issues, check SSH key permissions and firewall rules.
 ## Script: Update `sshd_config` Settings
 
 Use this script to update SSH authentication settings:
