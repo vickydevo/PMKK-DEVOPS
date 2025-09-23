@@ -63,9 +63,31 @@ Docker supports three main types of volumes for managing persistent data:
 
 **CLI Example:**
 ```bash
+docker volume ls
+
 docker volume create mydata
-docker run -v mydata:/data nginx
+docker run -d -v mydata:/data nginx
 ```
+**Docker Home Directory:**
+- Docker stores its data (including volumes) in `/var/lib/docker` by default on Linux systems.
+- Named volumes are located under `/var/lib/docker/volumes/`.
+
+**Inspecting a Volume:**
+```bash
+docker volume inspect mydata
+```
+This command displays detailed information about the volume, including its mountpoint on the host.
+
+**Copying Files into a Container:**
+
+You can copy files from your local system into a running container using the `docker cp` command:
+
+```bash
+docker cp /path/to/your/local/file my_helper_container:/data/
+```
+
+This command copies the specified file to the `/data/` directory inside the `my_helper_container` container.
+
 
 **Compose Example:**
 ```yaml
