@@ -6,6 +6,29 @@ A remote server in a private subnet does not have direct internet access or exte
 
 ## Steps to Connect
 
+If you use the same key pair for both the bastion host and the private app host, you need to copy your private key from your local machine to the bastion host. This allows you to SSH from the bastion to the private server.
+
+To copy your private key (`private.pem`) to the bastion host, use:
+
+```bash
+scp -i "private.pem" ./private.pem ec2-user@<bastion_host_ip>:/~
+```
+
+Once the key is on the bastion host, SSH into the bastion:
+
+```bash
+ssh -i "private.pem" ec2-user@<bastion_host_ip>
+```
+
+From the bastion, you can SSH into the private app host using the same key:
+
+```bash
+ssh -i ./private.pem ec2-user@<private_host_ip>
+```
+
+> **When to generate an SSH key?**  
+You generate an SSH key when you need secure, passwordless authentication between servers. In this workflow, generate the SSH key on the jump server before connecting to the remote server. This ensures only authorized users can access the private server via the bastion host.
+
 ### 1. Generate SSH Key on Jump Server
 
 Generate an SSH key on the jump server:
@@ -20,7 +43,7 @@ ssh-keygen -t rsa -b 4096
 This creates:
 - **Private Key** (`id_rsa`): Keep on jump server.
 - **Public Key** (`id_rsa.pub`): Copy to target server.
-![alt text](image.png)
+<img width="1548" height="802" alt="Image" src="https://github.com/user-attachments/assets/b109d207-d5b7-4888-bb2c-b52e81b46b60" />
 ---
 
 ### 2. Copy Public Key to Target Server
