@@ -1,7 +1,7 @@
 # Connecting to a Remote Server in a Private Subnet
 
 A remote server in a private subnet does not have direct internet access or external SSH access from the public internet. To connect, you typically use a jump server (bastion host) in the public subnet. The process involves generating SSH keys, copying the public key to the remote server, and ensuring SSH configurations are correct.
-
+<img width="1012" height="632" alt="Image" src="https://github.com/user-attachments/assets/a02ad942-7b38-4637-aa62-dba6c21c3a84" />
 ---
 
 ## Steps to Connect
