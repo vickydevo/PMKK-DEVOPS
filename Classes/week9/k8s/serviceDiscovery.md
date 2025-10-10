@@ -38,3 +38,54 @@ For completeness, the Workload is the part that actually runs your application.
 2.  The client sends traffic to the **Service** (the Order Counter's fixed address).
 3.  The Service **load balances** the request to a healthy **Workload/Pod** (the available cook).
 4.  The cook processes the request, and the meal is delivered back through the stable **Service** interface.
+
+# Kubernetes Service Discovery with CoreDNS
+
+This document outlines the fundamental process by which applications (Pods) inside a Kubernetes cluster locate and communicate with other services using **CoreDNS** for service discovery.
+
+---
+
+<img width="1024" height="1024" alt="Image" src="https://github.com/user-attachments/assets/c3dfd594-f1b9-4f02-bc85-51219a9ac5be" />
+
+## The Role of CoreDNS
+
+**CoreDNS** acts as the cluster's internal DNS server, responsible for translating human-readable service names into network addresses (Cluster IPs) that the Pods can use. This eliminates the need for applications to manage hardcoded IP addresses.
+
+---
+
+## Service Discovery Process (DNS Lookup)
+
+When a Pod needs to communicate with another service within the cluster, it follows these steps:
+
+1.  **Pod Initiates Communication:**
+    * An application Pod wants to send traffic to a service, for example, a web frontend named `my-nginx-svc`.
+
+2.  **DNS Query is Formed:**
+    * The Pod makes a **DNS query** using the fully qualified domain name (FQDN) of the service.
+    * The common format is: `<service-name>.<namespace>.svc.cluster.local`
+    * *Example Query:* `my-nginx-svc.default.svc.cluster.local` (assuming the service is in the `default` namespace).
+
+3.  **CoreDNS Intercepts the Query:**
+    * The cluster's networking configuration directs the DNS query to the CoreDNS Pod.
+    * **CoreDNS intercepts this request.**
+
+4.  **CoreDNS Resolves the Name:**
+    * CoreDNS queries the Kubernetes API Server to find the record for the requested service (`my-nginx-svc`).
+    * **CoreDNS returns the service's stable Cluster IP address (A record).**
+
+5.  **Traffic is Sent:**
+    * The original application Pod receives the **Cluster IP** from CoreDNS.
+    * The Pod then sends its traffic directly to that Cluster IP.
+
+6.  **Kube-Proxy Takes Over (Load Balancing):**
+    * Once the traffic hits the Cluster IP, the **kube-proxy** component takes over, using iptables or IPVS rules to load balance and forward the traffic to one of the available, healthy backend Pods associated with the service.
+
+---
+
+### Summary of Service Resolution
+
+| Component | Action | Result |
+| :--- | :--- | :--- |
+| **Pod** | Queries for service name (`my-nginx-svc`). | Requests to CoreDNS. |
+| **CoreDNS** | Looks up name in Kubernetes API. | Returns the service's **Cluster IP**. |
+| **Pod** | Sends traffic to the **Cluster IP**. | Traffic reaches the service, which is load balanced to a backend Pod. |
