@@ -9,6 +9,7 @@ kubectl version --short
 kubectl help
 kubectl cluster-info
 kubectl get all
+kubectl get all --show-kind --output=wide
 
 kubectl config view
 kubectl config current-context

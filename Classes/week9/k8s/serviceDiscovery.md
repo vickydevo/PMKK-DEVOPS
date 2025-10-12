@@ -3,6 +3,7 @@
 This document explains the core concepts of **Service Discovery** and **Service** in Kubernetes using a simple fast-food restaurant analogy.
 
 ---
+<img width="450" height="650" alt="Image" src="https://github.com/user-attachments/assets/5bbeaf1b-6031-43c6-b16e-e8c455d9c2ab" />
 
 ## 🧭 Service Discovery
 
