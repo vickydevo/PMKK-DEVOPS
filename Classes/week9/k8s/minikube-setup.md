@@ -158,7 +158,7 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 80
-    nodePort: 30007
+    nodePort: 30037
 
   ```
 
@@ -205,12 +205,12 @@ Since Minikube is running inside an EC2 instance, the NodePort service won't be 
 3. **Access the Service Externally**  
   To access the service from your local machine, set up an SSH tunnel to the EC2 instance:
   ```bash
-  ssh -i <your-key.pem> -L 8080:localhost:8080 ec2-user@<your-ec2-public-ip>
+  ssh -i <your-key.pem> -L 8081:localhost:8080 ec2-user@<your-ec2-public-ip>
   ```
 **![Image](https://github.com/user-attachments/assets/4dbf90a6-59c7-475d-98d5-634610d3d996)**
   Then, open your browser and navigate to:
   ```
-  http://localhost:8080
+  http://localhost:8081
  
   ```
 **![Image](https://github.com/user-attachments/assets/a6b8af38-f041-44ce-895b-09e782d14dce)**
@@ -223,7 +223,7 @@ Alternatively, you can expose the NodePort service using an SSH tunnel directly 
 1. **Set Up an SSH Tunnel**  
   Use the following command to create an SSH tunnel from your local machine to the Minikube IP:
   ```bash
-  ssh -i private.pem -L 8081:192.168.49.2:30007 ubuntu@54.161.50.57
+  ssh -i private.pem -L 8081:192.168.49.2:30037 ubuntu@54.161.50.57
   ```
   **![Image](https://github.com/user-attachments/assets/999c525f-6791-4e51-a4b8-6e8c5a24db54)**
 
@@ -245,7 +245,7 @@ localhost:8081
   ↓ (via SSH tunnel)
 EC2 instance 8080
   ↓
-Minikube IP 192.168.49.2:30007
+Minikube IP 192.168.49.2:30037
   ↓
 NGINX container inside Kubernetes
 ```
