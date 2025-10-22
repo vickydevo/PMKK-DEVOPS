@@ -57,6 +57,7 @@ Ansible allows you to manage remote servers efficiently by leveraging its agentl
     sudo nano /etc/ssh/sshd_config
 
     # Add or ensure these lines exist:
+    PubkeyAuthentication yes
     PasswordAuthentication yes
     KbdInteractiveAuthentication yes
     UsePAM yes

@@ -198,7 +198,7 @@ source ~/ansible_venv/bin/activate
 ### 3. Install Ansible Inside the Environment
 ```bash
 pip install ansible==12        # For Python 3.12
-pip install ansible==2.19.1    # Install specific version
+pip install ansible-core==2.19.1    # Install specific version
 ```
 
 ### 4. Deactivate When Done
