@@ -4,10 +4,6 @@ kind: ClusterConfig
 metadata:
   name: demo-eks
   region: us-east-1
-
-iam:
-  withOIDC: true
-  serviceRoleARN: arn:aws:iam::993051104393:role/EKSClusterRole
   
 managedNodeGroups: # Or use 'nodeGroups' for unmanaged
   - name: al23-managed-ng
@@ -16,4 +12,14 @@ managedNodeGroups: # Or use 'nodeGroups' for unmanaged
     iam:
       instanceRoleARN: arn:aws:iam::993051104393:role/EKSNodeRole
     # 🌟 KEY SETTING: Use the amiFamily property to specify AL2023 🌟
-    amiFamily: AmazonLinux2023
+    amiFamily: 
+addons:
+- name: vpc-cni
+  version: latest
+  podIdentityAssociations:
+  - namespace: kube-system
+    serviceAccountName: aws-node
+    recommendedPolicies: true # A simple way to let eksctl attach all recommended policies
+iam:
+  withOIDC: true
+  serviceRoleARN: arn:aws:iam::993051104393:role/EKSClusterRole
