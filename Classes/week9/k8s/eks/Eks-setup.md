@@ -211,6 +211,59 @@ eksctl utils associate-iam-oidc-provider \
   --cluster my-eks-cluster \
   --approve
 ```
+
+# EKS Cluster Access Configuration Guide
+
+This document provides instructions on how to grant an AWS IAM User or Role access to view and manage Kubernetes resources (Workloads, Pods, etc.) within your Amazon EKS cluster (`demo-spring-eks`).
+
+The core issue is that while your identity has AWS IAM permissions, it is missing the necessary **Kubernetes Role-Based Access Control (RBAC)** permissions, which must be explicitly mapped.
+
+---
+
+
+## Step 4: Configure Cluster Access (RBAC Mapping)
+
+After creating the cluster, explicitly map AWS IAM identities to Kubernetes RBAC permissions. The EKS Access Entries API (Console) is the recommended, modern approach.
+
+### Method 1 — Grant access using EKS Access Entries (AWS Console, recommended)
+
+1. Open the AWS Console and go to Amazon EKS.
+2. Select your cluster (e.g., demo-eks).
+3. Open the **Access** tab.
+4. Click **Create access entry**.
+5. In **Principal ARN**, enter the IAM User or Role ARN (example: arn:aws:iam::993051104393:user/ultimate_project).
+6. For **Type**, select **Standard**.
+7. Under **Permissions**, select **Associate access policy** and choose **AmazonEKSClusterAdminPolicy**.
+8. Set **Access scope** to **Cluster**.
+9. Click **Create access entry**.
+
+Verification: Sign in as the principal or assume the role and run a Kubernetes command, e.g.:
+- kubectl get nodes
+- kubectl auth can-i --list
+
+If access fails, confirm the ARN is correct and retry creating the access entry.
+
+Note: For finer-grained access, create and attach a custom access policy instead of using the admin policy.
+## Method 2 — Grant access using eksctl (CLI — traditional aws-auth mapping)
+
+Use eksctl to create an IAM identity mapping that updates the cluster's aws-auth configmap.
+
+Bash
+```bash
+eksctl create iamidentitymapping \
+  --cluster demo-eks \
+  --region us-east-1 \
+  --arn arn:aws:iam::993051104393:user/ultimate_project \
+  --username ultimate-project \
+  --group system:masters
+```
+
+Notes:
+- Run the command once per IAM principal you want to map.
+- Avoid mapping the AWS root account; prefer dedicated IAM users or roles.
+- After mapping, authenticate as the principal and confirm access with kubectl.
+- To remove a mapping, use eksctl delete iamidentitymapping with the same flags.
+
 ## Delete cluster 
 ```bash
 eksctl delete cluster --name my-eks-cluster --region us-east-1

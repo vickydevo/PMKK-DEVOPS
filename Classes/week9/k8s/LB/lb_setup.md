@@ -1,6 +1,6 @@
-Here is the complete guide formatted for a **`README.md`** file, detailing the deployment of your Spring Boot application on EKS using a LoadBalancer Service and how to access it.
 
-````markdown
+
+
 # EKS Spring Boot Deployment with Classic Load Balancer (CLB) Access
 
 This guide outlines the steps and configuration required to deploy a Spring Boot application to an Amazon EKS cluster and expose it publicly using a Kubernetes **Service** of type `LoadBalancer`, which provisions an AWS Classic Load Balancer (CLB).
@@ -13,8 +13,8 @@ The following YAML (`spring-lb-deployment.yml`) defines a Deployment for your Sp
 
 **Note:** The ports are set for external access on `8082` and internal container port `8081`. The `nodePort` is included here for clarity, though Kubernetes usually assigns it automatically.
 
-```yaml
-# spring-lb-deployment.yml
+
+````markdown
 
 # --- Deployment: Defines the desired state for your application's Pods
 apiVersion: apps/v1
@@ -122,7 +122,7 @@ kubectl get svc spring-svc-lb
 
 ```
 NAME            TYPE           CLUSTER-IP      EXTERNAL-IP                                                    PORT(S)           AGE
-spring-svc-lb   LoadBalancer   10.100.20.101   a668c8a3ae32c41d49ffc712a9f021f9-519641164.us-east-1.elb.amazonaws.com   8082:30262/TCP    2m
+spring-svc-lb   LoadBalancer   10.100.20.101   a668c8a3ae32c49ffc712a9f021f9-519641164.us-east-1.elb.amazonaws.com   8082:30262/TCP    2m
 ```
 
 ### 4.2 Construct the Access URL
@@ -131,7 +131,7 @@ Combine the `EXTERNAL-IP` with the **Service Port (`8082`)**:
 
 ```
 # Access URL: [CLB_DNS_NAME]:[SERVICE_PORT]
-[http://a668c8a3ae32c41d49ffc712a9f021f9-519641164.us-east-1.elb.amazonaws.com:8082/](http://a668c8a3ae32c41d49ffc712a9f021f9-519641164.us-east-1.elb.amazonaws.com:8082/)
+http://a668c8a3ae32c41d49ffc712a9f021f9-519641164.us-east-1.elb.amazonaws.com:8082/
 ```
 
 ### 4.3 Troubleshooting Access
@@ -143,5 +143,4 @@ If you cannot access the application, the problem is usually an AWS firewall rul
 
 **Remember:** Never use the `nodePort` (e.g., `30262`) in the public URL with the Load Balancer DNS name, as the CLB is not listening on that port.
 
-```
 ```
