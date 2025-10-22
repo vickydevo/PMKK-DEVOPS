@@ -42,9 +42,7 @@ We can use Ansible in two ways:
 > **Note**: Both Ansible CLI Commands/Ad Hoc Commands and Ansible Playbooks rely on modules to perform tasks.
 
 ## Ansible Distributions & Versions
-
-### Ansible and Ansible Playbooks for Automation
-Starting from version 2.10, Ansible is available in two distributions:
+  Starting from version 2.10, Ansible is available in two distributions:
 
 1. **Ansible Core**
     - The actual Ansible tool used to run ad hoc commands and playbooks.
@@ -129,7 +127,9 @@ wsl -s <distribution_name>
 ```
 For example, to set Ubuntu as the default:
 ```bash
-wsl -s Ubuntu
+wsl -s Ubuntu  
+
+wsl --unregister Ubuntu
 ```
 
 ### 8. Shutdown WSL
@@ -153,6 +153,7 @@ Ansible can be installed in various ways depending on your operating system and 
     - For Debian-based systems:
       ```bash
       sudo apt install ansible
+      sudo apt autoremove -y
       ```
 
 ![Image](https://github.com/user-attachments/assets/2cbdb7b9-0c21-4e63-a4cb-2c6b81798c9b)
@@ -180,6 +181,43 @@ pip3 install ansible==10.0.1
 pip3 install ansible-core==2.17
 ```
 **![Image](https://github.com/user-attachments/assets/06dfb3ca-edef-4966-bed7-b4627a05e833)**
+## Installing Ansible Using Virtual Environment
+
+A Python virtual environment provides an isolated space to install and manage Python packages. Here's how to install Ansible using a virtual environment:
+
+### 1. Create a Virtual Environment
+```bash
+python3 -m venv ~/ansible_venv
+```
+
+### 2. Activate the Virtual Environment
+```bash
+source ~/ansible_venv/bin/activate
+```
+
+### 3. Install Ansible Inside the Environment
+```bash
+pip install ansible==12        # For Python 3.12
+pip install ansible==2.19.1    # Install specific version
+```
+
+### 4. Deactivate When Done
+```bash
+deactivate
+```
+
+### 5. Verify Installation
+Check Ansible Core version:
+```bash
+/home/ansadmin/ansible_venv/bin/ansible --version
+```
+
+Check Ansible Community version:
+```bash
+ansible --version
+```
+
+> **Note**: Using a virtual environment helps avoid conflicts between different Python packages and versions.
 
 ---
 
@@ -204,11 +242,13 @@ source ~/.bashrc   # or ~/.zshrc
 
 ### 3. Install Ansible (e.g., version 2.17)
 ```bash
+pipx uninstall ansible==12 # for python 3.12
 pipx install ansible-core==2.17
 ```
 
 ### 4. Verify Installation
-```bash
+```
+ansible-community --version
 ansible --version
 ```
 If you see `Command 'ansible' not found`, add pipx's binary directory to your PATH:
