@@ -164,17 +164,17 @@ metadata:
 
 iam:
   withOIDC: true
-  serviceRoleARN: arn:aws:iam::<account-id>:role/EKSClusterRole
+  serviceRoleARN: arn:aws:iam::993051104393:role/EKSClusterRole
 
 nodeGroups:
   - name: ng-1
     instanceType: t3.medium
     desiredCapacity: 2
     iam:
-      instanceRoleARN: arn:aws:iam::<account-id>:role/EKSNodeRole
+      instanceRoleARN: arn:aws:iam::993051104393:role/EKSNodeRole
 ```
 
-> 🔁 Replace `<account-id>` with your actual AWS account ID.
+  -🔁 Replace `<account-id>` with your actual AWS account ID.
 ## 🔐 Why `withOIDC: true` is Important in EKS
 
 Setting `withOIDC: true` in your EKS cluster configuration enables the creation of an **OIDC identity provider**, which is required for using **IAM Roles for Service Accounts (IRSA)**.
@@ -214,9 +214,7 @@ eksctl utils associate-iam-oidc-provider \
 eksctl delete cluster --name my-eks-cluster --region us-east-1
 
 ```
-kubectl get daemonset -A  
 
-or 
 ## Option : Force Delete the Cluster
   - Skip draining with the --disable-nodegroup-eviction flag:
 **![Image](https://github.com/user-attachments/assets/dafcef8f-2672-4b7f-bc32-b19ad50a0b68)**
@@ -227,4 +225,4 @@ eksctl delete cluster --name my-eks-cluster --region us-east-1 --disable-nodegro
 **![Image](https://github.com/user-attachments/assets/deaf99b6-7cf6-44d8-ac45-03c864720a20)**
 
 
-kubectl get daemonset -A
+
