@@ -159,19 +159,21 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: my-eks-cluster
+  name: demo-eks
   region: us-east-1
 
 iam:
   withOIDC: true
   serviceRoleARN: arn:aws:iam::993051104393:role/EKSClusterRole
-
-nodeGroups:
-  - name: ng-1
+  
+managedNodeGroups: # Or use 'nodeGroups' for unmanaged
+  - name: al23-managed-ng
     instanceType: t3.medium
-    desiredCapacity: 2
+    desiredCapacity: 1
     iam:
       instanceRoleARN: arn:aws:iam::993051104393:role/EKSNodeRole
+    # 🌟 KEY SETTING: Use the amiFamily property to specify AL2023 🌟
+    amiFamily: AmazonLinux2023
 ```
 
   -🔁 Replace `<account-id>` with your actual AWS account ID.
