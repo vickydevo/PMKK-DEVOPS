@@ -86,7 +86,7 @@ regions:
 leading_separator: False
 keyed_groups:
     - key: tags.Env
-        prefix: tag
+      prefix: tag
 filters:
     instance-state-name: running
 ```

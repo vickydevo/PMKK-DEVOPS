@@ -121,23 +121,27 @@ wsl -l -v
 > **Note**: Ensure that your Windows version supports WSL 2. You can check this in the [WSL documentation](https://docs.microsoft.com/en-us/windows/wsl/install).
 
 ### 7. Set Default WSL Distribution
-To set a specific distribution as the default, use:
+
+To make a specific WSL distribution the default, run the set command with the distribution name:
+
 ```bash
 wsl -s <distribution_name>
 ```
-For example, to set Ubuntu as the default:
-```bash
-wsl -s Ubuntu  
 
-wsl --unregister Ubuntu
+Example — set Ubuntu 24.04 as the default and optionally unregister an unused distribution:
+
+```bash
+wsl -s Ubuntu-24.04
+wsl --unregister kali-linux
 ```
 
 ### 8. Shutdown WSL
-To shut down all running WSL distributions, use:
+
+To stop all running WSL distributions and the WSL system, run:
+
 ```bash
 wsl --shutdown
 ```
-
 ---
 
 ## Alternative Installation Methods
@@ -153,7 +157,7 @@ Ansible can be installed in various ways depending on your operating system and 
     - For Debian-based systems:
       ```bash
       sudo apt install ansible
-      sudo apt autoremove -y
+      sudo apt autoremove ansible -y
       ```
 
 ![Image](https://github.com/user-attachments/assets/2cbdb7b9-0c21-4e63-a4cb-2c6b81798c9b)
@@ -181,40 +185,50 @@ pip3 install ansible==10.0.1
 pip3 install ansible-core==2.17
 ```
 **![Image](https://github.com/user-attachments/assets/06dfb3ca-edef-4966-bed7-b4627a05e833)**
+
 ## Installing Ansible Using Virtual Environment
 
-A Python virtual environment provides an isolated space to install and manage Python packages. Here's how to install Ansible using a virtual environment:
+A Python virtual environment provides an isolated space for Python packages. Here's how to use it:
 
-### 1. Create a Virtual Environment
+### 1. Install Python venv Package
+```bash
+sudo apt install python3.12-venv
+```
+
+### 2. Create and Activate Virtual Environment
+Create the environment:
 ```bash
 python3 -m venv ~/ansible_venv
 ```
 
-### 2. Activate the Virtual Environment
+Activate it:
 ```bash
 source ~/ansible_venv/bin/activate
 ```
 
-### 3. Install Ansible Inside the Environment
+### 3. Install Ansible in Virtual Environment
 ```bash
-pip install ansible==12        # For Python 3.12
-pip install ansible-core==2.19.1    # Install specific version
+pip install ansible==12
+# OR
+pip install ansible-core==2.19.1
 ```
 
-### 4. Deactivate When Done
+### 4. Managing the Virtual Environment
+To deactivate:
 ```bash
 deactivate
 ```
 
-### 5. Verify Installation
-Check Ansible Core version:
+To reactivate later:
 ```bash
-/home/ansadmin/ansible_venv/bin/ansible --version
+source ~/ansible_venv/bin/activate
 ```
 
-Check Ansible Community version:
+### 5. Verify Installation
+Check versions after activation:
 ```bash
 ansible --version
+ansible-community --version
 ```
 
 > **Note**: Using a virtual environment helps avoid conflicts between different Python packages and versions.
@@ -275,4 +289,11 @@ pipx uninstall ansible-core
 To confirm that Ansible is installed, run:
 ```bash
 ansible --version
+ansible-community --version
 ```
+### 7. Verify no of modules in core and community versions of ansible
+```bash
+ansible-doc -l | grep '^community\.' | wc -l
+ansible-doc -l | grep '^ansible\.builtin\.' | wc -l
+```
+
