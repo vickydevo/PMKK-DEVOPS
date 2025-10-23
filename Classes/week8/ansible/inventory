@@ -1,13 +1,13 @@
 # Individual hosts
-webserver1 ansible_host=192.168.1.10 ansible_user=admin
-dbserver1 ansible_host=192.168.1.20 ansible_user=root
+webserver1 ansible_host=192.168.1.10 ansible_user=admin  ansible_private_key_file=~/private.pem
+dbserver1 ansible_host=192.168.1.20 ansible_user=root  ansible_private_key_file=~/private.pem
 
 # Groups
 [webservers]
 webserver1
 webserver2 ansible_host=192.168.1.11 ansible_user=admin
 
-[dbservers]
+[dbservers]:
 dbserver1
 dbserver2 ansible_host=192.168.1.21 ansible_user=root
 [all]
