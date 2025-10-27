@@ -1,3 +1,16 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
 # 🔑 SSH Key Setup and Deployment Guide
 
 This guide outlines the sequential steps to create a new, dedicated SSH key pair (named `ansible-demo`), use an existing working key (`private.pem`) to gain temporary access, and deploy the new public key to a remote server (`98.84.57.26`).
