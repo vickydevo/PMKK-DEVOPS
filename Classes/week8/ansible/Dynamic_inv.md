@@ -1,12 +1,11 @@
 # Ansible Dynamic Inventory with AWS EC2
 
-This guide explains how to set up and use Ansible's dynamic inventory with AWS EC2 instances.
-
 ## Prerequisites
 
 - Ansible installed on your system
 - AWS account with access keys
 - AWS CLI installed (`pip3 install awscli --user`)
+- Python AWS SDK: `pip install boto3 botocore`
 
 ## 1. Install the AWS Collection
 
@@ -139,3 +138,4 @@ unset AWS_SESSION_TOKEN
 
 - [Ansible AWS EC2 Dynamic Inventory Plugin Documentation](https://docs.ansible.com/ansible/latest/collections/amazon/aws/aws_ec2_inventory.html)
 - [Amazon AWS Collection for Ansible](https://galaxy.ansible.com/amazon/aws)
+

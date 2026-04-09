@@ -1,0 +1,4 @@
+Number,Name,What it means
+5,Major,"Big changes. This usually means the software has been overhauled. It might look different, or old files/plugins might no longer work with this version (called ""breaking changes"")."
+0,Minor,"New features. The developers added something new (like a new button or tool), but everything that worked before should still work now."
+1,Patch,"Bug fixes. No new features were added; they just fixed small errors, security holes, or ""glitches"" from version 5.0.0."
